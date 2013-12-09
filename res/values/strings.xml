@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Журнал «Я»</string>
+    <string name="action_settings">Настройки</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="article_list">Список статей</string>
+    <string name="no_data">Нет данных</string>
+
+    <string-array name="menu_items">
+        <item>Статьи</item>
+        <item>Сохранённые статьи</item>
+        <item>Рубрики</item>
+        <item>Архив</item>
+        <item>О журнале</item>
+    </string-array>
+
+</resources>

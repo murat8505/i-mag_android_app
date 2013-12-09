@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSave"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:src="@android:drawable/ic_menu_save" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnShare"
+        android:src="@android:drawable/ic_menu_share"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wvArticle"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/btnSave"
+        android:layout_alignParentLeft="true" />
+</RelativeLayout>
