@@ -1,7 +1,8 @@
 package by.imag.app;
 
-import android.app.FragmentManager;
-import android.app.ListFragment;
+
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -23,7 +25,7 @@ import android.widget.ListView;
 import by.imag.app.classes.Constants;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -100,14 +102,18 @@ public class MainActivity extends Activity {
 
     private void selectItem(int position) {
         drawerList.setItemChecked(position, true);
-        FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
 //        setTitle(menuTitles[position]);
         logMsg("position: "+position);
         switch (position) {
             case 0:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListArticles()).commit();
+
                 getActionBar().setSubtitle(menuTitles[position]);
+            break;
+            case 5:
+                //
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }

@@ -14,23 +14,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="libs" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/libs" />
-          <root url="jar://$MODULE_DIR$/libs/ormlite-android-4.47.jar!/" />
-        </CLASSES>
-        <JAVADOC>
-          <root url="jar://$MODULE_DIR$/libs/ormlite-android-4.47-javadoc.jar!/" />
-        </JAVADOC>
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/libs" />
-          <root url="jar://$MODULE_DIR$/libs/ormlite-android-4.47-sources.jar!/" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" />
-        <jarDirectory url="file://$MODULE_DIR$/libs" recursive="false" type="SOURCES" />
-      </library>
-    </orderEntry>
   </component>
 </module>
 

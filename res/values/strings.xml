@@ -10,10 +10,11 @@
 
     <string-array name="menu_items">
         <item>Статьи</item>
-        <item>Сохранённые статьи</item>
         <item>Рубрики</item>
         <item>Архив</item>
+        <item>Сохранённые статьи</item>
         <item>О журнале</item>
+        <item>Test</item>
     </string-array>
 
 </resources>
