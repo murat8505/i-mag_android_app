@@ -28,12 +28,19 @@ public class AppDb extends SQLiteOpenHelper{
     public boolean writeTagTable(List<TagItem> tags) {
         logMsg("write tag table");
         db = this.getWritableDatabase();
-        ContentValues cvTag = new ContentValues();
-        for (TagItem tagItem: tags) {
-            String tagName = tagItem.getTagName();
-            String tagURL = tagItem.getTagURL();
-            int postCount = tagItem.getPostCount();
-            db.insert(TAGS_TABLE, null, cvTag);
+        logMsg("tags: "+tags.size());
+        if (tags.size() != 0) {
+            db.delete(TAGS_TABLE, null, null);
+            ContentValues cvTag = new ContentValues();
+            for (TagItem tagItem: tags) {
+                String tagName = tagItem.getTagName();
+                String tagURL = tagItem.getTagURL();
+                int postCount = tagItem.getPostCount();
+                cvTag.put(TAG_NAME, tagName);
+                cvTag.put(TAG_URL, tagURL);
+                cvTag.put(TAG_POSTS, postCount);
+                db.insert(TAGS_TABLE, null, cvTag);
+            }
         }
         this.close();
         return true;
@@ -47,6 +54,7 @@ public class AppDb extends SQLiteOpenHelper{
 //        String sqlString = "create table " + TAGS_TABLE;
         Formatter formatter = new Formatter();
         formatter.format(formatString, TAGS_TABLE, TAG_NAME, TAG_URL, TAG_POSTS);
+        logMsg("sql: "+formatter.toString());
         String sqlString = formatter.toString();
         db.execSQL(sqlString);
     }
