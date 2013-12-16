@@ -1,6 +1,7 @@
 package by.imag.app;
 
 
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.content.ComponentName;
@@ -30,38 +31,69 @@ public class MainActivity extends FragmentActivity {
     private ListView drawerList;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private ServiceConnection sConn;
+    private Intent serviceIntent;
     private AppService appService;
     private boolean isServiceBound = false;
 
     private CharSequence drawerTitle;
     private CharSequence title;
     private String[] menuTitles;
+    private SharedPreferences preferences;
 
     @Override
     protected void onStart() {
         super.onStart();
+        logMsg("onStart");
         sConn = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder iBinder) {
+                logMsg("service connected");
                 appService = ((AppService.ServiceBinder) iBinder).getService();
                 isServiceBound = true;
+//                serviceUpdate();
             }
 
             @Override
             public void onServiceDisconnected(ComponentName componentName) {
+                logMsg("service disconnected");
                 isServiceBound = false;
             }
         };
-        Intent serviceIntent = new Intent(this, AppService.class);
+        serviceIntent = new Intent(this, AppService.class);
         startService(serviceIntent);
         bindService(serviceIntent, sConn, 0);
+    }
 
+    ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            logMsg("service connected");
+            appService = ((AppService.ServiceBinder) iBinder).getService();
+            isServiceBound = true;
+//            serviceUpdate();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            logMsg("service disconnected");
+            isServiceBound = false;
+        }
+    };
+
+    private void serviceUpdate() {
+        startService(serviceIntent);
+        if (appService == null) {
+            logMsg("service - null");
+        } else {
+            appService.parse();
+        }
     }
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        logMsg("onCreate");
 
         title = drawerTitle = getTitle();
         menuTitles = getResources().getStringArray(R.array.menu_items);
@@ -112,8 +144,13 @@ public class MainActivity extends FragmentActivity {
 
                 getActionBar().setSubtitle(menuTitles[position]);
             break;
+            case 1:
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new FragmentListTags()).commit();
+            break;
             case 5:
-                //
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new TestFragment()).commit();
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }
@@ -135,7 +172,16 @@ public class MainActivity extends FragmentActivity {
 //        return super.onOptionsItemSelected(item);
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        } else return super.onOptionsItemSelected(item);
+        } else {
+            switch (item.getItemId()) {
+                case R.id.action_update:
+                    logMsg("action update");
+                    serviceUpdate();
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+        }
     }
 
     @Override

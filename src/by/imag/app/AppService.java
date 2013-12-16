@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import by.imag.app.classes.ArticlePreview;
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.HtmlParserThread;
 import by.imag.app.classes.TagItem;
@@ -55,10 +56,15 @@ public class AppService extends Service {
     }
 
     public void parse() {
-        int page = 1;
-        if (isOnline()) {
-            parseDocument(page);
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int page = 1;
+                if (isOnline()) {
+                    parseDocument(page);
+                }
+            }
+        }).start();
     }
 
     public void parseNext() {
@@ -88,6 +94,7 @@ public class AppService extends Service {
             intentTags.putExtra(Constants.INTENT_TAGS, isTagsUpdated);
             sendBroadcast(intentTags);
         }
+        getArticlePreviewList(document);
         // todo: get article headers
         // todo: write article headers to db
         // todo: if written -> send broadcast
@@ -112,6 +119,36 @@ public class AppService extends Service {
             }
         }
         return  tags;
+    }
+
+    // todo: getArticlePreviewList
+    private List<ArticlePreview> getArticlePreviewList(Document document) {
+        List<ArticlePreview> articlePreviews = new ArrayList<ArticlePreview>();
+        if (document != null) {
+            Elements previews = document.select("div[class=preview]");
+            logMsg("previews: " + previews.size());
+            for (Element e: previews) {
+                String articleTitle = "";
+                String previewText = "";
+                String articleURL = "";
+                String imageURL = "";
+                Elements hrefs = e.select("a[href]");
+                if (hrefs.size() == 1) {
+                    articleURL = hrefs.get(0).attr("href");
+                }
+                Elements imgs = hrefs.select("img");
+                if (imgs.size() == 1) {
+                    articleTitle = imgs.get(0).attr("title");
+                    previewText = imgs.get(0).attr("alt");
+                    imageURL = imgs.get(0).attr("src");
+                }
+                ArticlePreview articlePreview = new ArticlePreview(articleTitle, previewText,
+                        articleURL, imageURL);
+//                logMsg(articlePreview+"");
+                articlePreviews.add(articlePreview);
+            }
+        }
+        return articlePreviews;
     }
 
     private void logMsg(String msg) {

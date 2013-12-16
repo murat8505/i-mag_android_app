@@ -1,6 +1,8 @@
 package by.imag.app.classes;
 
 
+import android.graphics.Bitmap;
+
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -9,6 +11,16 @@ public class ArticlePreview {
     private String previewText;
     private String articleURL;
     private String imageURL;
+    private Bitmap articleImage;
+
+    public ArticlePreview(String articleTitle, String previewText, String articleURL,
+                          String imageURL, Bitmap articleImage) {
+        this.articleTitle = articleTitle;
+        this.previewText = previewText;
+        this.articleURL = articleURL;
+        this.imageURL = imageURL;
+        this.articleImage = articleImage;
+    }
 
     public ArticlePreview(String articleTitle, String previewText,
                           String articleURL, String imageURL) {
@@ -48,5 +60,22 @@ public class ArticlePreview {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public Bitmap getArticleImage() {
+        return articleImage;
+    }
+
+    public void setArticleImage(Bitmap articleImage) {
+        this.articleImage = articleImage;
+    }
+
+    @Override
+    public String toString() {
+        return "\n"+
+                articleTitle + "\n" +
+                previewText + "\n" +
+                articleURL + "\n" +
+                imageURL;
     }
 }

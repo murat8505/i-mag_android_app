@@ -3,6 +3,7 @@ package by.imag.app;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -44,6 +45,12 @@ public class AppDb extends SQLiteOpenHelper{
         }
         this.close();
         return true;
+    }
+
+    public Cursor getTagsCursor() {
+        logMsg("get tags cursor");
+        db = this.getReadableDatabase();
+        return db != null ? db.query(TAGS_TABLE, null, null, null, null, null, null) : null;
     }
 
     @Override

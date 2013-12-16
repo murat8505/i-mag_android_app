@@ -7,7 +7,7 @@
         android:layout_width="150px"
         android:layout_height="150px"
         android:id="@+id/imgArticlePreview"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -16,10 +16,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Title"
         android:id="@+id/tvArticleTitle"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imgArticlePreview"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="5dp" />
+        android:layout_alignTop="@+id/imgArticlePreview"
+        android:layout_toRightOf="@+id/imgArticlePreview" />
 
     <TextView
         android:layout_width="wrap_content"

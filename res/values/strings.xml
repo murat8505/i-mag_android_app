@@ -3,6 +3,7 @@
 
     <string name="app_name">Журнал «Я»</string>
     <string name="action_settings">Настройки</string>
+    <string name="action_update">Обновить</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="article_list">Список статей</string>
