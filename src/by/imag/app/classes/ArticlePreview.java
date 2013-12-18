@@ -3,9 +3,6 @@ package by.imag.app.classes;
 
 import android.graphics.Bitmap;
 
-import java.net.URL;
-import java.util.ArrayList;
-
 public class ArticlePreview {
     private String articleTitle;
     private String previewText;

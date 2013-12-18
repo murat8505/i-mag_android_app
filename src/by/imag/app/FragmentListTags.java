@@ -6,16 +6,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;//
-import android.support.v4.app.LoaderManager;//
-import android.support.v4.content.CursorLoader;//
-import android.support.v4.content.Loader;//
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.SimpleCursorAdapter;
-import android.support.v4.widget.CursorAdapter;
 
 import by.imag.app.classes.Constants;
 
@@ -41,8 +40,6 @@ public class FragmentListTags extends ListFragment implements
         simpleCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.tag_item, null,
                 from, to ,0);
         setListAdapter(simpleCursorAdapter);
-//        getLoaderManager().initLoader(0, null, this);
-//        getSupportLoaderManager()
         getActivity().getSupportLoaderManager().initLoader(0, null, this);
     }
 
@@ -80,7 +77,6 @@ public class FragmentListTags extends ListFragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
     }
 
     private void receiveData() {

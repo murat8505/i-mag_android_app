@@ -1,18 +1,18 @@
 package by.imag.app;
 
 
-import android.content.SharedPreferences;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Activity;
 import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -34,6 +34,7 @@ public class MainActivity extends FragmentActivity {
     private Intent serviceIntent;
     private AppService appService;
     private boolean isServiceBound = false;
+    private FragmentManager fragmentManager;
 
     private CharSequence drawerTitle;
     private CharSequence title;
@@ -132,9 +133,15 @@ public class MainActivity extends FragmentActivity {
         }
 	}
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(sConn);
+    }
+
     private void selectItem(int position) {
         drawerList.setItemChecked(position, true);
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 //        setTitle(menuTitles[position]);
         logMsg("position: "+position);
         switch (position) {
@@ -142,15 +149,17 @@ public class MainActivity extends FragmentActivity {
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListArticles()).commit();
 
-                getActionBar().setSubtitle(menuTitles[position]);
+//                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 1:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListTags()).commit();
+//                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 5:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new TestFragment()).commit();
+//                getActionBar().setSubtitle(menuTitles[position]);
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }
@@ -209,5 +218,4 @@ public class MainActivity extends FragmentActivity {
             selectItem(position);
         }
     }
-
 }

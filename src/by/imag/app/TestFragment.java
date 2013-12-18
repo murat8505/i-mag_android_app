@@ -8,12 +8,17 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import by.imag.app.classes.Constants;
@@ -22,40 +27,19 @@ public class TestFragment extends Fragment {
     private BroadcastReceiver broadcastReceiver;
     private boolean isRegistered = false;
     private AppDb appDb;
-    private ListView lvTags;
-
-    private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
-    }
+    private ListView lvArts;
+    private SimpleCursorAdapter simpleCursorAdapter;
 
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 //                             Bundle savedInstanceState) {
-//        logMsg("onCreateView");
-//        appDb = new AppDb(getActivity().getApplicationContext());
 //        View rootView = inflater.inflate(R.layout.test_fragment, container, false);
-//        lvTags = (ListView) rootView.findViewById(R.id.lvTags);
-//        return rootView;
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
+//        appDb = new AppDb(getActivity().getApplicationContext());
+//        lvArts = (ListView) rootView.findViewById(R.id.lvTestArt);
+//        receiveData();
 //        setView();
-//    }
+//        return rootView;
 //
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        unregister();
-//    }
-//
-//    private void setView() {
-//        logMsg("setView");
-//        Cursor cursor = appDb.getTagsCursor();
-//        TestCursorAdapter testCursorAdapter = new TestCursorAdapter(
-//                getActivity().getApplicationContext(), cursor, true);
-//        lvTags.setAdapter(testCursorAdapter);
 //    }
 //
 //    private void receiveData() {
@@ -64,25 +48,32 @@ public class TestFragment extends Fragment {
 //            @Override
 //            public void onReceive(Context context, Intent intent) {
 //                boolean isUpdated = false;
-//                isUpdated = intent.getBooleanExtra(Constants.INTENT_TAGS, false);
+//                isUpdated = intent.getBooleanExtra(Constants.INTENT_ARTICLES, false);
 //                if (isUpdated) {
 //                    if (isAdded()) {
 //                        setView();
 //                    }
 //                }
 //            }
-//
 //        };
 //        IntentFilter intentFilter = new IntentFilter(Constants.BROADCAST_ACTION);
 //        getActivity().getApplicationContext().registerReceiver(broadcastReceiver, intentFilter);
 //        isRegistered = true;
 //    }
 //
-//    private void unregister() {
+//    protected void unregister() {
 //        if (isRegistered) {
 //            getActivity().getApplicationContext().unregisterReceiver(broadcastReceiver);
 //            isRegistered = false;
 //        }
+//    }
+//
+//    private void setView() {
+//        //
+//    }
+//
+//    private void logMsg(String msg) {
+//        Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
 //    }
 //
 //    class TestCursorAdapter extends CursorAdapter {
@@ -94,24 +85,23 @@ public class TestFragment extends Fragment {
 //        @Override
 //        public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
 //            LayoutInflater layoutInflater = LayoutInflater.from(context);
-//            View view = layoutInflater.inflate(R.layout.tag_item, viewGroup, false);
+//            View view = layoutInflater.inflate(R.layout.article_list_item, viewGroup, false);
 //            bindView(view, context, cursor);
 //            return view;
 //        }
 //
 //        @Override
 //        public void bindView(View view, Context context, Cursor cursor) {
-//            logMsg("bindView");
-//            TextView tvTagName = (TextView) view.findViewById(R.id.tvTagName);
-//            TextView tvPostCount = (TextView) view.findViewById(R.id.tvPostCount);
+//            ImageView imageView = (ImageView) view.findViewById(R.id.imgArticlePreview);
+//            TextView tvArticleTitle = (TextView) view.findViewById(R.id.tvArticleTitle);
+//            TextView tvArticleText = (TextView) view.findViewById(R.id.tvArticleText);
 //
-//            String tagName = cursor.getString(cursor.getColumnIndex(AppDb.TAG_NAME));
-//            int postCount = cursor.getInt(cursor.getColumnIndex(AppDb.TAG_POSTS));
+//            String imgUrl = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_IMAGE_URL));
+//            String articleTitle = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_TITLE));
+//            String articleText = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_TEXT));
 //
-//            logMsg(tagName + " " + postCount);
-//
-//            tvTagName.setText(tagName);
-//            tvPostCount.setText(postCount+"");
+//            tvArticleTitle.setText(articleTitle);
+//            tvArticleText.setText(articleText);
 //        }
 //    }
 }

@@ -95,9 +95,15 @@ public class AppService extends Service {
             sendBroadcast(intentTags);
         }
         getArticlePreviewList(document);
-        // todo: get article headers
-        // todo: write article headers to db
-        // todo: if written -> send broadcast
+        List<ArticlePreview> articlePreviewList = getArticlePreviewList(document);
+        boolean isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
+        if (isArticlesUpdated) {
+            Intent intentArticles = new Intent(Constants.BROADCAST_ACTION);
+            intentArticles.putExtra(Constants.INTENT_ARTICLES, isArticlesUpdated);
+            sendBroadcast(intentArticles);
+        }
+        // todo: save images to device
+        // todo: write path to images to articles db
         // todo: set current page
         // todo: set last page
     }
@@ -121,7 +127,6 @@ public class AppService extends Service {
         return  tags;
     }
 
-    // todo: getArticlePreviewList
     private List<ArticlePreview> getArticlePreviewList(Document document) {
         List<ArticlePreview> articlePreviews = new ArrayList<ArticlePreview>();
         if (document != null) {
