@@ -69,8 +69,16 @@ public class AppService extends Service {
 
     public void parseNext() {
         if (isOnline()) {
+            logMsg("parse next");
             // TODO: get current page
             // TODO: if current page != last page -> parseDocument(current page + 1)
+        }
+    }
+
+    public void parsePrevious() {
+        if (isOnline()) {
+            // todo: get current page
+            // todo: if current page != 1 -> parseDocument(current page -1)
         }
     }
 
@@ -102,8 +110,7 @@ public class AppService extends Service {
             intentArticles.putExtra(Constants.INTENT_ARTICLES, isArticlesUpdated);
             sendBroadcast(intentArticles);
         }
-        // todo: save images to device
-        // todo: write path to images to articles db
+
         // todo: set current page
         // todo: set last page
     }
@@ -154,6 +161,14 @@ public class AppService extends Service {
             }
         }
         return articlePreviews;
+    }
+
+    private int getCurrentPage(Document document) {
+        int currentPage = 0;
+        if (document != null) {
+
+        }
+        return currentPage;
     }
 
     private void logMsg(String msg) {

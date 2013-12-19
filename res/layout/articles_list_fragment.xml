@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:id="@id/android:list"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/android:empty" />
+        android:layout_above="@+id/btnPrev" />
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,4 +19,7 @@
         android:id="@id/android:empty"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+
+
 </RelativeLayout>

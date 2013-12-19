@@ -1,13 +1,11 @@
 package by.imag.app;
 
 
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -40,6 +38,7 @@ public class MainActivity extends FragmentActivity {
     private CharSequence title;
     private String[] menuTitles;
     private SharedPreferences preferences;
+    private Menu menu;
 
     @Override
     protected void onStart() {
@@ -117,12 +116,16 @@ public class MainActivity extends FragmentActivity {
 
             public void onDrawerClosed(View drawerView) {
 //                super.onDrawerClosed(drawerView);
+                logMsg("on drawer closed");
+//                hideMenuItem(menu);
                 getActionBar().setTitle(title);
             }
 
             public void onDrawerOpened(View drawerView) {
 //                super.onDrawerOpened(drawerView);
+                logMsg("on drawer opened");
                 getActionBar().setTitle(drawerTitle);
+//                hideMenuItem(menu);
                 invalidateOptionsMenu();
             }
 
@@ -148,13 +151,26 @@ public class MainActivity extends FragmentActivity {
             case 0:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListArticles()).commit();
-
+                showMenuItem(menu);
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 1:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListTags()).commit();
+                hideMenuItem(menu);
 //                getActionBar().setSubtitle(menuTitles[position]);
+            break;
+            case 2:
+                // todo: open archive
+                hideMenuItem(menu);
+            break;
+            case 3:
+                // todo: saved pages
+                hideMenuItem(menu);
+            break;
+            case 4:
+                // todo: about
+                hideMenuItem(menu);
             break;
             case 5:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
@@ -162,6 +178,7 @@ public class MainActivity extends FragmentActivity {
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
+                hideMenuItem(menu);
         }
         getActionBar().setSubtitle(menuTitles[position]);
         drawerLayout.closeDrawer(drawerList);
@@ -172,6 +189,7 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
+        this.menu = menu;
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
@@ -205,6 +223,25 @@ public class MainActivity extends FragmentActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void hideMenuItem(Menu menu) {
+        logMsg("hide menu");
+        MenuItem itemNext = menu.findItem(R.id.action_next);
+        MenuItem itemPrev = menu.findItem(R.id.action_prev);
+        itemNext.setVisible(false);
+        itemPrev.setVisible(false);
+    }
+
+    private void showMenuItem(Menu menu) {
+        logMsg("show menu");
+        if (menu != null) {
+            MenuItem itemNext = menu.findItem(R.id.action_next);
+            MenuItem itemPrev = menu.findItem(R.id.action_prev);
+            itemNext.setVisible(true);
+            itemPrev.setVisible(true);
+        }
+
     }
 
     private void logMsg(String msg) {

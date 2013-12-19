@@ -8,6 +8,8 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="article_list">Список статей</string>
     <string name="no_data">Нет данных</string>
+    <string name="previous_page">Предыдущая страница</string>
+    <string name="next_page">Следующая страница</string>
 
     <string-array name="menu_items">
         <item>Статьи</item>

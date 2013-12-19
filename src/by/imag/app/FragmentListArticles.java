@@ -15,9 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -32,6 +36,13 @@ public class FragmentListArticles extends Fragment {
     private ListView listView;
     private boolean isRegistered = false;
     private BroadcastReceiver broadcastReceiver;
+    private AppService appService;
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +51,7 @@ public class FragmentListArticles extends Fragment {
         appDb = new AppDb(getActivity());
         View rootView = inflater.inflate(R.layout.test_fragment, container, false);
         listView = (ListView) rootView.findViewById(R.id.lvTestArt);
+
         receiveData();
         setView();
         return rootView;
@@ -62,7 +74,23 @@ public class FragmentListArticles extends Fragment {
         ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
                 getActivity(), cursor, true);
         listView.setAdapter(cursorAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position,
+                                    long id) {
+                logMsg("item click: " + position + ", id: " + id);
+            }
+        });
     }
+
+//    public void  onClickNext(View view) {
+//        switch (view.getId()) {
+//            case R.id.btnNext:
+//                appService.parseNext();
+//            break;
+//            default: logMsg("error");
+//        }
+//    }
 
     private void receiveData() {
         logMsg("receive data");
@@ -141,7 +169,10 @@ public class FragmentListArticles extends Fragment {
 //            }
 //            imgArticlePreview.setImageBitmap(img);
 
-
+            Picasso.with(getActivity().getApplicationContext()).load(imgUrl)
+                    .error(R.drawable.ic_launcher)
+                    .into(imgArticlePreview);
+//            Picasso.with(getActivity().getApplicationContext()).setDebugging(true);
             tvArticleTitle.setText(articleTitle);
             tvArticleText.setText(articleText);
         }
