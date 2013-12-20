@@ -89,6 +89,24 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    public void serviceParseNext() {
+        logMsg("parse next");
+        if (appService != null) {
+            appService.parseNext();
+        } else {
+            logMsg("service == null");
+        }
+    }
+
+    public void serviceParsePrev() {
+        logMsg("parse prev");
+        if (appService != null) {
+            appService.parsePrevious();
+        } else {
+            logMsg("service == null");
+        }
+    }
+
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -116,14 +134,14 @@ public class MainActivity extends FragmentActivity {
 
             public void onDrawerClosed(View drawerView) {
 //                super.onDrawerClosed(drawerView);
-                logMsg("on drawer closed");
+//                logMsg("on drawer closed");
 //                hideMenuItem(menu);
                 getActionBar().setTitle(title);
             }
 
             public void onDrawerOpened(View drawerView) {
 //                super.onDrawerOpened(drawerView);
-                logMsg("on drawer opened");
+//                logMsg("on drawer opened");
                 getActionBar().setTitle(drawerTitle);
 //                hideMenuItem(menu);
                 invalidateOptionsMenu();
@@ -139,7 +157,9 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        logMsg("onDestroy");
         unbindService(sConn);
+        stopService(serviceIntent);
     }
 
     private void selectItem(int position) {
@@ -151,26 +171,21 @@ public class MainActivity extends FragmentActivity {
             case 0:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListArticles()).commit();
-                showMenuItem(menu);
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 1:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListTags()).commit();
-                hideMenuItem(menu);
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 2:
                 // todo: open archive
-                hideMenuItem(menu);
             break;
             case 3:
                 // todo: saved pages
-                hideMenuItem(menu);
             break;
             case 4:
                 // todo: about
-                hideMenuItem(menu);
             break;
             case 5:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
@@ -178,7 +193,6 @@ public class MainActivity extends FragmentActivity {
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
-                hideMenuItem(menu);
         }
         getActionBar().setSubtitle(menuTitles[position]);
         drawerLayout.closeDrawer(drawerList);
@@ -223,25 +237,6 @@ public class MainActivity extends FragmentActivity {
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    private void hideMenuItem(Menu menu) {
-        logMsg("hide menu");
-        MenuItem itemNext = menu.findItem(R.id.action_next);
-        MenuItem itemPrev = menu.findItem(R.id.action_prev);
-        itemNext.setVisible(false);
-        itemPrev.setVisible(false);
-    }
-
-    private void showMenuItem(Menu menu) {
-        logMsg("show menu");
-        if (menu != null) {
-            MenuItem itemNext = menu.findItem(R.id.action_next);
-            MenuItem itemPrev = menu.findItem(R.id.action_prev);
-            itemNext.setVisible(true);
-            itemPrev.setVisible(true);
-        }
-
     }
 
     private void logMsg(String msg) {

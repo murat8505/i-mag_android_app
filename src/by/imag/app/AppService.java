@@ -19,6 +19,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Pattern;
 
 import by.imag.app.classes.ArticlePreview;
 import by.imag.app.classes.Constants;
@@ -41,6 +42,8 @@ public class AppService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        logMsg("onDestroy");
+        currentPage = 1;
     }
 
     private boolean isOnline() {
@@ -68,18 +71,33 @@ public class AppService extends Service {
     }
 
     public void parseNext() {
-        if (isOnline()) {
-            logMsg("parse next");
-            // TODO: get current page
-            // TODO: if current page != last page -> parseDocument(current page + 1)
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isOnline()) {
+                    logMsg("parse next");
+                    if (currentPage != lastPage) {
+                        parseDocument(currentPage + 1);
+                    }
+                }
+            }
+        }).start();
+
     }
 
     public void parsePrevious() {
-        if (isOnline()) {
-            // todo: get current page
-            // todo: if current page != 1 -> parseDocument(current page -1)
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (isOnline()) {
+                    logMsg("parse previous");
+                    if (currentPage != 1) {
+                        parseDocument(currentPage - 1);
+                    }
+                }
+            }
+        }).start();
+
     }
 
     private void parseDocument(int page) {
@@ -111,8 +129,7 @@ public class AppService extends Service {
             sendBroadcast(intentArticles);
         }
 
-        // todo: set current page
-        // todo: set last page
+        setPages(document);
     }
 
     private List<TagItem> getTags(Document document) {
@@ -163,12 +180,32 @@ public class AppService extends Service {
         return articlePreviews;
     }
 
-    private int getCurrentPage(Document document) {
-        int currentPage = 0;
-        if (document != null) {
+//    private int getCurrentPage(Document document) {
+//        int currentPage = 0;
+//        if (document != null) {
+//            Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
+//            Elements span = elementsNavigation.get(0).select("span[class=current]");
+//            String pageStr = span.get(0).text();
+//            currentPage = Integer.parseInt(pageStr);
+//        }
+//        return currentPage;
+//    }
 
+    private void setPages(Document document) {
+        if (document != null) {
+            Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
+            Elements span = elementsNavigation.get(0).select("span[class=current]");
+            String pageStr = span.get(0).text();
+            currentPage = Integer.parseInt(pageStr);
+            Elements last = elementsNavigation.get(0).select("a[class=last]");
+//            logMsg("last: "+last.size());
+            String lastStr = last.get(0).attr("href");
+            logMsg("last: "+lastStr);
+            String[] strings = lastStr.split("=");
+//            logMsg(strings[0]+"\n"+strings[1]);
+            lastStr = strings[1];
+            lastPage = Integer.parseInt(lastStr);
         }
-        return currentPage;
     }
 
     private void logMsg(String msg) {

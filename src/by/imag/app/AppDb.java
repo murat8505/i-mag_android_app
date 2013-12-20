@@ -23,6 +23,7 @@ public class AppDb extends SQLiteOpenHelper{
     public static final String TAG_NAME = "tagName";
     public static final String TAG_URL = "tagURL";
     public static final String TAG_POSTS = "tagPosts";
+
     public static final String ARTICLE_TITLE = "articleTitle";
     public static final String ARTICLE_TEXT = "articleText";
     public static final String ARTICLE_URL = "articleUrl";
@@ -85,6 +86,24 @@ public class AppDb extends SQLiteOpenHelper{
         logMsg("get articles cursor");
         db = this.getReadableDatabase();
         return db != null ? db.query(ARTICLES_TABLE, null, null, null, null, null, null) : null;
+    }
+
+    public ArticlePreview getArticlePreview(long _id) {
+        ArticlePreview articlePreview = null;
+        db = this.getReadableDatabase();
+        String table = ARTICLES_TABLE;
+        String[] columns = {ARTICLE_TITLE, ARTICLE_TEXT, ARTICLE_URL, ARTICLE_IMAGE_URL};
+        String selection = "_id" + " = " + _id;
+        Cursor cursor = db.query(table, columns, selection, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            String articleTitle = cursor.getString(cursor.getColumnIndex(ARTICLE_TITLE));
+            String previewText = cursor.getString(cursor.getColumnIndex(ARTICLE_TEXT));
+            String articleURL = cursor.getString(cursor.getColumnIndex(ARTICLE_URL));
+            String imageURL = cursor.getString(cursor.getColumnIndex(ARTICLE_IMAGE_URL));
+            articlePreview = new ArticlePreview(articleTitle, previewText, articleURL,imageURL);
+        }
+        this.close();
+        return articlePreview;
     }
 
     @Override

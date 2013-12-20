@@ -6,10 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,24 +19,24 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-
-import by.imag.app.classes.BitmapLoader;
+import by.imag.app.classes.ArticlePreview;
 import by.imag.app.classes.Constants;
 
-public class FragmentListArticles extends Fragment {
+// todo: CursorLoader
+public class FragmentListArticles extends Fragment implements View.OnClickListener{
     private AppDb appDb;
     private ListView listView;
     private boolean isRegistered = false;
     private BroadcastReceiver broadcastReceiver;
-    private AppService appService;
+    private ImageButton btnNext;
+    private ImageButton btnPrev;
+    private ProgressBar progressBar;
+    private Intent intentArticle;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -51,6 +51,13 @@ public class FragmentListArticles extends Fragment {
         appDb = new AppDb(getActivity());
         View rootView = inflater.inflate(R.layout.test_fragment, container, false);
         listView = (ListView) rootView.findViewById(R.id.lvTestArt);
+        btnNext = (ImageButton) rootView.findViewById(R.id.btnNext);
+        btnPrev = (ImageButton) rootView.findViewById(R.id.btnPrev);
+        btnNext.setOnClickListener(this);
+        btnPrev.setOnClickListener(this);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.pbArticles);
+        progressBar.setVisibility(View.GONE);
+        intentArticle = new Intent(getActivity().getApplicationContext(), ArticleFragment.class);
 
         receiveData();
         setView();
@@ -78,19 +85,19 @@ public class FragmentListArticles extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position,
                                     long id) {
-                logMsg("item click: " + position + ", id: " + id);
+//                logMsg("item click: " + position + ", id: " + id);
+                ArticlePreview articlePreview = appDb.getArticlePreview(id);
+                String articleUrl = articlePreview.getArticleURL();
+                logMsg("url: "+articleUrl);
+                intentArticle.putExtra(Constants.INTENT_ARTICLES, articleUrl);
+                Fragment fragmentArticle = new ArticleFragment(articleUrl);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.content_frame, fragmentArticle);
+                transaction.commit();
             }
         });
     }
-
-//    public void  onClickNext(View view) {
-//        switch (view.getId()) {
-//            case R.id.btnNext:
-//                appService.parseNext();
-//            break;
-//            default: logMsg("error");
-//        }
-//    }
 
     private void receiveData() {
         logMsg("receive data");
@@ -122,6 +129,56 @@ public class FragmentListArticles extends Fragment {
         Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
     }
 
+    @Override
+    public void onClick(View view) {
+        PageClicker pageClicker = new PageClicker();
+        switch (view.getId()) {
+            case R.id.btnNext:
+                logMsg("click button Next");
+//                ((MainActivity)getActivity()).serviceParseNext();
+                pageClicker.execute(Constants.PAGE_NEXT);
+            break;
+            case R.id.btnPrev:
+                logMsg("click button Prev");
+                pageClicker.execute(Constants.PAGE_PREV);
+            break;
+        }
+    }
+
+    class PageClicker extends AsyncTask<Integer, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            btnNext.setEnabled(false);
+            btnPrev.setEnabled(false);
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            int pageClick = integers[0];
+            switch (pageClick) {
+                case Constants.PAGE_NEXT:
+                    ((MainActivity)getActivity()).serviceParseNext();
+                break;
+                case Constants.PAGE_PREV:
+                    ((MainActivity)getActivity()).serviceParsePrev();
+                break;
+                default: logMsg("error");
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
+            btnNext.setEnabled(true);
+            btnPrev.setEnabled(true);
+        }
+    }
+
     class ArticleCursorAdapter extends CursorAdapter {
 
         public ArticleCursorAdapter(Context context, Cursor cursor, boolean autoRequery) {
@@ -138,6 +195,7 @@ public class FragmentListArticles extends Fragment {
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
+
             ImageView imgArticlePreview = (ImageView) view.findViewById(R.id.imgArticlePreview);
             TextView tvArticleTitle = (TextView) view.findViewById(R.id.tvArticleTitle);
             TextView tvArticleText = (TextView) view.findViewById(R.id.tvArticleText);
@@ -146,28 +204,6 @@ public class FragmentListArticles extends Fragment {
             String articleTitle = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_TITLE));
             String articleText = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_TEXT));
 
-//            ExecutorService executorService = Executors.newFixedThreadPool(1);
-//            Future<Bitmap> bitmapFuture = executorService.submit(new BitmapLoader(imgUrl));
-//            Bitmap img = null;
-//            try {
-//                img = bitmapFuture.get();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//            executorService.shutdown();
-
-//            ImageSetter imageSetter = new ImageSetter();
-//            Bitmap img = null;
-//            try {
-//                img = imageSetter.execute(imgUrl).get();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            } catch (ExecutionException e) {
-//                e.printStackTrace();
-//            }
-//            imgArticlePreview.setImageBitmap(img);
 
             Picasso.with(getActivity().getApplicationContext()).load(imgUrl)
                     .error(R.drawable.ic_launcher)
@@ -178,29 +214,4 @@ public class FragmentListArticles extends Fragment {
         }
     }
 
-    class ImageSetter extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            String imgUrl = strings[0];
-            ExecutorService executorService = Executors.newFixedThreadPool(1);
-            Future<Bitmap> bitmapFuture = executorService.submit(new BitmapLoader(imgUrl));
-            Bitmap bitmap = null;
-            try {
-                bitmap = bitmapFuture.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-            executorService.shutdown();
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-
-        }
-    }
 }
