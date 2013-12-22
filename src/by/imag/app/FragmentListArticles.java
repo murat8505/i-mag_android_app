@@ -94,6 +94,7 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()
                         .beginTransaction();
                 transaction.replace(R.id.content_frame, fragmentArticle);
+                transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
@@ -126,7 +127,7 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
     }
 
     private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
+        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class HtmlParserThread implements Callable<Document>{
     }
 
     private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
+        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
     public int getPageNumber() {

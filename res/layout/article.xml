@@ -7,16 +7,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnSave"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:src="@android:drawable/ic_menu_save" />
+        android:src="@android:drawable/ic_menu_save"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnShare"
         android:src="@android:drawable/ic_menu_share"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 
     <WebView
@@ -24,6 +24,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/wvArticle"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/btnSave"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbArticle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 </RelativeLayout>
