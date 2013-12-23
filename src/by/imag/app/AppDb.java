@@ -64,22 +64,51 @@ public class AppDb extends SQLiteOpenHelper{
         logMsg("write articles table");
         db = this.getWritableDatabase();
         if (articles.size() != 0) {
-            db.delete(ARTICLES_TABLE, null, null);
+//            db.delete(ARTICLES_TABLE, null, null);
             ContentValues cvArticles = new ContentValues();
             for (ArticlePreview article: articles) {
                 String articleTitle = article.getArticleTitle();
                 String previewText = article.getPreviewText();
                 String articleURL = article.getArticleURL();
+                logMsg("url: " + articleURL);
                 String imageURL = article.getImageURL();
-                cvArticles.put(ARTICLE_TITLE, articleTitle);
-                cvArticles.put(ARTICLE_TEXT, previewText);
-                cvArticles.put(ARTICLE_URL, articleURL);
-                cvArticles.put(ARTICLE_IMAGE_URL, imageURL);
-                db.insert(ARTICLES_TABLE, null, cvArticles);
+                String sql = "SELECT * FROM " + ARTICLES_TABLE + " WHERE " + ARTICLE_URL +
+                        " = " + "'" + articleURL + "'";
+                Cursor cursor = db.rawQuery(sql, null);
+                if (cursor.moveToFirst()) {
+                    logMsg("record exist");
+                } else {
+                    logMsg("write record");
+                    cvArticles.put(ARTICLE_TITLE, articleTitle);
+                    cvArticles.put(ARTICLE_TEXT, previewText);
+                    cvArticles.put(ARTICLE_URL, articleURL);
+                    cvArticles.put(ARTICLE_IMAGE_URL, imageURL);
+                    db.insert(ARTICLES_TABLE, null, cvArticles);
+                }
+//                String[] columns = {ARTICLE_URL};
+//                String selection = ARTICLE_URL + " = " + "\"" + articleURL + "\"";
+//                Cursor cursor = db.query(ARTICLES_TABLE, columns, selection,
+//                        null, null, null, null);
+//                int index = cursor.getColumnIndexOrThrow(ARTICLE_URL);
+//                logMsg("index: "+index);
+//                logMsg("url: "+cursor.getString(index));
+
             }
         }
         this.close();
         return true;
+    }
+
+    private boolean verify(String articleUrl) {
+        int count = -1;
+        Cursor cursor = null;
+        String query = "SELECT COUNT(*) FROM " + ARTICLES_TABLE + " WHERE " +
+                ARTICLE_URL + " = ?";
+        cursor = db.rawQuery(query, new String[] {articleUrl});
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        return count > 0;
     }
 
     public Cursor getArticlesCursor() {

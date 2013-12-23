@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -81,6 +82,7 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
         ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
                 getActivity(), cursor, true);
         listView.setAdapter(cursorAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position,
@@ -88,7 +90,7 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
 //                logMsg("item click: " + position + ", id: " + id);
                 ArticlePreview articlePreview = appDb.getArticlePreview(id);
                 String articleUrl = articlePreview.getArticleURL();
-                logMsg("url: "+articleUrl);
+                logMsg("url: " + articleUrl);
                 intentArticle.putExtra(Constants.INTENT_ARTICLES, articleUrl);
                 Fragment fragmentArticle = new ArticleFragment(articleUrl);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()
@@ -163,9 +165,9 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
                 case Constants.PAGE_NEXT:
                     ((MainActivity)getActivity()).serviceParseNext();
                 break;
-                case Constants.PAGE_PREV:
-                    ((MainActivity)getActivity()).serviceParsePrev();
-                break;
+//                case Constants.PAGE_PREV:
+//                    ((MainActivity)getActivity()).serviceParsePrev();
+//                break;
                 default: logMsg("error");
             }
             return null;
@@ -214,5 +216,4 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
             tvArticleText.setText(articleText);
         }
     }
-
 }
