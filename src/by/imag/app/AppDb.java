@@ -99,22 +99,24 @@ public class AppDb extends SQLiteOpenHelper{
         return true;
     }
 
-    private boolean verify(String articleUrl) {
-        int count = -1;
-        Cursor cursor = null;
-        String query = "SELECT COUNT(*) FROM " + ARTICLES_TABLE + " WHERE " +
-                ARTICLE_URL + " = ?";
-        cursor = db.rawQuery(query, new String[] {articleUrl});
-        if (cursor.moveToFirst()) {
-            count = cursor.getInt(0);
-        }
-        return count > 0;
-    }
+//    private boolean verify(String articleUrl) {
+//        int count = -1;
+//        Cursor cursor = null;
+//        String query = "SELECT COUNT(*) FROM " + ARTICLES_TABLE + " WHERE " +
+//                ARTICLE_URL + " = ?";
+//        cursor = db.rawQuery(query, new String[] {articleUrl});
+//        if (cursor.moveToFirst()) {
+//            count = cursor.getInt(0);
+//        }
+//        return count > 0;
+//    }
 
     public Cursor getArticlesCursor() {
         logMsg("get articles cursor");
         db = this.getReadableDatabase();
-        return db != null ? db.query(ARTICLES_TABLE, null, null, null, null, null, null) : null;
+//        return db != null ? db.query(ARTICLES_TABLE, null, null, null, null, null, null) : null;
+        String sqlQuery = "SELECT * FROM " + ARTICLES_TABLE + " ORDER BY " + ARTICLE_URL + " DESC";
+        return db != null ? db.rawQuery(sqlQuery, null) : null;
     }
 
     public ArticlePreview getArticlePreview(long _id) {

@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,12 +43,13 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        logMsg("onActivityCreated");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        logMsg("onCreateView");
 //        return super.onCreateView(inflater, container, savedInstanceState);
         appDb = new AppDb(getActivity());
         View rootView = inflater.inflate(R.layout.test_fragment, container, false);
@@ -98,6 +100,20 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
                 transaction.replace(R.id.content_frame, fragmentArticle);
                 transaction.addToBackStack(null);
                 transaction.commit();
+            }
+        });
+
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                                 int totalItemCount) {
+                int lastInScreen = firstVisibleItem + visibleItemCount;
+                logMsg("last: "+lastInScreen);
             }
         });
     }

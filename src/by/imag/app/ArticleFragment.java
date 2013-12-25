@@ -38,10 +38,16 @@ public class ArticleFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.article, container, false);
         webViewArticle = (WebView) rootView.findViewById(R.id.wvArticle);
+        webViewArticle.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         pbArticle = (ProgressBar) rootView.findViewById(R.id.pbArticle);
         logMsg("url: "+articleUrl);
         PageLoader pageLoader = new PageLoader();
@@ -91,7 +97,6 @@ public class ArticleFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            webViewArticle.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
             webViewArticle.loadData(result, "text/html; charset=UTF-8", null);
             pbArticle.setVisibility(View.GONE);
             super.onPostExecute(result);
