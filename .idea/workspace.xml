@@ -72,10 +72,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f4949d6-23a3-482f-9196-311d8b938e62" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/AppDb.java" afterPath="$PROJECT_DIR$/src/by/imag/app/AppDb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java" afterPath="$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/AppService.java" afterPath="$PROJECT_DIR$/src/by/imag/app/AppService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java" afterPath="$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" afterPath="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/test_fragment.xml" afterPath="$PROJECT_DIR$/res/layout/test_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="i-mag_android_app.iws" />
@@ -87,6 +92,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="REBUILD_ON_DEPENDENCY_CHANGE" value="false" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -143,42 +151,39 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="0" selection-start="3388" selection-end="3388" vertical-scroll-proportion="0.0" vertical-offset="1998" max-vertical-offset="4662">
+            <state line="115" column="51" selection-start="3586" selection-end="3586" vertical-scroll-proportion="0.0" vertical-offset="2070" max-vertical-offset="4770">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="106" column="40" selection-start="2982" selection-end="2982" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="3600">
-              <folding>
-                <element signature="e#1999#2316#0" expanded="true" />
-                <element signature="e#2305#2306#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FragmentListArticles.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FragmentListArticles.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="44" selection-start="4365" selection-end="4365" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="3294">
+            <state line="185" column="65" selection-start="7011" selection-end="7011" vertical-scroll-proportion="-1.9184953" vertical-offset="3348" max-vertical-offset="4140">
               <folding>
-                <element signature="method#onResume#0;class#FragmentListArticles#0" expanded="false" />
-                <element signature="method#onDestroy#0;class#FragmentListArticles#0" expanded="false" />
                 <element signature="method#receiveData#0;class#FragmentListArticles#0" expanded="false" />
                 <element signature="method#unregister#0;class#FragmentListArticles#0" expanded="false" />
+                <element signature="e#7708#7754#0" expanded="false" />
+                <element signature="class#PageClicker#0;class#FragmentListArticles#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AppDb.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="DocumentParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="89" column="46" selection-start="3137" selection-end="3137" vertical-scroll-proportion="0.0" vertical-offset="1378" max-vertical-offset="2016">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppDb.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppDb.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="63" selection-start="4769" selection-end="4769" vertical-scroll-proportion="0.40441176" vertical-offset="1578" max-vertical-offset="2988">
+            <state line="73" column="45" selection-start="2740" selection-end="2740" vertical-scroll-proportion="0.0" vertical-offset="1314" max-vertical-offset="3204">
               <folding />
             </state>
           </provider>
@@ -223,24 +228,224 @@
         <option value="$PROJECT_DIR$/res/layout/article_list_item.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/res/menu/main.xml" />
-        <option value="$PROJECT_DIR$/res/layout/test_fragment.xml" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/AppService.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" />
         <option value="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserPageThread.java" />
         <option value="$PROJECT_DIR$/res/layout/article.xml" />
         <option value="$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/AppService.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" />
         <option value="$PROJECT_DIR$/src/by/imag/app/AppDb.java" />
+        <option value="$PROJECT_DIR$/res/layout/test_fragment.xml" />
         <option value="$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
+    <option name="x" value="37" />
     <option name="y" value="-3" />
-    <option name="width" value="1284" />
-    <option name="height" value="985" />
+    <option name="width" value="1251" />
+    <option name="height" value="811" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+          <State>
+            <id>Android</id>
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
+            <id>Assignment issues</id>
+          </State>
+          <State>
+            <id>Assignment issuesGroovy</id>
+          </State>
+          <State>
+            <id>Class metrics</id>
+          </State>
+          <State>
+            <id>Class structure</id>
+          </State>
+          <State>
+            <id>Cloning issues</id>
+          </State>
+          <State>
+            <id>Code maturity issues</id>
+          </State>
+          <State>
+            <id>Code style issues</id>
+          </State>
+          <State>
+            <id>Concurrency annotation issues</id>
+          </State>
+          <State>
+            <id>Control FlowGroovy</id>
+          </State>
+          <State>
+            <id>Control flow issues</id>
+          </State>
+          <State>
+            <id>Data flow issues</id>
+          </State>
+          <State>
+            <id>Data flow issuesGroovy</id>
+          </State>
+          <State>
+            <id>Declaration redundancy</id>
+          </State>
+          <State>
+            <id>Declaration redundancyGroovy</id>
+          </State>
+          <State>
+            <id>Encapsulation issues</id>
+          </State>
+          <State>
+            <id>Error handling</id>
+          </State>
+          <State>
+            <id>Error handlingGroovy</id>
+          </State>
+          <State>
+            <id>GPath inspectionsGroovy</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Imports</id>
+          </State>
+          <State>
+            <id>Inheritance issues</id>
+          </State>
+          <State>
+            <id>Initialization issues</id>
+          </State>
+          <State>
+            <id>IntelliJ IDEA Platform Inspections</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>J2ME issues</id>
+          </State>
+          <State>
+            <id>JUnit issues</id>
+          </State>
+          <State>
+            <id>Java language level issues</id>
+          </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
+          <State>
+            <id>JavaBeans issues</id>
+          </State>
+          <State>
+            <id>JavaFX</id>
+          </State>
+          <State>
+            <id>Javadoc issues</id>
+          </State>
+          <State>
+            <id>Language Injection</id>
+          </State>
+          <State>
+            <id>Logging issues</id>
+          </State>
+          <State>
+            <id>Manifest</id>
+          </State>
+          <State>
+            <id>Maven</id>
+          </State>
+          <State>
+            <id>Method MetricsGroovy</id>
+          </State>
+          <State>
+            <id>Method metrics</id>
+          </State>
+          <State>
+            <id>Naming ConventionsGroovy</id>
+          </State>
+          <State>
+            <id>Naming conventions</id>
+          </State>
+          <State>
+            <id>Numeric issues</id>
+          </State>
+          <State>
+            <id>Performance issues</id>
+          </State>
+          <State>
+            <id>Portability issues</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsGroovy</id>
+          </State>
+          <State>
+            <id>Probable bugs</id>
+          </State>
+          <State>
+            <id>Probable bugsGroovy</id>
+          </State>
+          <State>
+            <id>Properties Files</id>
+          </State>
+          <State>
+            <id>RELAX NG</id>
+          </State>
+          <State>
+            <id>Security issues</id>
+          </State>
+          <State>
+            <id>Serialization issues</id>
+          </State>
+          <State>
+            <id>TestNG</id>
+          </State>
+          <State>
+            <id>Threading issues</id>
+          </State>
+          <State>
+            <id>Threading issuesGroovy</id>
+          </State>
+          <State>
+            <id>Validity issuesGroovy</id>
+          </State>
+          <State>
+            <id>Verbose or redundant code constructs</id>
+          </State>
+          <State>
+            <id>Visibility issues</id>
+          </State>
+          <State>
+            <id>XML</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Abstraction issues</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -412,10 +617,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,7 +642,7 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -438,7 +657,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Tabs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Tabs" />
     <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="316" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
@@ -481,6 +700,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -506,19 +738,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -662,7 +881,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="-3" width="1284" height="985" extended-state="6" />
+    <frame x="37" y="-3" width="1251" height="811" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -675,21 +894,21 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781956" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3263158" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4282325" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44343892" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24978974" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2382496" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32180452" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24474348" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32126698" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32968882" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880846" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32579187" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -720,12 +939,16 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="8" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="648" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="9" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="486">
           <folding>
-            <element signature="e#1999#2316#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -746,30 +969,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="9" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="486">
           <folding>
-            <element signature="e#1999#2316#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="45" selection-start="1781" selection-end="1781" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3006">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="8" selection-start="657" selection-end="657" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="648" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="9" selection-start="434" selection-end="434" vertical-scroll-proportion="0.0" vertical-offset="324" max-vertical-offset="486">
-          <folding>
-            <element signature="e#1999#2316#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -790,8 +990,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="0" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0" vertical-offset="378" max-vertical-offset="432">
           <folding>
-            <element signature="e#1999#2316#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -966,13 +1165,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/TestFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="24" selection-start="893" selection-end="893" vertical-scroll-proportion="0.22712934" vertical-offset="0" max-vertical-offset="634" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListTags.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="22" selection-start="2036" selection-end="2036" vertical-scroll-proportion="-0.9305994" vertical-offset="1436" max-vertical-offset="2070">
-          <folding />
+        <state line="28" column="24" selection-start="893" selection-end="893" vertical-scroll-proportion="0.22712934" vertical-offset="0" max-vertical-offset="634">
+          <folding>
+            <element signature="e#977#992#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,51 +1230,6 @@
         <state line="9" column="27" selection-start="202" selection-end="217" vertical-scroll-proportion="0.254717" vertical-offset="0" max-vertical-offset="1152" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="55" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/test_fragment.xml">
-      <provider editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1361" selection-end="1361" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="792">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="0" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.73464376" vertical-offset="14" max-vertical-offset="1800">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="67" selection-start="908" selection-end="963" vertical-scroll-proportion="0.5085995" vertical-offset="0" max-vertical-offset="828">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="0" selection-start="3388" selection-end="3388" vertical-scroll-proportion="0.0" vertical-offset="1487" max-vertical-offset="4302">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserPageThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="13" selection-start="419" selection-end="419" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="756">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/article.xml">
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
@@ -1089,39 +1240,102 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppService.java">
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="106" column="40" selection-start="2982" selection-end="2982" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="3600">
-          <folding>
-            <element signature="e#1999#2316#0" expanded="true" />
-            <element signature="e#2305#2306#0" expanded="true" />
-          </folding>
+        <state line="53" column="14" selection-start="1634" selection-end="1634" vertical-scroll-proportion="0.0" vertical-offset="818" max-vertical-offset="1908">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="53" selection-start="3312" selection-end="3312" vertical-scroll-proportion="1.7036115" vertical-offset="0" max-vertical-offset="1602">
+        <state line="27" column="40" selection-start="869" selection-end="869" vertical-scroll-proportion="0.7776" vertical-offset="0" max-vertical-offset="21960">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListTags.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="34" selection-start="2939" selection-end="2939" vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="2142">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserPageThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="45" selection-start="465" selection-end="465" vertical-scroll-proportion="0.36792454" vertical-offset="0" max-vertical-offset="636">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="61" selection-start="624" selection-end="624" vertical-scroll-proportion="0.16981132" vertical-offset="0" max-vertical-offset="918">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="206" column="5" selection-start="6608" selection-end="7277" vertical-scroll-proportion="0.745283" vertical-offset="2640" max-vertical-offset="3510">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="92" column="29" selection-start="3259" selection-end="3259" vertical-scroll-proportion="0.0" vertical-offset="786" max-vertical-offset="1800">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="57" selection-start="486" selection-end="486" vertical-scroll-proportion="0.31132075" vertical-offset="0" max-vertical-offset="636">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="115" column="51" selection-start="3586" selection-end="3586" vertical-scroll-proportion="0.0" vertical-offset="1134" max-vertical-offset="4032">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppDb.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="45" selection-start="2740" selection-end="2740" vertical-scroll-proportion="0.0" vertical-offset="2352" max-vertical-offset="2988">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/test_fragment.xml">
+      <provider editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="648">
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="46" selection-start="3137" selection-end="3137" vertical-scroll-proportion="0.0" vertical-offset="1296" max-vertical-offset="2016">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="44" selection-start="4365" selection-end="4365" vertical-scroll-proportion="0.0" vertical-offset="900" max-vertical-offset="3294">
+        <state line="185" column="65" selection-start="7011" selection-end="7011" vertical-scroll-proportion="-1.9184953" vertical-offset="3348" max-vertical-offset="4140">
           <folding>
-            <element signature="method#onResume#0;class#FragmentListArticles#0" expanded="false" />
-            <element signature="method#onDestroy#0;class#FragmentListArticles#0" expanded="false" />
             <element signature="method#receiveData#0;class#FragmentListArticles#0" expanded="false" />
             <element signature="method#unregister#0;class#FragmentListArticles#0" expanded="false" />
+            <element signature="e#7708#7754#0" expanded="false" />
+            <element signature="class#PageClicker#0;class#FragmentListArticles#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppDb.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="63" selection-start="4769" selection-end="4769" vertical-scroll-proportion="0.40441176" vertical-offset="1578" max-vertical-offset="2988">
-          <folding />
         </state>
       </provider>
     </entry>

@@ -76,9 +76,9 @@ public class AppDb extends SQLiteOpenHelper{
                         " = " + "'" + articleURL + "'";
                 Cursor cursor = db.rawQuery(sql, null);
                 if (cursor.moveToFirst()) {
-                    logMsg("record exist");
+//                    logMsg("record exist");
                 } else {
-                    logMsg("write record");
+//                    logMsg("write record");
                     cvArticles.put(ARTICLE_TITLE, articleTitle);
                     cvArticles.put(ARTICLE_TEXT, previewText);
                     cvArticles.put(ARTICLE_URL, articleURL);

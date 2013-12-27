@@ -198,11 +198,9 @@ public class AppService extends Service {
             String pageStr = span.get(0).text();
             currentPage = Integer.parseInt(pageStr);
             Elements last = elementsNavigation.get(0).select("a[class=last]");
-//            logMsg("last: "+last.size());
             String lastStr = last.get(0).attr("href");
             logMsg("last: "+lastStr);
             String[] strings = lastStr.split("=");
-//            logMsg(strings[0]+"\n"+strings[1]);
             lastStr = strings[1];
             lastPage = Integer.parseInt(lastStr);
         }

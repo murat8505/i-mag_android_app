@@ -32,6 +32,7 @@ public class MainActivity extends FragmentActivity {
     private Intent serviceIntent;
     private AppService appService;
     private boolean isServiceBound = false;
+    private boolean isUpdated = false;
     private FragmentManager fragmentManager;
 
     private CharSequence drawerTitle;
@@ -112,6 +113,8 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
         logMsg("onCreate");
+        preferences = getPreferences(MODE_PRIVATE);
+//        isUpdated = preferences.getBoolean(Constants.IS_UPDATED, false);
 
         title = drawerTitle = getTitle();
         menuTitles = getResources().getStringArray(R.array.menu_items);
@@ -160,6 +163,9 @@ public class MainActivity extends FragmentActivity {
         logMsg("onDestroy");
         unbindService(sConn);
         stopService(serviceIntent);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.IS_UPDATED, false);
+        editor.commit();
     }
 
     private void selectItem(int position) {

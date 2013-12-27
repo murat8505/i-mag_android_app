@@ -3,6 +3,12 @@ package by.imag.app.classes;
 
 import android.util.Log;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -11,6 +17,9 @@ import java.net.URL;
 import java.util.concurrent.Callable;
 
 public class HtmlParserThread implements Callable<Document>{
+    private static final int REGISTRATION_TIMEOUT = 3 * 1000;
+    private static final int WAIT_TIMEOUT = 30 * 1000;
+
     private int pageNumber;
     private String pageURLString;
 
@@ -25,6 +34,8 @@ public class HtmlParserThread implements Callable<Document>{
         logMsg("url: "+pageURLString);
         URL url = new URL(pageURLString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setConnectTimeout(WAIT_TIMEOUT);
+        connection.setReadTimeout(WAIT_TIMEOUT);
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
             htmlDocument = Jsoup.connect(pageURLString).get();
         } else {
