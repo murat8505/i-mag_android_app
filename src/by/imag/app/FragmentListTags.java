@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -30,7 +31,7 @@ public class FragmentListTags extends ListFragment implements
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setView();
-        receiveData();
+//        receiveData();
     }
 
     private void setView() {
@@ -52,7 +53,7 @@ public class FragmentListTags extends ListFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregister();
+//        unregister();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class FragmentListTags extends ListFragment implements
 //        return super.onCreateView(inflater, container, savedInstanceState);
         appDb = new AppDb(getActivity().getApplicationContext());
         setView();
-        receiveData();
+//        receiveData();
         return inflater.inflate(R.layout.tags_list, null);
     }
 
@@ -79,35 +80,43 @@ public class FragmentListTags extends ListFragment implements
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
     }
 
-    private void receiveData() {
-        logMsg("receive data");
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                boolean isUpdated = false;
-                isUpdated = intent.getBooleanExtra(Constants.INTENT_TAGS, false);
-                if (isUpdated) {
-                    if (isAdded()) {
-                        setView();
-                    }
-                }
-            }
-
-        };
-        IntentFilter intentFilter = new IntentFilter(Constants.BROADCAST_ACTION);
-        getActivity().getApplicationContext().registerReceiver(broadcastReceiver, intentFilter);
-        isRegistered = true;
-    }
-
-    protected void unregister() {
-        if (isRegistered) {
-            getActivity().getApplicationContext().unregisterReceiver(broadcastReceiver);
-            isRegistered = false;
-        }
-    }
+//    private void receiveData() {
+//        logMsg("receive data");
+//        broadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                boolean isUpdated = false;
+//                isUpdated = intent.getBooleanExtra(Constants.INTENT_TAGS, false);
+//                if (isUpdated) {
+//                    if (isAdded()) {
+//                        setView();
+//                    }
+//                }
+//            }
+//
+//        };
+//        IntentFilter intentFilter = new IntentFilter(Constants.BROADCAST_ACTION);
+//        getActivity().getApplicationContext().registerReceiver(broadcastReceiver, intentFilter);
+//        isRegistered = true;
+//    }
+//
+//    protected void unregister() {
+//        if (isRegistered) {
+//            getActivity().getApplicationContext().unregisterReceiver(broadcastReceiver);
+//            isRegistered = false;
+//        }
+//    }
 
     private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
+        Log.d(Constants.LOG_TAG,  ((Object) this).getClass().getSimpleName() + ": " + msg);
+    }
+
+    class TagTask extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return null;
+        }
     }
 
     static class TagsCursorLoader extends CursorLoader {

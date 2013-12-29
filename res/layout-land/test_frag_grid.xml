@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridView"
+        android:gravity="center"
+        android:stretchMode="columnWidth"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:numColumns="auto_fit"
+        android:columnWidth="160dp"
+        android:layout_toLeftOf="@+id/btnNext"
+        android:layout_alignParentBottom="true" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pbGridArt"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnPrev"
+        android:src="@android:drawable/ic_media_rew"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnNext"
+        android:src="@android:drawable/ic_media_ff"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnRefresh"
+        android:src="@android:drawable/ic_menu_rotate"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

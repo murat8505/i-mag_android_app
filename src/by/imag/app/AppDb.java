@@ -28,6 +28,7 @@ public class AppDb extends SQLiteOpenHelper{
     public static final String ARTICLE_TEXT = "articleText";
     public static final String ARTICLE_URL = "articleUrl";
     public static final String ARTICLE_IMAGE_URL = "articleImageUrl";
+    public static final String ARTICLE_ID = "articleId";
 
     public AppDb(Context context) {
         super(context, "appDb.db", null, 1);
@@ -70,7 +71,9 @@ public class AppDb extends SQLiteOpenHelper{
                 String articleTitle = article.getArticleTitle();
                 String previewText = article.getPreviewText();
                 String articleURL = article.getArticleURL();
-                logMsg("url: " + articleURL);
+                String[] articleStr = articleURL.split("=");
+                int articleId = Integer.parseInt(articleStr[1]);
+//                logMsg("url: " + articleURL);
                 String imageURL = article.getImageURL();
                 String sql = "SELECT * FROM " + ARTICLES_TABLE + " WHERE " + ARTICLE_URL +
                         " = " + "'" + articleURL + "'";
@@ -83,6 +86,7 @@ public class AppDb extends SQLiteOpenHelper{
                     cvArticles.put(ARTICLE_TEXT, previewText);
                     cvArticles.put(ARTICLE_URL, articleURL);
                     cvArticles.put(ARTICLE_IMAGE_URL, imageURL);
+                    cvArticles.put(ARTICLE_ID, articleId);
                     db.insert(ARTICLES_TABLE, null, cvArticles);
                 }
 //                String[] columns = {ARTICLE_URL};
@@ -92,7 +96,6 @@ public class AppDb extends SQLiteOpenHelper{
 //                int index = cursor.getColumnIndexOrThrow(ARTICLE_URL);
 //                logMsg("index: "+index);
 //                logMsg("url: "+cursor.getString(index));
-
             }
         }
         this.close();
@@ -115,7 +118,23 @@ public class AppDb extends SQLiteOpenHelper{
         logMsg("get articles cursor");
         db = this.getReadableDatabase();
 //        return db != null ? db.query(ARTICLES_TABLE, null, null, null, null, null, null) : null;
-        String sqlQuery = "SELECT * FROM " + ARTICLES_TABLE + " ORDER BY " + ARTICLE_URL + " DESC";
+        String sqlQuery = "SELECT * FROM " + ARTICLES_TABLE + " ORDER BY " + ARTICLE_ID + " DESC";
+        return db != null ? db.rawQuery(sqlQuery, null) : null;
+    }
+
+    public Cursor getArticlesCursor(int limit, int offset) {
+        db = this.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM " + ARTICLES_TABLE + " ORDER BY " + ARTICLE_ID + " DESC" +
+                " LIMIT " + limit + " OFFSET " + offset;
+        return db != null ? db.rawQuery(sqlQuery, null) : null;
+    }
+
+    public Cursor getArticlesCursor(int pageNumber) {
+        db = this.getReadableDatabase();
+        int artCount = Constants.ARTICLES_ON_PAGE;
+        int offset = pageNumber*artCount-(artCount); //artCount+1
+        String sqlQuery = "SELECT * FROM " + ARTICLES_TABLE + " ORDER BY " + ARTICLE_ID + " DESC" +
+                " LIMIT " + artCount + " OFFSET " + offset;
         return db != null ? db.rawQuery(sqlQuery, null) : null;
     }
 
@@ -152,10 +171,10 @@ public class AppDb extends SQLiteOpenHelper{
         //create table ARTICLES_TABLE (_id integer primary key autoincrement,
         // )
         formatString = "create table %s (_id integer primary key autoincrement, " +
-                "%s text, %s text, %s text, %s text);";
+                "%s text, %s text, %s text, %s text, %s integer);";
         Formatter artFormatter = new Formatter();
         artFormatter.format(formatString, ARTICLES_TABLE, ARTICLE_TITLE, ARTICLE_TEXT, ARTICLE_URL,
-                ARTICLE_IMAGE_URL);
+                ARTICLE_IMAGE_URL, ARTICLE_ID);
         logMsg("sql: "+artFormatter.toString());
         sqlString = artFormatter.toString();
         db.execSQL(sqlString);

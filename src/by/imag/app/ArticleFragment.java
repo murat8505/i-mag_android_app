@@ -56,6 +56,18 @@ public class ArticleFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        webViewArticle.saveState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        webViewArticle.restoreState(savedInstanceState);
+    }
+
     private void logMsg(String msg) {
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }

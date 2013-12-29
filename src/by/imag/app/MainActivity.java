@@ -163,9 +163,6 @@ public class MainActivity extends FragmentActivity {
         logMsg("onDestroy");
         unbindService(sConn);
         stopService(serviceIntent);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(Constants.IS_UPDATED, false);
-        editor.commit();
     }
 
     private void selectItem(int position) {
@@ -174,7 +171,7 @@ public class MainActivity extends FragmentActivity {
 //        setTitle(menuTitles[position]);
         logMsg("position: "+position);
         switch (position) {
-            case 0:
+            case 5:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentListArticles()).commit();
 //                getActionBar().setSubtitle(menuTitles[position]);
@@ -193,7 +190,7 @@ public class MainActivity extends FragmentActivity {
             case 4:
                 // todo: about
             break;
-            case 5:
+            case 0:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new TestFragment()).commit();
 //                getActionBar().setSubtitle(menuTitles[position]);

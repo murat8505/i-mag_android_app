@@ -96,7 +96,7 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregister();
+//        unregister();
     }
 
     private void setView() {
@@ -123,51 +123,10 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
             }
         });
 
-//        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                //
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
-//                                 int totalItemCount) {
-//                int lastInScreen = firstVisibleItem + visibleItemCount;
-////                logMsg("last: "+lastInScreen);
-//                if ((lastInScreen == totalItemCount) && currentPage != lastPage) {
-//                    articlesLoader = new ArticlesLoader();
-//                    articlesLoader.execute(currentPage + 1);
-//                    listView.deferNotifyDataSetChanged();
-//                }
-//            }
-//        });
+
     }
 
-    private void receiveData() {
-        logMsg("receive data");
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                boolean isUpdated = false;
-                isUpdated = intent.getBooleanExtra(Constants.INTENT_ARTICLES, false);
-                if (isUpdated) {
-                    if (isAdded()) {
-                        setView();
-                    }
-                }
-            }
-        };
-        IntentFilter intentFilter = new IntentFilter(Constants.BROADCAST_ACTION);
-        getActivity().getApplicationContext().registerReceiver(broadcastReceiver, intentFilter);
-        isRegistered = true;
-    }
 
-    protected void unregister() {
-        if (isRegistered) {
-            getActivity().getApplicationContext().unregisterReceiver(broadcastReceiver);
-            isRegistered = false;
-        }
-    }
 
     private void logMsg(String msg) {
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
@@ -179,17 +138,14 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
         switch (view.getId()) {
             case R.id.btnNext:
                 logMsg("click button Next");
-//                ((MainActivity)getActivity()).serviceParseNext();
-//                pageClicker.execute(Constants.PAGE_NEXT);
+
                 if (currentPage != lastPage) {
                     logMsg("item id: " + listView.getId());
                     new ArticlesLoader().execute(currentPage +1);
+                    listView.smoothScrollToPosition(20);
                 }
             break;
-//            case R.id.btnPrev:
-//                logMsg("click button Prev");
-//                pageClicker.execute(Constants.PAGE_PREV);
-//            break;
+
         }
     }
 
@@ -205,67 +161,6 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
         return false;
     }
 
-//    private Document parse(int pageNumber) {
-//        logMsg("parsing");
-//        Document document = null;
-//        ExecutorService executorService = Executors.newFixedThreadPool(1);
-//        Future<Document> documentFuture = executorService.submit(new
-//                HtmlParserThread(pageNumber));
-//        try {
-//            document = documentFuture.get();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-//        executorService.shutdown();
-//        logMsg("finished");
-//        return document;
-//    }
-//
-//    private List<ArticlePreview> getArticlePreviewList(Document document) {
-//        List<ArticlePreview> articlePreviews = new ArrayList<ArticlePreview>();
-//        if (document != null) {
-//            Elements previews = document.select("div[class=preview]");
-//            logMsg("previews: " + previews.size());
-//            for (Element e: previews) {
-//                String articleTitle = "";
-//                String previewText = "";
-//                String articleURL = "";
-//                String imageURL = "";
-//                Elements hrefs = e.select("a[href]");
-//                if (hrefs.size() == 1) {
-//                    articleURL = hrefs.get(0).attr("href");
-//                }
-//                Elements imgs = hrefs.select("img");
-//                if (imgs.size() == 1) {
-//                    articleTitle = imgs.get(0).attr("title");
-//                    previewText = imgs.get(0).attr("alt");
-//                    imageURL = imgs.get(0).attr("src");
-//                }
-//                ArticlePreview articlePreview = new ArticlePreview(articleTitle, previewText,
-//                        articleURL, imageURL);
-////                logMsg(articlePreview+"");
-//                articlePreviews.add(articlePreview);
-//            }
-//        }
-//        return articlePreviews;
-//    }
-//
-//    private void setPages(Document document) {
-//        if (document != null) {
-//            Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
-//            Elements span = elementsNavigation.get(0).select("span[class=current]");
-//            String pageStr = span.get(0).text();
-//            currentPage = Integer.parseInt(pageStr);
-//            Elements last = elementsNavigation.get(0).select("a[class=last]");
-//            String lastStr = last.get(0).attr("href");
-//            logMsg("last: "+lastStr);
-//            String[] strings = lastStr.split("=");
-//            lastStr = strings[1];
-//            lastPage = Integer.parseInt(lastStr);
-//        }
-//    }
 
     class ArticlesLoader extends AsyncTask<Integer, Void, Boolean> {
         boolean isArticlesUpdated = false;
@@ -282,12 +177,7 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
         protected Boolean doInBackground(Integer... integers) {
             int pageNumber = integers[0];
             if (isOnline()) {
-//                Document document = parse(pageNumber);
-//                List<ArticlePreview> articlePreviewList = getArticlePreviewList(document);
-//                setPages(document);
-//                isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
                 DocumentParser documentParser = new DocumentParser(pageNumber);
-//                Document document = documentParser.parse();
                 List<ArticlePreview> articlePreviewList =
                         documentParser.getArticlePreviewList();
                 currentPage = documentParser.getCurrentPage();
@@ -303,46 +193,8 @@ public class FragmentListArticles extends Fragment implements View.OnClickListen
             progressBar.setVisibility(View.GONE);
             btnNext.setEnabled(true);
             if (isArticlesUpdated) {
-//                SharedPreferences.Editor editor = preferences.edit();
-//                logMsg("is updated: " + isArticlesUpdated);
-//                editor.putBoolean(Constants.IS_UPDATED, isArticlesUpdated);
-//                editor.commit();
                 setView();
             }
-        }
-    }
-
-    class PageClicker extends AsyncTask<Integer, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            btnNext.setEnabled(false);
-//            btnPrev.setEnabled(false);
-        }
-
-        @Override
-        protected Void doInBackground(Integer... integers) {
-            int pageClick = integers[0];
-            switch (pageClick) {
-                case Constants.PAGE_NEXT:
-                    ((MainActivity)getActivity()).serviceParseNext();
-                break;
-//                case Constants.PAGE_PREV:
-//                    ((MainActivity)getActivity()).serviceParsePrev();
-//                break;
-                default: logMsg("error");
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressBar.setVisibility(View.GONE);
-            btnNext.setEnabled(true);
-//            btnPrev.setEnabled(true);
         }
     }
 
