@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:numColumns="auto_fit"
         android:columnWidth="160dp"
-        android:layout_above="@+id/btnPrev" />
+        android:layout_alignParentBottom="true" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
@@ -25,24 +25,24 @@
         android:visibility="gone" />
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/btnPrev"
         android:src="@android:drawable/ic_media_rew"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" />
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/btnNext"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:src="@android:drawable/ic_media_ff" />
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="35dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/btnRefresh"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

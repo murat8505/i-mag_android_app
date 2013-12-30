@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     private ImageButton btnNext;
     private ImageButton btnPrev;
     private ImageButton btnRefresh;
+    private View customView;
     private static final String GRID_STATE = "gridState";
     private static final String IS_UPDATED = "isUpdated";
     private static final String PAGE = "page";
@@ -57,6 +59,8 @@ public class TestFragment extends Fragment implements View.OnClickListener{
  //        new ArticleSAsync().execute(currentPage);
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(PAGE);
+            int index = savedInstanceState.getInt("index");
+            gridView.setSelection(index);
         }
         setView();
         return rootView;
@@ -99,6 +103,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         super.onSaveInstanceState(outState);
         logMsg("onSaveInstanceState");
         outState.putInt(PAGE, currentPage);
+        outState.putInt("index", gridView.getFirstVisiblePosition());
     }
 
     @Override
@@ -112,23 +117,38 @@ public class TestFragment extends Fragment implements View.OnClickListener{
                 if (currentPage > 1) {
                     new ArticleSAsync().execute(currentPage - 1);
                 }
-//                setView();
                 break;
             case R.id.btnNext :
+//                loadMore();
                 if (currentPage != lastPage) {
                     new ArticleSAsync().execute(currentPage + 1);
                 }
-//                setView();
                 break;
         }
     }
+
+//    private void loadMore() {
+//        if (currentPage != lastPage) {
+//            int index = gridView.getFirstVisiblePosition();
+//            new ArticleSAsync().execute(currentPage + 1);
+////            setView();
+//            int artOnPage = Constants.ARTICLES_ON_PAGE;
+//            int limit = currentPage * artOnPage;
+//            int offset = currentPage * artOnPage - (artOnPage);
+//            Cursor cursor = appDb.getArticlesCursor(limit, offset);
+//            ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
+//                    getActivity(), cursor, true);
+//            gridView.setAdapter(cursorAdapter);
+//            gridView.setSelection(index);
+//        }
+//    }
 
     private void setView() {
         Cursor cursor = appDb.getArticlesCursor(currentPage);
         ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
                 getActivity(), cursor, true);
         gridView.setAdapter(cursorAdapter);
-        logMsg("current page: "+currentPage);
+//        logMsg("current page: "+currentPage);
     }
 
     private boolean isOnline() {
@@ -188,7 +208,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    class ArticleCursorAdapter extends android.support.v4.widget.CursorAdapter {
+    class ArticleCursorAdapter extends CursorAdapter {
 
         public ArticleCursorAdapter(Context context, Cursor cursor, boolean autoRequery) {
             super(context, cursor, autoRequery);

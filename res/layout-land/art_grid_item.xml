@@ -20,6 +20,6 @@
         android:layout_alignTop="@+id/imageView"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/imageView"
-        android:layout_marginTop="23dp" />
+        android:layout_marginTop="15dp" />
 
 </RelativeLayout>
