@@ -13,6 +13,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DocumentParser {
     private int pageNumber = 1;
@@ -61,6 +63,7 @@ public class DocumentParser {
             String pageStr = span.get(0).text();
             page = Integer.parseInt(pageStr);
         }
+        logMsg("current page: "+page);
         return page;
     }
 
@@ -68,14 +71,42 @@ public class DocumentParser {
         int page = 0;
         if (document != null) {
             Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
-            Elements last = elementsNavigation.get(0).select("a[class=last]");
-            String lastStr = last.get(0).attr("href");
-//            logMsg("last: "+lastStr);
-            String[] strings = lastStr.split("=");
-            lastStr = strings[1];
-            page = Integer.parseInt(lastStr);
+            Elements last = elementsNavigation.get(0).select("span[class=pages]");
+            String lastStr = last.get(0).text();
+            logMsg("last: "+lastStr);
+//            String[] strings = lastStr.split("=");
+//            lastStr = strings[1];
+//            page = Integer.parseInt(lastStr);
+//            Pattern lastIntPattern = Pattern.compile("\\s\\d*$");
+//            Matcher matcher = lastIntPattern.matcher(lastStr);
+//            if (matcher.find()) {
+//                String lastPageStr = matcher.group(0);
+//                page = Integer.parseInt(lastPageStr);
+//                logMsg("last page: "+page);
+//            }
+            String[] pages = lastStr.split(" ");
+            if (pages.length == 4) {
+                page = Integer.parseInt(pages[3]);
+            }
+
         }
+        logMsg("last page: "+page);
         return page;
+    }
+
+    public int[] getPages() {
+        int[] pages = new int[2];
+        if (document != null) {
+            Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
+            Elements elementsPages = elementsNavigation.get(0).select("span[class=pages]");
+            if (elementsPages.size() == 1) {
+                String response = elementsPages.get(0).text();
+                String[] pagesStr = response.split(" ");
+                pages[0] = Integer.parseInt(pagesStr[1]);
+                pages[1] = Integer.parseInt(pagesStr[3]);
+            }
+        }
+        return pages;
     }
 
 //    private void setDocument() {

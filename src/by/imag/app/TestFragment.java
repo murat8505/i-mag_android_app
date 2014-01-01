@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,7 +41,6 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     private static final String GRID_STATE = "gridState";
     private static final String IS_UPDATED = "isUpdated";
     private static final String PAGE = "page";
-    private static int index;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +49,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         appDb = new AppDb(getActivity());
         View rootView = inflater.inflate(R.layout.test_frag_grid, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridView);
+        gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbGridArt);
         btnNext = (ImageButton) rootView.findViewById(R.id.btnNext);
         btnPrev = (ImageButton) rootView.findViewById(R.id.btnPrev);
@@ -56,13 +57,21 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         btnNext.setOnClickListener(this);
         btnPrev.setOnClickListener(this);
         btnRefresh.setOnClickListener(this);
- //        new ArticleSAsync().execute(currentPage);
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(PAGE);
-            int index = savedInstanceState.getInt("index");
-            gridView.setSelection(index);
+//            int index = savedInstanceState.getInt("index");
+//            gridView.setSelection(index);
+//            int offset = savedInstanceState.getInt("offset");
+//            final View first = container.getChildAt(0);
+//            if (first != null) {
+//                offset -= first.getTop();
+//            }
+//            setView();
+//            gridView.scrollBy(0, offset);
+//            logMsg("offset: "+offset);
+        } else {
+            setView();
         }
-        setView();
         return rootView;
     }
 
@@ -70,7 +79,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     public void onResume() {
         super.onResume();
         logMsg("onResume");
-        setView();
+//        setView();
     }
 
     @Override
@@ -82,6 +91,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         logMsg("onCreate");
 
     }
@@ -103,7 +113,11 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         super.onSaveInstanceState(outState);
         logMsg("onSaveInstanceState");
         outState.putInt(PAGE, currentPage);
-        outState.putInt("index", gridView.getFirstVisiblePosition());
+//        int index = gridView.getFirstVisiblePosition();
+//        outState.putInt("index", index);
+//        int verticalSpacing = gridView.getVerticalSpacing();
+//        int offset = (int) (verticalSpacing * getResources().getDisplayMetrics().density);
+//        outState.putInt("offset", offset);
     }
 
     @Override
@@ -120,7 +134,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.btnNext :
 //                loadMore();
-                if (currentPage != lastPage) {
+                if (currentPage < lastPage) {
                     new ArticleSAsync().execute(currentPage + 1);
                 }
                 break;
@@ -148,6 +162,13 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
                 getActivity(), cursor, true);
         gridView.setAdapter(cursorAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //
+            }
+        });
+
 //        logMsg("current page: "+currentPage);
     }
 
@@ -188,8 +209,11 @@ public class TestFragment extends Fragment implements View.OnClickListener{
                 DocumentParser documentParser = new DocumentParser(pageNumber);
                 List<ArticlePreview> articlePreviewList =
                         documentParser.getArticlePreviewList();
-                currentPage = documentParser.getCurrentPage();
-                lastPage = documentParser.getLastPage();
+                int[] pagesNumbers = documentParser.getPages();
+//                currentPage = documentParser.getCurrentPage();
+                currentPage = pagesNumbers[0];
+//                lastPage = documentParser.getLastPage();
+                lastPage = pagesNumbers[1];
                 isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
             }
             return isArticlesUpdated;

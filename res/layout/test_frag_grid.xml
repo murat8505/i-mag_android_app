@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
 
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gridView"
-        android:gravity="center"
         android:stretchMode="columnWidth"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:numColumns="auto_fit"
-        android:columnWidth="160dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+
+        android:scrollingCache="false"
+        android:gravity="fill" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
