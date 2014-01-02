@@ -8,16 +8,7 @@ public class ArticlePreview {
     private String previewText;
     private String articleURL;
     private String imageURL;
-    private Bitmap articleImage;
-
-    public ArticlePreview(String articleTitle, String previewText, String articleURL,
-                          String imageURL, Bitmap articleImage) {
-        this.articleTitle = articleTitle;
-        this.previewText = previewText;
-        this.articleURL = articleURL;
-        this.imageURL = imageURL;
-        this.articleImage = articleImage;
-    }
+    private int articleId;
 
     public ArticlePreview(String articleTitle, String previewText,
                           String articleURL, String imageURL) {
@@ -25,6 +16,8 @@ public class ArticlePreview {
         this.previewText = previewText;
         this.articleURL = articleURL;
         this.imageURL = imageURL;
+        String[] articleStr = articleURL.split("=");
+        this.articleId = Integer.parseInt(articleStr[1]);
     }
 
     public String getArticleTitle() {
@@ -59,20 +52,20 @@ public class ArticlePreview {
         this.imageURL = imageURL;
     }
 
-    public Bitmap getArticleImage() {
-        return articleImage;
+    public int getArticleId() {
+        return articleId;
     }
 
-    public void setArticleImage(Bitmap articleImage) {
-        this.articleImage = articleImage;
+    public void setArticleId(int articleId) {
+        this.articleId = articleId;
     }
 
-    @Override
-    public String toString() {
-        return "\n"+
-                articleTitle + "\n" +
-                previewText + "\n" +
-                articleURL + "\n" +
-                imageURL;
-    }
+//    @Override
+//    public String toString() {
+//        return "\n"+
+//                articleTitle + "\n" +
+//                previewText + "\n" +
+//                articleURL + "\n" +
+//                imageURL;
+//    }
 }

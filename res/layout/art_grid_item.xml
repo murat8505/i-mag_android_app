@@ -21,6 +21,7 @@
         android:background="#b7f5f2ff"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/imageView" />
+        android:layout_alignRight="@+id/imageView"
+        android:textColor="#F33413" />
 
 </RelativeLayout>

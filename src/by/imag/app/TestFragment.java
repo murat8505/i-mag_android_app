@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import by.imag.app.classes.ArticlePreview;
@@ -37,10 +40,11 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     private ImageButton btnNext;
     private ImageButton btnPrev;
     private ImageButton btnRefresh;
-    private View customView;
+    private List<ArticlePreview> posts = new ArrayList<ArticlePreview>();
     private static final String GRID_STATE = "gridState";
     private static final String IS_UPDATED = "isUpdated";
     private static final String PAGE = "page";
+    private boolean loadingMore = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +54,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         View rootView = inflater.inflate(R.layout.test_frag_grid, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridView);
         gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
+        gridScroll();
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbGridArt);
         btnNext = (ImageButton) rootView.findViewById(R.id.btnNext);
         btnPrev = (ImageButton) rootView.findViewById(R.id.btnPrev);
@@ -72,7 +77,30 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         } else {
             setView();
         }
+        new ArticleSAsync().execute(currentPage);
         return rootView;
+    }
+
+    private void gridScroll() {
+        logMsg("gridScroll");
+        gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+//                logMsg("first visible: "+firstVisibleItem);
+//                logMsg("visible items: "+visibleItemCount);
+//                logMsg("total items: "+totalItemCount);
+                int lastInScreen = firstVisibleItem + visibleItemCount;
+                if ((lastInScreen == totalItemCount) && (currentPage < lastPage) && (!loadingMore)) {
+                    new ArticleSAsync().execute(currentPage + 1);
+                }
+            }
+        });
     }
 
     @Override
@@ -158,10 +186,12 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 //    }
 
     private void setView() {
-        Cursor cursor = appDb.getArticlesCursor(currentPage);
-        ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
-                getActivity(), cursor, true);
-        gridView.setAdapter(cursorAdapter);
+//        Cursor cursor = appDb.getArticlesCursor(currentPage);
+//        ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
+//                getActivity(), cursor, true);
+//        gridView.setAdapter(cursorAdapter);
+        PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
+        gridView.setAdapter(postAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -188,9 +218,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
-
-
-    class ArticleSAsync extends AsyncTask<Integer, Void, Boolean> {
+    class ArticleSAsync extends AsyncTask<Integer, Void, List<ArticlePreview>> {
 
         @Override
         protected void onPreExecute() {
@@ -199,38 +227,80 @@ public class TestFragment extends Fragment implements View.OnClickListener{
             btnNext.setEnabled(false);
             btnPrev.setEnabled(false);
             btnRefresh.setEnabled(false);
+            loadingMore = true;
         }
 
         @Override
-        protected Boolean doInBackground(Integer... pages) {
-            boolean isArticlesUpdated = false;
+        protected List<ArticlePreview> doInBackground(Integer... pages) {
+            List<ArticlePreview> articlePreviewList = null;
             int pageNumber = pages[0];
             if (isOnline()) {
                 DocumentParser documentParser = new DocumentParser(pageNumber);
-                List<ArticlePreview> articlePreviewList =
-                        documentParser.getArticlePreviewList();
+                articlePreviewList = documentParser.getArticlePreviewList();
                 int[] pagesNumbers = documentParser.getPages();
 //                currentPage = documentParser.getCurrentPage();
                 currentPage = pagesNumbers[0];
 //                lastPage = documentParser.getLastPage();
                 lastPage = pagesNumbers[1];
-                isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
+//                isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
             }
-            return isArticlesUpdated;
+            return articlePreviewList;
         }
 
         @Override
-        protected void onPostExecute(Boolean isArticlesUpdated) {
-            super.onPostExecute(isArticlesUpdated);
-            if (isArticlesUpdated) {
-                setView();
-            }
+        protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
+            super.onPostExecute(articlePreviewList);
+            posts.addAll(articlePreviewList);
+            gridView.deferNotifyDataSetChanged();
+            loadingMore = false;
             progressBar.setVisibility(View.GONE);
             btnNext.setEnabled(true);
             btnPrev.setEnabled(true);
             btnRefresh.setEnabled(true);
         }
     }
+
+//    class ArticleSAsync extends AsyncTask<Integer, Void, Boolean> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            progressBar.setVisibility(View.VISIBLE);
+//            btnNext.setEnabled(false);
+//            btnPrev.setEnabled(false);
+//            btnRefresh.setEnabled(false);
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Integer... pages) {
+//            boolean isArticlesUpdated = false;
+//            int pageNumber = pages[0];
+//            if (isOnline()) {
+//                DocumentParser documentParser = new DocumentParser(pageNumber);
+//                List<ArticlePreview> articlePreviewList =
+//                        documentParser.getArticlePreviewList();
+//                int[] pagesNumbers = documentParser.getPages();
+////                currentPage = documentParser.getCurrentPage();
+//                currentPage = pagesNumbers[0];
+////                lastPage = documentParser.getLastPage();
+//                lastPage = pagesNumbers[1];
+//                isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
+//            }
+//            return isArticlesUpdated;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean isArticlesUpdated) {
+//            super.onPostExecute(isArticlesUpdated);
+//            if (isArticlesUpdated) {
+//                setView();
+//            }
+//            progressBar.setVisibility(View.GONE);
+//            btnNext.setEnabled(true);
+//            btnPrev.setEnabled(true);
+//            btnRefresh.setEnabled(true);
+//        }
+//    }
 
     class ArticleCursorAdapter extends CursorAdapter {
 
@@ -254,7 +324,6 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 
             String imgUrl = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_IMAGE_URL));
             String articleTitle = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_TITLE));
-
 
             Picasso.with(getActivity().getApplicationContext()).load(imgUrl)
                     .placeholder(R.drawable.placeholder)
