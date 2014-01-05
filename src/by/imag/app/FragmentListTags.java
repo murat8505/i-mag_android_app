@@ -111,14 +111,6 @@ public class FragmentListTags extends ListFragment implements
         Log.d(Constants.LOG_TAG,  ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
-    class TagTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            return null;
-        }
-    }
-
     static class TagsCursorLoader extends CursorLoader {
         AppDb appDb;
 

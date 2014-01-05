@@ -37,9 +37,6 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     private int currentPage = 1;
     private int lastPage;
     private ProgressBar progressBar;
-    private ImageButton btnNext;
-    private ImageButton btnPrev;
-    private ImageButton btnRefresh;
     private List<ArticlePreview> posts = new ArrayList<ArticlePreview>();
     private static final String GRID_STATE = "gridState";
     private static final String IS_UPDATED = "isUpdated";
@@ -56,12 +53,6 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
         gridScroll();
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbGridArt);
-        btnNext = (ImageButton) rootView.findViewById(R.id.btnNext);
-        btnPrev = (ImageButton) rootView.findViewById(R.id.btnPrev);
-        btnRefresh = (ImageButton) rootView.findViewById(R.id.btnRefresh);
-        btnNext.setOnClickListener(this);
-        btnPrev.setOnClickListener(this);
-        btnRefresh.setOnClickListener(this);
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(PAGE);
 //            int index = savedInstanceState.getInt("index");
@@ -77,7 +68,11 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         } else {
             setView();
         }
-        new ArticleSAsync().execute(currentPage);
+        if (isOnline()) {
+            new ArticleSAsync().execute(currentPage);
+        } else {
+            logMsg("device offline");
+        }
         return rootView;
     }
 
@@ -150,23 +145,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnRefresh :
-                new ArticleSAsync().execute(currentPage);
-//                setView();
-                break;
-            case R.id.btnPrev :
-                if (currentPage > 1) {
-                    new ArticleSAsync().execute(currentPage - 1);
-                }
-                break;
-            case R.id.btnNext :
-//                loadMore();
-                if (currentPage < lastPage) {
-                    new ArticleSAsync().execute(currentPage + 1);
-                }
-                break;
-        }
+
     }
 
 //    private void loadMore() {
@@ -224,9 +203,6 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         protected void onPreExecute() {
             super.onPreExecute();
             progressBar.setVisibility(View.VISIBLE);
-            btnNext.setEnabled(false);
-            btnPrev.setEnabled(false);
-            btnRefresh.setEnabled(false);
             loadingMore = true;
         }
 
@@ -250,13 +226,11 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         @Override
         protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
             super.onPostExecute(articlePreviewList);
+            logMsg("articles: " + articlePreviewList);
             posts.addAll(articlePreviewList);
             gridView.deferNotifyDataSetChanged();
             loadingMore = false;
             progressBar.setVisibility(View.GONE);
-            btnNext.setEnabled(true);
-            btnPrev.setEnabled(true);
-            btnRefresh.setEnabled(true);
         }
     }
 
@@ -302,34 +276,4 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 //        }
 //    }
 
-    class ArticleCursorAdapter extends CursorAdapter {
-
-        public ArticleCursorAdapter(Context context, Cursor cursor, boolean autoRequery) {
-            super(context, cursor, autoRequery);
-        }
-
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-            LayoutInflater layoutInflater = LayoutInflater.from(context);
-            View view = layoutInflater.inflate(R.layout.art_grid_item, viewGroup, false);
-            bindView(view, context, cursor);
-            return view;
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-
-            ImageView imgArticlePreview = (ImageView) view.findViewById(R.id.imageView);
-            TextView tvArticleTitle = (TextView) view.findViewById(R.id.tvTitle);
-
-            String imgUrl = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_IMAGE_URL));
-            String articleTitle = cursor.getString(cursor.getColumnIndex(AppDb.ARTICLE_TITLE));
-
-            Picasso.with(getActivity().getApplicationContext()).load(imgUrl)
-                    .placeholder(R.drawable.placeholder)
-                    .error(R.drawable.logo_red)
-                    .into(imgArticlePreview);
-            tvArticleTitle.setText(articleTitle);
-        }
-    }
 }
