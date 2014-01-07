@@ -1,9 +1,10 @@
 package by.imag.app.classes;
 
 
-import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class ArticlePreview {
+public class ArticlePreview implements Parcelable{
     private String articleTitle;
     private String previewText;
     private String articleURL;
@@ -18,6 +19,14 @@ public class ArticlePreview {
         this.imageURL = imageURL;
         String[] articleStr = articleURL.split("=");
         this.articleId = Integer.parseInt(articleStr[1]);
+    }
+
+    public ArticlePreview(Parcel in) {
+        articleTitle = in.readString();
+        previewText = in.readString();
+        articleURL = in.readString();
+        imageURL = in.readString();
+        articleId = in.readInt();
     }
 
     public String getArticleTitle() {
@@ -59,6 +68,31 @@ public class ArticlePreview {
     public void setArticleId(int articleId) {
         this.articleId = articleId;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeString(articleTitle);
+        out.writeString(previewText);
+        out.writeString(articleURL);
+        out.writeString(imageURL);
+        out.writeInt(articleId);
+    }
+
+    public static final Parcelable.Creator<ArticlePreview> CREATOR =
+            new Parcelable.Creator<ArticlePreview>() {
+        public ArticlePreview createFromParcel(Parcel in) {
+            return new ArticlePreview(in);
+        }
+
+        public ArticlePreview[] newArray(int size) {
+            return new ArticlePreview[size];
+        }
+    };
 
 //    @Override
 //    public String toString() {

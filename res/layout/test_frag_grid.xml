@@ -12,11 +12,11 @@
         android:stretchMode="columnWidth"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:numColumns="auto_fit"
         android:layout_alignParentBottom="true"
 
         android:scrollingCache="false"
-        android:gravity="fill" />
+        android:gravity="fill"
+        android:numColumns="@integer/grid_rows" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"

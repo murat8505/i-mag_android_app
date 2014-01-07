@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
@@ -37,10 +38,10 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     private int currentPage = 1;
     private int lastPage;
     private ProgressBar progressBar;
-    private List<ArticlePreview> posts = new ArrayList<ArticlePreview>();
+    private static List<ArticlePreview> posts = new ArrayList<ArticlePreview>();
     private static final String GRID_STATE = "gridState";
-    private static final String IS_UPDATED = "isUpdated";
-    private static final String PAGE = "page";
+    private static final String UPDATE = "update";
+    private final String PAGE = "page";
     private boolean loadingMore = false;
 
     @Override
@@ -50,24 +51,20 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         appDb = new AppDb(getActivity());
         View rootView = inflater.inflate(R.layout.test_frag_grid, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridView);
-        gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
+        PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
+        gridView.setAdapter(postAdapter);
+//        gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
         gridScroll();
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbGridArt);
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(PAGE);
-//            int index = savedInstanceState.getInt("index");
-//            gridView.setSelection(index);
-//            int offset = savedInstanceState.getInt("offset");
-//            final View first = container.getChildAt(0);
-//            if (first != null) {
-//                offset -= first.getTop();
-//            }
-//            setView();
-//            gridView.scrollBy(0, offset);
-//            logMsg("offset: "+offset);
+//            update = savedInstanceState.getBoolean(UPDATE);
+//            posts = (List<ArticlePreview>) savedInstanceState.getParcelable("posts");
+            setView();
         } else {
             setView();
         }
+
         if (isOnline()) {
             new ArticleSAsync().execute(currentPage);
         } else {
@@ -87,9 +84,6 @@ public class TestFragment extends Fragment implements View.OnClickListener{
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem,
                                  int visibleItemCount, int totalItemCount) {
-//                logMsg("first visible: "+firstVisibleItem);
-//                logMsg("visible items: "+visibleItemCount);
-//                logMsg("total items: "+totalItemCount);
                 int lastInScreen = firstVisibleItem + visibleItemCount;
                 if ((lastInScreen == totalItemCount) && (currentPage < lastPage) && (!loadingMore)) {
                     new ArticleSAsync().execute(currentPage + 1);
@@ -108,13 +102,15 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onPause() {
         super.onPause();
+//        update = false;
         logMsg("onPause");
+//        logMsg("update: "+update);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+//        setRetainInstance(true);
         logMsg("onCreate");
 
     }
@@ -131,11 +127,16 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         logMsg("onStart");
     }
 
+
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         logMsg("onSaveInstanceState");
         outState.putInt(PAGE, currentPage);
+//        outState.putParcelableArrayList("posts", (ArrayList<? extends Parcelable>) posts);
+//        outState.putBoolean(UPDATE, false);
+//        outState.putParcelableArrayList("posts", (ArrayList<? extends Parcelable>) posts);
 //        int index = gridView.getFirstVisiblePosition();
 //        outState.putInt("index", index);
 //        int verticalSpacing = gridView.getVerticalSpacing();
@@ -145,40 +146,22 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        //
     }
 
-//    private void loadMore() {
-//        if (currentPage != lastPage) {
-//            int index = gridView.getFirstVisiblePosition();
-//            new ArticleSAsync().execute(currentPage + 1);
-////            setView();
-//            int artOnPage = Constants.ARTICLES_ON_PAGE;
-//            int limit = currentPage * artOnPage;
-//            int offset = currentPage * artOnPage - (artOnPage);
-//            Cursor cursor = appDb.getArticlesCursor(limit, offset);
-//            ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
-//                    getActivity(), cursor, true);
-//            gridView.setAdapter(cursorAdapter);
-//            gridView.setSelection(index);
-//        }
-//    }
-
-    private void setView() {
-//        Cursor cursor = appDb.getArticlesCursor(currentPage);
-//        ArticleCursorAdapter cursorAdapter = new ArticleCursorAdapter(
-//                getActivity(), cursor, true);
-//        gridView.setAdapter(cursorAdapter);
-        PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
-        gridView.setAdapter(postAdapter);
+    private void onGridItemClick() {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //
             }
         });
+    }
 
-//        logMsg("current page: "+currentPage);
+    private void setView() {
+//        PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
+//        gridView.setAdapter(postAdapter);
+        gridView.deferNotifyDataSetChanged();
     }
 
     private boolean isOnline() {
@@ -226,54 +209,14 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         @Override
         protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
             super.onPostExecute(articlePreviewList);
-            logMsg("articles: " + articlePreviewList);
-            posts.addAll(articlePreviewList);
-            gridView.deferNotifyDataSetChanged();
+//            logMsg("articles: " + articlePreviewList);
+            // get id from posts
+            // get id from articlePreviewList
             loadingMore = false;
+            posts.addAll(articlePreviewList);
+            setView();
             progressBar.setVisibility(View.GONE);
         }
+
     }
-
-//    class ArticleSAsync extends AsyncTask<Integer, Void, Boolean> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            progressBar.setVisibility(View.VISIBLE);
-//            btnNext.setEnabled(false);
-//            btnPrev.setEnabled(false);
-//            btnRefresh.setEnabled(false);
-//        }
-//
-//        @Override
-//        protected Boolean doInBackground(Integer... pages) {
-//            boolean isArticlesUpdated = false;
-//            int pageNumber = pages[0];
-//            if (isOnline()) {
-//                DocumentParser documentParser = new DocumentParser(pageNumber);
-//                List<ArticlePreview> articlePreviewList =
-//                        documentParser.getArticlePreviewList();
-//                int[] pagesNumbers = documentParser.getPages();
-////                currentPage = documentParser.getCurrentPage();
-//                currentPage = pagesNumbers[0];
-////                lastPage = documentParser.getLastPage();
-//                lastPage = pagesNumbers[1];
-//                isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
-//            }
-//            return isArticlesUpdated;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(Boolean isArticlesUpdated) {
-//            super.onPostExecute(isArticlesUpdated);
-//            if (isArticlesUpdated) {
-//                setView();
-//            }
-//            progressBar.setVisibility(View.GONE);
-//            btnNext.setEnabled(true);
-//            btnPrev.setEnabled(true);
-//            btnRefresh.setEnabled(true);
-//        }
-//    }
-
 }
