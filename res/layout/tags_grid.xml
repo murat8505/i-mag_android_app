@@ -3,19 +3,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <WebView
-        android:layout_width="match_parent"
+    <GridView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/wvArticle"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true" />
+        android:id="@+id/gridTags"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:numColumns="auto_fit" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pbArticle"
+        android:id="@+id/pbTags"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />

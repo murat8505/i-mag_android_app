@@ -55,6 +55,25 @@ public class DocumentParser {
         return articlePreviews;
     }
 
+    public List<TagItem> getTags() {
+        List<TagItem> tags = new ArrayList<TagItem>();
+        if (document != null ){
+            Elements categories = document.select("div[id=categories]");
+            Elements titles = categories.select("a[title]");
+            for (Element e: titles) {
+                Elements span = e.select("span");
+                Element spanElement = span.get(0);
+                String tagNamePostCount = e.text();
+                String tagName = tagNamePostCount.replaceAll("\\s\\d*$", "");
+                String tagURL = e.attr("href");
+                int postCount = Integer.parseInt(spanElement.text());
+                TagItem tagItem = new TagItem(tagName, tagURL, postCount);
+                tags.add(tagItem);
+            }
+        }
+        return tags;
+    }
+
     public int getCurrentPage() {
         int page = 0;
         if (document != null) {

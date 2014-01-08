@@ -2,6 +2,7 @@ package by.imag.app;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -153,7 +155,20 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //
+                ArticlePreview ap = posts.get(position);
+                int articleId = ap.getArticleId();
+                String postTitle = ap.getArticleTitle();
+                logMsg("post: "+articleId);
+                Intent viewPostIntent = new Intent(getActivity(), ArticleActivity.class);
+                Bundle article = new Bundle();
+                article.putInt("articleId", articleId);
+                article.putString("postTitle", postTitle);
+                article.putString("postText", ap.getPreviewText());
+                viewPostIntent.putExtra(Constants.INTENT_POST, article);
+//                FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+//                        .beginTransaction();
+//                transaction.addToBackStack(null);
+                startActivity(viewPostIntent);
             }
         });
     }
@@ -162,6 +177,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 //        PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
 //        gridView.setAdapter(postAdapter);
         gridView.deferNotifyDataSetChanged();
+        onGridItemClick();
     }
 
     private boolean isOnline() {
@@ -213,10 +229,27 @@ public class TestFragment extends Fragment implements View.OnClickListener{
             // get id from posts
             // get id from articlePreviewList
             loadingMore = false;
-            posts.addAll(articlePreviewList);
-            setView();
+            if (comparePosts(articlePreviewList)) {
+                posts.addAll(articlePreviewList);
+                setView();
+            }
             progressBar.setVisibility(View.GONE);
         }
 
+        private boolean comparePosts(List<ArticlePreview> articlePreviewList) {
+            boolean addPosts = true;
+            int postsSize = posts.size();
+            int articlesSize = articlePreviewList.size();
+            if (postsSize > 0 && articlesSize > 0) {
+                int lastPostId = posts.get(postsSize - 1).getArticleId();
+                int articlesLastId = articlePreviewList.get(articlesSize - 1).getArticleId();
+                if (lastPostId == articlesLastId) {
+                    addPosts = false;
+                } else {
+                    addPosts = true;
+                }
+            }
+            return addPosts;
+        }
     }
 }

@@ -156,6 +156,37 @@ public class AppDb extends SQLiteOpenHelper{
         return articlePreview;
     }
 
+    public TagItem getTagItem(long _id) {
+        TagItem tagItem = null;
+        db = this.getReadableDatabase();
+        String table = TAGS_TABLE;
+        String[] columns = {TAG_NAME, TAG_URL, TAG_POSTS};
+        String selection = "_id" + " = " + _id;
+        Cursor cursor = db.query(table, columns, selection, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            String tagName = cursor.getString(cursor.getColumnIndex(TAG_NAME));
+            String tagUrl = cursor.getString(cursor.getColumnIndex(TAG_URL));
+            int postCount = cursor.getInt(cursor.getColumnIndex(TAG_POSTS));
+            tagItem = new TagItem(tagName, tagUrl, postCount);
+        }
+        this.close();
+        return tagItem;
+    }
+
+    public String getTagUrl(long _id) {
+        String tagUrl = "";
+        db = this.getReadableDatabase();
+        String table = TAGS_TABLE;
+        String[] columns = {TAG_URL};
+        String selection = "_id" + " = " + _id;
+        Cursor cursor = db.query(table, columns, selection, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            tagUrl = cursor.getString(cursor.getColumnIndex(TAG_URL));
+        }
+        this.close();
+        return tagUrl;
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         logMsg("create db");

@@ -10,6 +10,7 @@
     <string name="no_data">Нет данных</string>
     <string name="previous_page">Предыдущая страница</string>
     <string name="next_page">Следующая страница</string>
+    <string name="share">Поделиться</string>
 
     <string-array name="menu_items">
         <item>Статьи</item>

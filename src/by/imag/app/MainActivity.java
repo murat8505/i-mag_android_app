@@ -45,68 +45,68 @@ public class MainActivity extends FragmentActivity {
     protected void onStart() {
         super.onStart();
         logMsg("onStart");
-        sConn = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder iBinder) {
-                logMsg("service connected");
-                appService = ((AppService.ServiceBinder) iBinder).getService();
-                isServiceBound = true;
-//                serviceUpdate();
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName componentName) {
-                logMsg("service disconnected");
-                isServiceBound = false;
-            }
-        };
-        serviceIntent = new Intent(this, AppService.class);
-        startService(serviceIntent);
-        bindService(serviceIntent, sConn, 0);
+//        sConn = new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder iBinder) {
+//                logMsg("service connected");
+//                appService = ((AppService.ServiceBinder) iBinder).getService();
+//                isServiceBound = true;
+////                serviceUpdate();
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName componentName) {
+//                logMsg("service disconnected");
+//                isServiceBound = false;
+//            }
+//        };
+//        serviceIntent = new Intent(this, AppService.class);
+//        startService(serviceIntent);
+//        bindService(serviceIntent, sConn, 0);
     }
 
-    ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-            logMsg("service connected");
-            appService = ((AppService.ServiceBinder) iBinder).getService();
-            isServiceBound = true;
-//            serviceUpdate();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName) {
-            logMsg("service disconnected");
-            isServiceBound = false;
-        }
-    };
-
-    private void serviceUpdate() {
-        startService(serviceIntent);
-        if (appService == null) {
-            logMsg("service - null");
-        } else {
-            appService.parse();
-        }
-    }
-
-    public void serviceParseNext() {
-        logMsg("parse next");
-        if (appService != null) {
-            appService.parseNext();
-        } else {
-            logMsg("service == null");
-        }
-    }
-
-    public void serviceParsePrev() {
-        logMsg("parse prev");
-        if (appService != null) {
-            appService.parsePrevious();
-        } else {
-            logMsg("service == null");
-        }
-    }
+//    ServiceConnection serviceConnection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+//            logMsg("service connected");
+//            appService = ((AppService.ServiceBinder) iBinder).getService();
+//            isServiceBound = true;
+////            serviceUpdate();
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName componentName) {
+//            logMsg("service disconnected");
+//            isServiceBound = false;
+//        }
+//    };
+//
+//    private void serviceUpdate() {
+//        startService(serviceIntent);
+//        if (appService == null) {
+//            logMsg("service - null");
+//        } else {
+//            appService.parse();
+//        }
+//    }
+//
+//    public void serviceParseNext() {
+//        logMsg("parse next");
+//        if (appService != null) {
+//            appService.parseNext();
+//        } else {
+//            logMsg("service == null");
+//        }
+//    }
+//
+//    public void serviceParsePrev() {
+//        logMsg("parse prev");
+//        if (appService != null) {
+//            appService.parsePrevious();
+//        } else {
+//            logMsg("service == null");
+//        }
+//    }
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -161,8 +161,8 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         logMsg("onDestroy");
-        unbindService(sConn);
-        stopService(serviceIntent);
+//        unbindService(sConn);
+//        stopService(serviceIntent);
     }
 
     private void selectItem(int position) {
@@ -178,7 +178,7 @@ public class MainActivity extends FragmentActivity {
             break;
             case 1:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
-                        new FragmentListTags()).commit();
+                        new FragmentTags()).commit();
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 2:
@@ -220,7 +220,7 @@ public class MainActivity extends FragmentActivity {
             switch (item.getItemId()) {
                 case R.id.action_update:
                     logMsg("action update");
-                    serviceUpdate();
+//                    serviceUpdate();
                     return true;
                 default:
                     return super.onOptionsItemSelected(item);
