@@ -2,16 +2,20 @@ package by.imag.app;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -29,6 +33,8 @@ public class FragmentTags extends Fragment {
     private ProgressBar progressBar;
     private AppDb appDb;
     private Cursor cursor;
+    private SharedPreferences preferences;
+    private boolean update;
 //    private TagsCursorAdapter cursorAdapter;
 
     @Override
@@ -39,6 +45,8 @@ public class FragmentTags extends Fragment {
         gridView = (GridView) rootView.findViewById(R.id.gridTags);
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbTags);
         progressBar.setVisibility(View.GONE);
+        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        loadPreferences();
         new TagsLoader().execute();
 //        setView();
         return rootView;
@@ -50,12 +58,42 @@ public class FragmentTags extends Fragment {
         setView();
     }
 
+    private void loadPreferences() {
+        update = preferences.getBoolean(Constants.UPDATE_TAGS, true);
+    }
+
+    private void savePreferences() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.UPDATE_TAGS, false);
+        editor.commit();
+    }
+
     private void setView() {
         cursor = appDb.getTagsCursor();
         logMsg("cursor: "+cursor);
         TagsCursorAdapter cursorAdapter = new TagsCursorAdapter(getActivity(), cursor, true);
         logMsg("cursorAdapter: "+cursorAdapter);
         gridView.setAdapter(cursorAdapter);
+        tagClick();
+    }
+
+    private void tagClick() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view,
+                                    int position, long _id) {
+                TagItem tagItem = appDb.getTagItem(_id);
+                String tagUrl = tagItem.getTagURL();
+                String tagName = tagItem.getTagName();
+//                logMsg("tag URL: "+tagUrl);
+                Fragment testFragment = new TestFragment(tagUrl, tagName);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager()
+                        .beginTransaction();
+                transaction.replace(R.id.content_frame, testFragment);
+//                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
     }
 
     private boolean isOnline() {
@@ -85,7 +123,7 @@ public class FragmentTags extends Fragment {
         @Override
         protected Boolean doInBackground(Void... voids) {
             boolean tagsUpdated = false;
-            if (isOnline()) {
+            if (isOnline() && update) {
                 DocumentParser documentParser = new DocumentParser(1);
                 List<TagItem> tags = documentParser.getTags();
                 tagsUpdated = appDb.writeTagTable(tags);
@@ -98,6 +136,7 @@ public class FragmentTags extends Fragment {
             super.onPostExecute(tagsUpdated);
             if (tagsUpdated) {
                 setView();
+                savePreferences();
             }
             progressBar.setVisibility(View.GONE);
         }

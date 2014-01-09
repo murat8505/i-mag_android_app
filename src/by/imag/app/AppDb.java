@@ -18,11 +18,16 @@ import by.imag.app.classes.TagItem;
 public class AppDb extends SQLiteOpenHelper{
     private SQLiteDatabase db;
     public static final String TAGS_TABLE = "tags_table";
+    public static final String ARCHIVES_TABLE = "archivesTable";
     public static final String ARTICLES_TABLE = "articles_table";
 
     public static final String TAG_NAME = "tagName";
     public static final String TAG_URL = "tagURL";
     public static final String TAG_POSTS = "tagPosts";
+
+    public static final String ARCH_NAME = "archName";
+    public static final String ARCH_URL = "archUrl";
+    public static final String ARCH_ID = "archId";
 
     public static final String ARTICLE_TITLE = "articleTitle";
     public static final String ARTICLE_TEXT = "articleText";
@@ -195,7 +200,7 @@ public class AppDb extends SQLiteOpenHelper{
 //        String sqlString = "create table " + TAGS_TABLE;
         Formatter formatter = new Formatter();
         formatter.format(formatString, TAGS_TABLE, TAG_NAME, TAG_URL, TAG_POSTS);
-        logMsg("sql: "+formatter.toString());
+//        logMsg("sql: "+formatter.toString());
         String sqlString = formatter.toString();
         db.execSQL(sqlString);
 
@@ -206,8 +211,15 @@ public class AppDb extends SQLiteOpenHelper{
         Formatter artFormatter = new Formatter();
         artFormatter.format(formatString, ARTICLES_TABLE, ARTICLE_TITLE, ARTICLE_TEXT, ARTICLE_URL,
                 ARTICLE_IMAGE_URL, ARTICLE_ID);
-        logMsg("sql: "+artFormatter.toString());
+//        logMsg("sql: "+artFormatter.toString());
         sqlString = artFormatter.toString();
+        db.execSQL(sqlString);
+
+        formatString = "create table %s (_id integer primary key autoincrement, " +
+                "%s text, %s text, %s integer);";
+        Formatter archFormatter = new Formatter();
+        archFormatter.format(formatString, ARCHIVES_TABLE, ARCH_NAME, ARCH_URL, ARCH_ID);
+        sqlString = archFormatter.toString();
         db.execSQL(sqlString);
     }
 

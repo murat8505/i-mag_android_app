@@ -6,17 +6,8 @@
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridTags"
+        android:id="@+id/gridArch"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:numColumns="@integer/grid_rows" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/pbTags"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
 </RelativeLayout>

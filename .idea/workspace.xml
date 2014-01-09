@@ -28,6 +28,12 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/res/layout/arch_grid.xml">
+        <config>
+          <device>Nexus S</device>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/res/layout/article.xml">
         <config>
           <device>Nexus S</device>
@@ -74,26 +80,25 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CUSTOM_FILTER" value="by.imag.app" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="myLogs" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f4949d6-23a3-482f-9196-311d8b938e62" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/imag/app/ArticleActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/imag/app/FragmentTags.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/menu/menu_post.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/tags_grid.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-hdpi/background_normal.9.png" afterPath="$PROJECT_DIR$/res/drawable-hdpi/background_normal.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/background.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/background_red.9.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/ArchiveItem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/by/imag/app/FragmentArchives.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/arch_grid.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/AppDb.java" afterPath="$PROJECT_DIR$/src/by/imag/app/AppDb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java" afterPath="$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/FragmentTags.java" afterPath="$PROJECT_DIR$/src/by/imag/app/FragmentTags.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" afterPath="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" afterPath="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/by/imag/app/TestFragment.java" afterPath="$PROJECT_DIR$/src/by/imag/app/TestFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/article.xml" afterPath="$PROJECT_DIR$/res/layout/article.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/menu/main.xml" afterPath="$PROJECT_DIR$/res/menu/main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/art_grid_item.xml" afterPath="$PROJECT_DIR$/res/layout/art_grid_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/tag_item.xml" afterPath="$PROJECT_DIR$/res/layout/tag_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/tags_grid.xml" afterPath="$PROJECT_DIR$/res/layout/tags_grid.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="i-mag_android_app.iws" />
@@ -161,14 +166,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="180" column="36" selection-start="6357" selection-end="6357" vertical-scroll-proportion="0.4056604" vertical-offset="1578" max-vertical-offset="3312">
-              <folding>
-                <element signature="e#1447#1490#0" expanded="false" />
-                <element signature="e#2205#2274#0" expanded="false" />
-              </folding>
+            <state line="171" column="26" selection-start="5853" selection-end="5853" vertical-scroll-proportion="0.0" vertical-offset="3078" max-vertical-offset="4968">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -176,16 +178,28 @@
       <file leaf-file-name="FragmentTags.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentTags.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="59" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="2106">
+            <state line="31" column="30" selection-start="917" selection-end="917" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2664">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FragmentListArticles.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
+      <file leaf-file-name="arch_grid.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/arch_grid.xml">
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="324">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FragmentArchives.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentArchives.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="170" column="45" selection-start="5963" selection-end="5963" vertical-scroll-proportion="0.0" vertical-offset="216" max-vertical-offset="3528">
+            <state line="16" column="75" selection-start="517" selection-end="517" vertical-scroll-proportion="0.31132075" vertical-offset="0" max-vertical-offset="636">
               <folding />
             </state>
           </provider>
@@ -226,7 +240,6 @@
         <option value="$PROJECT_DIR$/res/layout/articles_list_fragment.xml" />
         <option value="$PROJECT_DIR$/res/layout/article_list_item.xml" />
         <option value="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserPageThread.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" />
         <option value="$PROJECT_DIR$/src/by/imag/app/AppService.java" />
         <option value="$PROJECT_DIR$/res/layout/test_fragment.xml" />
         <option value="$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java" />
@@ -235,20 +248,25 @@
         <option value="$PROJECT_DIR$/res/layout-land/test_frag_grid.xml" />
         <option value="$PROJECT_DIR$/res/layout-land/art_grid_item.xml" />
         <option value="$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/TestFragment.java" />
         <option value="$PROJECT_DIR$/res/menu/main.xml" />
         <option value="$PROJECT_DIR$/src/by/imag/app/ArticleActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/article.xml" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/res/menu/menu_post.xml" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/AppDb.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java" />
-        <option value="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" />
         <option value="$PROJECT_DIR$/res/layout/tags_grid.xml" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java" />
         <option value="$PROJECT_DIR$/src/by/imag/app/FragmentTags.java" />
         <option value="$PROJECT_DIR$/res/layout/tag_item.xml" />
+        <option value="$PROJECT_DIR$/res/layout/art_grid_item.xml" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/Constants.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/classes/ArchiveItem.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/TestFragment.java" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/AppDb.java" />
+        <option value="$PROJECT_DIR$/res/layout/arch_grid.xml" />
+        <option value="$PROJECT_DIR$/src/by/imag/app/FragmentArchives.java" />
       </list>
     </option>
   </component>
@@ -483,6 +501,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -541,10 +561,76 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-xxhdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="i-mag_android_app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-hdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -574,8 +660,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/libs" />
       <recent name="$PROJECT_DIR$/res/drawable-hdpi" />
+      <recent name="$PROJECT_DIR$/libs" />
       <recent name="$PROJECT_DIR$/res/drawable" />
       <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/res/drawable-mdpi" />
@@ -745,6 +831,11 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SliceManager">
+    <option name="analysisUIOptions">
+      <AnalysisUIOptions />
+    </option>
+  </component>
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
@@ -796,7 +887,11 @@
       <created>1387466623604</created>
       <updated>1387466623605</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="New article Activity&#10;Check articles in articles fragment before update&#10;New tags fragment&#10;">
+      <created>1389192149212</created>
+      <updated>1389192149212</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -806,28 +901,28 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32538736" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32968882" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880846" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32880846" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781956" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32579187" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44193062" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44042233" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24978974" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24474348" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31975868" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.318797" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32968882" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32781956" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -852,105 +947,38 @@
     <MESSAGE value="get article preview list&#10;check http connection in thread&#10;" />
     <MESSAGE value="load articles without images&#10;" />
     <MESSAGE value="Added awesome Picasso lib&#10;next/previous page buttons in action bar&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added awesome Picasso lib&#10;next/previous page buttons in action bar&#10;" />
+    <MESSAGE value="New article Activity&#10;Check articles in articles fragment before update&#10;New tags fragment&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="New article Activity&#10;Check articles in articles fragment before update&#10;New tags fragment&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/layout/drawer_list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="31" selection-start="140" selection-end="140" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="486">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/drawer_list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="582" selection-end="582" vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="30" selection-start="1742" selection-end="1742" vertical-scroll-proportion="0.0" vertical-offset="828" max-vertical-offset="1422">
-          <folding>
-            <element signature="e#1447#1490#0" expanded="false" />
-            <element signature="e#2205#2274#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="738" selection-end="738" vertical-scroll-proportion="0.0" vertical-offset="360" max-vertical-offset="486">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/drawer_list_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="582" selection-end="582" vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="360">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="0" selection-start="608" selection-end="608" vertical-scroll-proportion="0.0" vertical-offset="468" max-vertical-offset="576">
-          <folding>
-            <element signature="e#1447#1490#0" expanded="false" />
-            <element signature="e#2205#2274#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/list_item.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="324">
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="38" selection-start="277" selection-end="277" vertical-scroll-proportion="0.21105528" vertical-offset="0" max-vertical-offset="597">
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-xxhdpi/ic_launcher.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_launcher.png">
@@ -969,43 +997,44 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/drawer_list_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="66" selection-start="473" selection-end="535" vertical-scroll-proportion="0.3305509" vertical-offset="0" max-vertical-offset="599">
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/test_activity.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/BitmapLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="27" selection-start="917" selection-end="917" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="936">
-          <folding />
-        </state>
+        <state line="29" column="27" selection-start="917" selection-end="917" vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="936" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/articles_list.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="6" column="0" selection-start="235" selection-end="235" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="342">
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/articles_list_fragment.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/articles_list_fragment.xml">
       <provider editor-type-id="text-editor">
         <state line="22" column="0" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
           <folding>
@@ -1013,18 +1042,15 @@
           </folding>
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/article_list_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="28" selection-start="401" selection-end="401" vertical-scroll-proportion="-0.055276383" vertical-offset="213" max-vertical-offset="810">
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/ArticlePreview.java">
@@ -1034,81 +1060,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="40" selection-start="869" selection-end="869" vertical-scroll-proportion="0.7776" vertical-offset="0" max-vertical-offset="21960">
-          <folding />
-        </state>
+        <state line="27" column="40" selection-start="869" selection-end="869" vertical-scroll-proportion="0.7776" vertical-offset="0" max-vertical-offset="21960" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserPageThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="45" selection-start="465" selection-end="465" vertical-scroll-proportion="0.36792454" vertical-offset="0" max-vertical-offset="636">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="61" selection-start="624" selection-end="624" vertical-scroll-proportion="0.16981132" vertical-offset="0" max-vertical-offset="918">
-          <folding />
-        </state>
+        <state line="20" column="45" selection-start="465" selection-end="465" vertical-scroll-proportion="0.36792454" vertical-offset="0" max-vertical-offset="636" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="29" selection-start="3259" selection-end="3259" vertical-scroll-proportion="0.0" vertical-offset="786" max-vertical-offset="1800">
-          <folding />
-        </state>
+        <state line="92" column="29" selection-start="3259" selection-end="3259" vertical-scroll-proportion="0.0" vertical-offset="786" max-vertical-offset="1800" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/test_fragment.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="30" column="0" selection-start="1068" selection-end="1068" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="648">
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/TestActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="78" selection-end="78" vertical-scroll-proportion="0.11285266" vertical-offset="0" max-vertical-offset="638">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="58" selection-start="421" selection-end="421" vertical-scroll-proportion="0.28301886" vertical-offset="0" max-vertical-offset="636">
-          <folding />
-        </state>
+        <state line="5" column="0" selection-start="78" selection-end="78" vertical-scroll-proportion="0.11285266" vertical-offset="0" max-vertical-offset="638" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="48" selection-start="1051" selection-end="1051" vertical-scroll-proportion="0.88921285" vertical-offset="199" max-vertical-offset="702">
           <folding>
-            <element signature="e#552#570#0" expanded="true" />
-            <element signature="e#709#727#0" expanded="true" />
+            <element signature="e#552#570#0" expanded="false" />
+            <element signature="e#709#727#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/ArticleFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="44" selection-start="2023" selection-end="2023" vertical-scroll-proportion="1.271268" vertical-offset="0" max-vertical-offset="1926">
-          <folding />
-        </state>
+        <state line="66" column="44" selection-start="2023" selection-end="2023" vertical-scroll-proportion="1.271268" vertical-offset="0" max-vertical-offset="1926" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/article.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
           <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
@@ -1120,110 +1122,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/menu/main.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="49" selection-start="305" selection-end="305" vertical-scroll-proportion="0.20224719" vertical-offset="0" max-vertical-offset="623">
-          <folding />
-        </state>
+        <state line="7" column="49" selection-start="305" selection-end="305" vertical-scroll-proportion="0.20224719" vertical-offset="0" max-vertical-offset="623" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/menu/menu_post.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="7" selection-start="480" selection-end="480" vertical-scroll-proportion="0.40449437" vertical-offset="0" max-vertical-offset="623">
-          <folding />
-        </state>
+        <state line="14" column="7" selection-start="480" selection-end="480" vertical-scroll-proportion="0.40449437" vertical-offset="0" max-vertical-offset="623" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/tags_list.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/ArticleActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="147" column="57" selection-start="5524" selection-end="5524" vertical-scroll-proportion="0.0" vertical-offset="1087" max-vertical-offset="3060">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="147" column="57" selection-start="5524" selection-end="5524" vertical-scroll-proportion="0.0" vertical-offset="1087" max-vertical-offset="3060" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/test_frag_grid.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
           <folding />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/TagItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="5" selection-start="306" selection-end="306" vertical-scroll-proportion="0.31132075" vertical-offset="0" max-vertical-offset="636">
-          <folding />
-        </state>
+        <state line="11" column="5" selection-start="306" selection-end="306" vertical-scroll-proportion="0.31132075" vertical-offset="0" max-vertical-offset="636" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/PostAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="25" selection-start="1299" selection-end="1299" vertical-scroll-proportion="0.3773585" vertical-offset="444" max-vertical-offset="1080">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppDb.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="183" column="70" selection-start="7926" selection-end="7926" vertical-scroll-proportion="0.7893082" vertical-offset="2576" max-vertical-offset="3888">
-          <folding />
-        </state>
+        <state line="51" column="25" selection-start="1299" selection-end="1299" vertical-scroll-proportion="0.3773585" vertical-offset="444" max-vertical-offset="1080" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="9" selection-start="4171" selection-end="4849" vertical-scroll-proportion="0.0" vertical-offset="1686" max-vertical-offset="3348">
-          <folding>
-            <element signature="e#6154#6207#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="47" selection-start="2515" selection-end="2515" vertical-scroll-proportion="0.5471698" vertical-offset="624" max-vertical-offset="2682">
-          <folding>
-            <element signature="e#2016#2025#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="149" column="9" selection-start="4171" selection-end="4849" vertical-scroll-proportion="0.0" vertical-offset="1686" max-vertical-offset="3348" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListTags.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="56" selection-start="3703" selection-end="3703" vertical-scroll-proportion="2.009434" vertical-offset="0" max-vertical-offset="1692">
-          <folding>
-            <element signature="e#2536#2570#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="170" column="45" selection-start="5963" selection-end="5963" vertical-scroll-proportion="0.0" vertical-offset="1890" max-vertical-offset="3528">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/tags_grid.xml">
-      <provider editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
+        <state line="113" column="56" selection-start="3703" selection-end="3703" vertical-scroll-proportion="2.009434" vertical-offset="0" max-vertical-offset="1692" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable/placeholder.png">
@@ -1239,6 +1188,31 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/HtmlParserThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="36" selection-start="1169" selection-end="1169" vertical-scroll-proportion="0.0" vertical-offset="28" max-vertical-offset="990" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/tags_grid.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentListArticles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="120" column="28" selection-start="4498" selection-end="4498" vertical-scroll-proportion="0.78996867" vertical-offset="918" max-vertical-offset="3600">
+          <folding>
+            <element signature="e#3646#4581#0" expanded="false" />
+            <element signature="e#4570#4571#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/background_normal.9.png">
       <provider editor-type-id="images">
         <state />
@@ -1247,37 +1221,123 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/tag_item.xml">
-      <provider editor-type-id="text-editor">
-        <state line="10" column="4" selection-start="384" selection-end="384" vertical-scroll-proportion="0.0" vertical-offset="54" max-vertical-offset="630">
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentTags.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="59" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2106">
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_drawer.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xxhdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/art_grid_item.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/by/imag/app/TestFragment.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/tag_item.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="10" column="4" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="612">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="165" column="67" selection-start="5782" selection-end="5782" vertical-scroll-proportion="-1.0513644" vertical-offset="3031" max-vertical-offset="4086">
+        <state line="14" column="60" selection-start="671" selection-end="671" vertical-scroll-proportion="0.39498433" vertical-offset="0" max-vertical-offset="638">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/imag/app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="36" selection-start="6357" selection-end="6357" vertical-scroll-proportion="0.4056604" vertical-offset="1578" max-vertical-offset="3312">
+        <state line="171" column="26" selection-start="5853" selection-end="5853" vertical-scroll-proportion="0.0" vertical-offset="1324" max-vertical-offset="3564">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/DocumentParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="45" selection-start="3519" selection-end="3519" vertical-scroll-proportion="0.0" vertical-offset="954" max-vertical-offset="3294">
           <folding>
-            <element signature="e#1447#1490#0" expanded="false" />
-            <element signature="e#2205#2274#0" expanded="false" />
+            <element signature="e#2162#2171#0" expanded="false" />
+            <element signature="e#2989#3002#0" expanded="false" />
+            <element signature="e#4429#4481#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/AppDb.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="222" column="30" selection-start="9681" selection-end="9681" vertical-scroll-proportion="0.6509434" vertical-offset="3366" max-vertical-offset="4104">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/TestFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="230" column="47" selection-start="8453" selection-end="8453" vertical-scroll-proportion="0.34670946" vertical-offset="3312" max-vertical-offset="4338">
+          <folding>
+            <element signature="e#4571#4663#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/classes/ArchiveItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="52" selection-start="537" selection-end="537" vertical-scroll-proportion="0.509434" vertical-offset="0" max-vertical-offset="918">
+          <folding>
+            <element signature="e#577#578#0" expanded="true" />
+            <element signature="e#608#609#0" expanded="true" />
+            <element signature="e#656#657#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#730#731#0" expanded="true" />
+            <element signature="e#760#761#0" expanded="true" />
+            <element signature="e#806#807#0" expanded="true" />
+            <element signature="e#844#845#0" expanded="true" />
+            <element signature="e#874#875#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+            <element signature="e#944#945#0" expanded="true" />
+            <element signature="e#980#981#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentTags.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="30" selection-start="917" selection-end="917" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2664">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/arch_grid.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/by/imag/app/FragmentArchives.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="75" selection-start="517" selection-end="517" vertical-scroll-proportion="0.31132075" vertical-offset="0" max-vertical-offset="636">
+          <folding />
         </state>
       </provider>
     </entry>

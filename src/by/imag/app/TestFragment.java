@@ -1,31 +1,24 @@
 package by.imag.app;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,21 +29,32 @@ import by.imag.app.classes.DocumentParser;
 
 public class TestFragment extends Fragment implements View.OnClickListener{
     private AppDb appDb;
+    private SharedPreferences preferences;
     private GridView gridView;
     private int currentPage = 1;
     private int lastPage;
     private ProgressBar progressBar;
-    private static List<ArticlePreview> posts = new ArrayList<ArticlePreview>();
-    private static final String GRID_STATE = "gridState";
-    private static final String UPDATE = "update";
+    private  List<ArticlePreview> posts = new ArrayList<ArticlePreview>();
     private final String PAGE = "page";
     private boolean loadingMore = false;
+    private boolean update = true;
+    private String tagUrl;
+    private String tagName;
+
+    public TestFragment(String tagUrl, String tagName) {
+        this.tagUrl = tagUrl;
+        this.tagName = tagName;
+    }
+
+    public TestFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         logMsg("onCreateView");
         appDb = new AppDb(getActivity());
+        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         View rootView = inflater.inflate(R.layout.test_frag_grid, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridView);
         PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
@@ -66,12 +70,13 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         } else {
             setView();
         }
-
-        if (isOnline()) {
-            new ArticleSAsync().execute(currentPage);
+//        loadPreferences();
+        if (isOnline() && update) {
+            new AsyncPostsLoader().execute(currentPage);
         } else {
             logMsg("device offline");
         }
+        update = true;
         return rootView;
     }
 
@@ -88,47 +93,45 @@ public class TestFragment extends Fragment implements View.OnClickListener{
                                  int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
                 if ((lastInScreen == totalItemCount) && (currentPage < lastPage) && (!loadingMore)) {
-                    new ArticleSAsync().execute(currentPage + 1);
+                    new AsyncPostsLoader().execute(currentPage + 1);
                 }
             }
         });
+    }
+
+    private void savePreferences() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.UPDATE_POSTS, false);
+        editor.commit();
+    }
+
+    private void loadPreferences() {
+        update = preferences.getBoolean(Constants.UPDATE_POSTS, true);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         logMsg("onResume");
-//        setView();
+//        loadPreferences();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        update = false;
         logMsg("onPause");
-//        logMsg("update: "+update);
+        update = false;
+        logMsg("update: "+update);
+//        savePreferences();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRetainInstance(true);
+
+        setRetainInstance(true);
         logMsg("onCreate");
-
     }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        logMsg("onActivityCreated");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        logMsg("onStart");
-    }
-
 
 
     @Override
@@ -145,6 +148,7 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 //        int offset = (int) (verticalSpacing * getResources().getDisplayMetrics().density);
 //        outState.putInt("offset", offset);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -178,6 +182,9 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 //        gridView.setAdapter(postAdapter);
         gridView.deferNotifyDataSetChanged();
         onGridItemClick();
+        if (tagName != null && tagUrl != null) {
+            getActivity().getActionBar().setSubtitle(tagName);
+        }
     }
 
     private boolean isOnline() {
@@ -196,7 +203,8 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
-    class ArticleSAsync extends AsyncTask<Integer, Void, List<ArticlePreview>> {
+
+    class AsyncPostsLoader extends AsyncTask<Integer, Void, List<ArticlePreview>> {
 
         @Override
         protected void onPreExecute() {
@@ -210,14 +218,20 @@ public class TestFragment extends Fragment implements View.OnClickListener{
             List<ArticlePreview> articlePreviewList = null;
             int pageNumber = pages[0];
             if (isOnline()) {
-                DocumentParser documentParser = new DocumentParser(pageNumber);
-                articlePreviewList = documentParser.getArticlePreviewList();
-                int[] pagesNumbers = documentParser.getPages();
+                if (tagUrl != null) {
+                    DocumentParser documentParser = new DocumentParser(tagUrl);
+                    articlePreviewList = documentParser.getArticlePreviewList();
+                } else {
+                    DocumentParser documentParser = new DocumentParser(pageNumber);
+                    articlePreviewList = documentParser.getArticlePreviewList();
+                    int[] pagesNumbers = documentParser.getPages();
 //                currentPage = documentParser.getCurrentPage();
-                currentPage = pagesNumbers[0];
+                    currentPage = pagesNumbers[0];
 //                lastPage = documentParser.getLastPage();
-                lastPage = pagesNumbers[1];
-//                isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
+                    lastPage = pagesNumbers[1];
+//                    documentParser.getArchives();
+                }
+
             }
             return articlePreviewList;
         }

@@ -28,6 +28,10 @@ public class HtmlParserThread implements Callable<Document>{
         this.pageURLString = Constants.PAGE + pageNumber;
     }
 
+    public HtmlParserThread(String pageURLString) {
+        this.pageURLString = pageURLString;
+    }
+
     @Override
     public Document call() throws Exception {
         Document htmlDocument = null;

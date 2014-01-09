@@ -18,11 +18,17 @@ import java.util.regex.Pattern;
 
 public class DocumentParser {
     private int pageNumber = 1;
+    private String tagUrl;
     private Document document = null;
 
     public DocumentParser(int pageNumber) {
         this.pageNumber = pageNumber;
         this.document = parse();
+    }
+
+    public DocumentParser(String tagUrl) {
+        this.tagUrl = tagUrl;
+        this.document = parse(tagUrl);
     }
 
     public List<ArticlePreview> getArticlePreviewList() {
@@ -72,6 +78,25 @@ public class DocumentParser {
             }
         }
         return tags;
+    }
+
+    public List<ArchiveItem> getArchives() {
+        List<ArchiveItem> archiveItems = new ArrayList<ArchiveItem>();
+        if (document != null) {
+            Elements archives = document.select("div[id=archives]");
+//            logMsg("archives: "+archives);
+            Elements archs = archives.select("a[href]");
+//            logMsg("archs: "+archs);
+            for (Element e: archs) {
+                String archName = e.text();
+//                logMsg("arch name: "+archName);
+                String archUrl = e.attr("href");
+//                logMsg("archUrl"+ archUrl);
+                ArchiveItem archiveItem = new ArchiveItem(archName, archUrl);
+                archiveItems.add(archiveItem);
+            }
+        }
+        return archiveItems;
     }
 
     public int getCurrentPage() {
@@ -132,7 +157,25 @@ public class DocumentParser {
 //        this.document = parse();
 //    }
 
-    public Document parse() {
+    private Document parse(String tagUrl) {
+        logMsg("parsing");
+        Document document = null;
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        Future<Document> documentFuture = executorService.submit(new
+                HtmlParserThread(tagUrl));
+        try {
+            document = documentFuture.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        executorService.shutdown();
+        logMsg("finished");
+        return document;
+    }
+
+    private Document parse() {
         logMsg("parsing");
         Document document = null;
         ExecutorService executorService = Executors.newFixedThreadPool(1);

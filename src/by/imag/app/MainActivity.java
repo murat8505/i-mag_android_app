@@ -165,6 +165,20 @@ public class MainActivity extends FragmentActivity {
 //        stopService(serviceIntent);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        logMsg("onBackPressed");
+        savePreferences();
+    }
+
+    private void savePreferences() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.UPDATE_POSTS, true);
+        editor.putBoolean(Constants.UPDATE_TAGS, true);
+        editor.commit();
+    }
+
     private void selectItem(int position) {
         drawerList.setItemChecked(position, true);
         fragmentManager = getSupportFragmentManager();

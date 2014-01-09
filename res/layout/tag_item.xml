@@ -6,7 +6,7 @@
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingLeft="3dp"
     android:paddingRight="10dp"
-    android:background="@drawable/background_normal">
+    android:background="@drawable/background_red">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,7 +14,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/tvTagName"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 
     <TextView
@@ -24,7 +24,6 @@
         android:text="000"
         android:id="@+id/tvPostCount"
         android:paddingLeft="3dp"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>
