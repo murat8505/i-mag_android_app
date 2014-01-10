@@ -13,12 +13,10 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DocumentParser {
     private int pageNumber = 1;
-    private String tagUrl;
+    private String url;
     private Document document = null;
 
     public DocumentParser(int pageNumber) {
@@ -26,9 +24,9 @@ public class DocumentParser {
         this.document = parse();
     }
 
-    public DocumentParser(String tagUrl) {
-        this.tagUrl = tagUrl;
-        this.document = parse(tagUrl);
+    public DocumentParser(String url) {
+        this.url = url;
+        this.document = parse(url);
     }
 
     public List<ArticlePreview> getArticlePreviewList() {
@@ -142,12 +140,14 @@ public class DocumentParser {
         int[] pages = new int[2];
         if (document != null) {
             Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
-            Elements elementsPages = elementsNavigation.get(0).select("span[class=pages]");
-            if (elementsPages.size() == 1) {
-                String response = elementsPages.get(0).text();
-                String[] pagesStr = response.split(" ");
-                pages[0] = Integer.parseInt(pagesStr[1]);
-                pages[1] = Integer.parseInt(pagesStr[3]);
+            if (elementsNavigation.size() > 0) {
+                Elements elementsPages = elementsNavigation.get(0).select("span[class=pages]");
+                if (elementsPages.size() == 1) {
+                    String response = elementsPages.get(0).text();
+                    String[] pagesStr = response.split(" ");
+                    pages[0] = Integer.parseInt(pagesStr[1]);
+                    pages[1] = Integer.parseInt(pagesStr[3]);
+                }
             }
         }
         return pages;
@@ -157,12 +157,12 @@ public class DocumentParser {
 //        this.document = parse();
 //    }
 
-    private Document parse(String tagUrl) {
+    private Document parse(String url) {
         logMsg("parsing");
         Document document = null;
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Future<Document> documentFuture = executorService.submit(new
-                HtmlParserThread(tagUrl));
+                HtmlParserThread(url));
         try {
             document = documentFuture.get();
         } catch (InterruptedException e) {

@@ -2,7 +2,6 @@ package by.imag.app;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -86,7 +84,7 @@ public class FragmentTags extends Fragment {
                 String tagUrl = tagItem.getTagURL();
                 String tagName = tagItem.getTagName();
 //                logMsg("tag URL: "+tagUrl);
-                Fragment testFragment = new TestFragment(tagUrl, tagName);
+                Fragment testFragment = new PostsFragment(tagItem);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()
                         .beginTransaction();
                 transaction.replace(R.id.content_frame, testFragment);

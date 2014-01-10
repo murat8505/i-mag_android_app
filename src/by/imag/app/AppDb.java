@@ -11,6 +11,7 @@ import android.util.Log;
 import java.util.Formatter;
 import java.util.List;
 
+import by.imag.app.classes.ArchiveItem;
 import by.imag.app.classes.ArticlePreview;
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.TagItem;
@@ -34,6 +35,8 @@ public class AppDb extends SQLiteOpenHelper{
     public static final String ARTICLE_URL = "articleUrl";
     public static final String ARTICLE_IMAGE_URL = "articleImageUrl";
     public static final String ARTICLE_ID = "articleId";
+
+//    private String selection = "_id" + " = " + _id;
 
     public AppDb(Context context) {
         super(context, "appDb.db", null, 1);
@@ -60,10 +63,24 @@ public class AppDb extends SQLiteOpenHelper{
         return true;
     }
 
-    public Cursor getTagsCursor() {
-        logMsg("get tags cursor");
-        db = this.getReadableDatabase();
-        return db != null ? db.query(TAGS_TABLE, null, null, null, null, null, null) : null;
+    public boolean writeArchivesTable(List<ArchiveItem> archives) {
+        logMsg("write arch table");
+        db = this.getWritableDatabase();
+        if (archives.size() != 0) {
+            db.delete(ARCHIVES_TABLE, null, null);
+            ContentValues cvArch = new ContentValues();
+            for (ArchiveItem archive: archives) {
+                String archName = archive.getArchName();
+                String archUrl = archive.getArchUrl();
+                int archId = archive.getArchId();
+                cvArch.put(ARCH_NAME, archName);
+                cvArch.put(ARCH_URL, archUrl);
+                cvArch.put(ARCH_ID, archId);
+                db.insert(ARCHIVES_TABLE, null, cvArch);
+            }
+        }
+        this.close();
+        return true;
     }
 
     public boolean writeArticlesTable(List<ArticlePreview> articles) {
@@ -107,17 +124,22 @@ public class AppDb extends SQLiteOpenHelper{
         return true;
     }
 
-//    private boolean verify(String articleUrl) {
-//        int count = -1;
-//        Cursor cursor = null;
-//        String query = "SELECT COUNT(*) FROM " + ARTICLES_TABLE + " WHERE " +
-//                ARTICLE_URL + " = ?";
-//        cursor = db.rawQuery(query, new String[] {articleUrl});
-//        if (cursor.moveToFirst()) {
-//            count = cursor.getInt(0);
-//        }
-//        return count > 0;
-//    }
+
+
+    public Cursor getTagsCursor() {
+        logMsg("get tags cursor");
+        db = this.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM " + TAGS_TABLE + " ORDER BY " + TAG_POSTS + " DESC";
+//        return db != null ? db.query(TAGS_TABLE, null, null, null, null, null, null) : null;
+        return db != null ? db.rawQuery(sqlQuery, null) : null;
+    }
+
+    public Cursor getArchCursor() {
+        logMsg("get archives cursor");
+        db = this.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM " + ARCHIVES_TABLE + " ORDER BY " + ARCH_ID + " DESC";
+        return db != null ? db.rawQuery(sqlQuery, null) : null;
+    }
 
     public Cursor getArticlesCursor() {
         logMsg("get articles cursor");
@@ -174,8 +196,23 @@ public class AppDb extends SQLiteOpenHelper{
             int postCount = cursor.getInt(cursor.getColumnIndex(TAG_POSTS));
             tagItem = new TagItem(tagName, tagUrl, postCount);
         }
-        this.close();
+        db = this.getReadableDatabase();
         return tagItem;
+    }
+
+    public ArchiveItem getArchiveItem(long _id) {
+        ArchiveItem archiveItem = null;
+        db = this.getReadableDatabase();
+        String[] columns = {ARCH_NAME, ARCH_URL, ARCH_ID};
+        String selection = "_id" + " = " + _id;
+        Cursor cursor = db.query(ARCHIVES_TABLE, columns, selection, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            String archName = cursor.getString(cursor.getColumnIndex(ARCH_NAME));
+            String archUrl = cursor.getString(cursor.getColumnIndex(ARCH_URL));
+            archiveItem = new ArchiveItem(archName, archUrl);
+        }
+        db = this.getReadableDatabase();
+        return archiveItem;
     }
 
     public String getTagUrl(long _id) {

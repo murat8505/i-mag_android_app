@@ -1,11 +1,9 @@
 package by.imag.app;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -23,11 +21,13 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import by.imag.app.classes.ArchiveItem;
 import by.imag.app.classes.ArticlePreview;
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.DocumentParser;
+import by.imag.app.classes.TagItem;
 
-public class TestFragment extends Fragment implements View.OnClickListener{
+public class PostsFragment extends Fragment implements View.OnClickListener{
     private AppDb appDb;
     private SharedPreferences preferences;
     private GridView gridView;
@@ -38,15 +38,30 @@ public class TestFragment extends Fragment implements View.OnClickListener{
     private final String PAGE = "page";
     private boolean loadingMore = false;
     private boolean update = true;
-    private String tagUrl;
-    private String tagName;
+    private String url;
+    private String name;
+    private TagItem tagItem;
+    private ArchiveItem archiveItem;
 
-    public TestFragment(String tagUrl, String tagName) {
-        this.tagUrl = tagUrl;
-        this.tagName = tagName;
+
+    public PostsFragment(String url, String name) {
+        this.url = url;
+        this.name = name;
     }
 
-    public TestFragment() {
+    public PostsFragment(TagItem tagItem) {
+        this.tagItem = tagItem;
+        this.url = tagItem.getTagURL() + "&paged=";
+        this.name = tagItem.getTagName();
+    }
+
+    public PostsFragment(ArchiveItem archiveItem) {
+        this.archiveItem = archiveItem;
+        this.url = archiveItem.getArchUrl() + "&paged=";
+        this.name = archiveItem.getArchName();
+    }
+
+    public PostsFragment() {
     }
 
     @Override
@@ -66,13 +81,28 @@ public class TestFragment extends Fragment implements View.OnClickListener{
             currentPage = savedInstanceState.getInt(PAGE);
 //            update = savedInstanceState.getBoolean(UPDATE);
 //            posts = (List<ArticlePreview>) savedInstanceState.getParcelable("posts");
-            setView();
-        } else {
-            setView();
+//            setView();
         }
+        setView();
 //        loadPreferences();
         if (isOnline() && update) {
-            new AsyncPostsLoader().execute(currentPage);
+//            new AsyncPostsLoader().execute(currentPage);
+//            if ((archiveItem == null) || (tagItem == null)) {
+//                url = Constants.PAGE;
+//                logMsg("url: "+url);
+//                new PostsLoader().execute(url + currentPage);
+//            } else {
+//                new PostsLoader().execute(url + currentPage);
+//            }
+            if (url == null) {
+                url = Constants.PAGE + currentPage;
+                logMsg("url: "+url);
+                new PostsLoader().execute(url);
+            } else {
+                logMsg("url: "+url);
+                new PostsLoader().execute(url + currentPage);
+            }
+
         } else {
             logMsg("device offline");
         }
@@ -93,21 +123,22 @@ public class TestFragment extends Fragment implements View.OnClickListener{
                                  int visibleItemCount, int totalItemCount) {
                 int lastInScreen = firstVisibleItem + visibleItemCount;
                 if ((lastInScreen == totalItemCount) && (currentPage < lastPage) && (!loadingMore)) {
-                    new AsyncPostsLoader().execute(currentPage + 1);
+//                    new AsyncPostsLoader().execute(currentPage + 1);
+                    new PostsLoader().execute(url + (currentPage + 1));
                 }
             }
         });
     }
 
-    private void savePreferences() {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(Constants.UPDATE_POSTS, false);
-        editor.commit();
-    }
-
-    private void loadPreferences() {
-        update = preferences.getBoolean(Constants.UPDATE_POSTS, true);
-    }
+//    private void savePreferences() {
+//        SharedPreferences.Editor editor = preferences.edit();
+//        editor.putBoolean(Constants.UPDATE_POSTS, false);
+//        editor.commit();
+//    }
+//
+//    private void loadPreferences() {
+//        update = preferences.getBoolean(Constants.UPDATE_POSTS, true);
+//    }
 
     @Override
     public void onResume() {
@@ -182,8 +213,8 @@ public class TestFragment extends Fragment implements View.OnClickListener{
 //        gridView.setAdapter(postAdapter);
         gridView.deferNotifyDataSetChanged();
         onGridItemClick();
-        if (tagName != null && tagUrl != null) {
-            getActivity().getActionBar().setSubtitle(tagName);
+        if (name != null && url != null) {
+            getActivity().getActionBar().setSubtitle(name);
         }
     }
 
@@ -203,6 +234,57 @@ public class TestFragment extends Fragment implements View.OnClickListener{
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
+    private class PostsLoader extends AsyncTask<String, Void, List<ArticlePreview>> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+            loadingMore = true;
+        }
+
+        @Override
+        protected List<ArticlePreview> doInBackground(String... strings) {
+            List<ArticlePreview> articlePreviewList = null;
+            String url = strings[0];
+            if (isOnline()) {
+                DocumentParser documentParser = new DocumentParser(url);
+                articlePreviewList = documentParser.getArticlePreviewList();
+                int[] pagesNumbers = documentParser.getPages();
+                currentPage = pagesNumbers[0];
+                lastPage = pagesNumbers[1];
+                logMsg("current: "+currentPage + " last: "+lastPage);
+            }
+            return articlePreviewList;
+        }
+
+        @Override
+        protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
+            super.onPostExecute(articlePreviewList);
+            loadingMore = false;
+            if (comparePosts(articlePreviewList)) {
+                posts.addAll(articlePreviewList);
+                setView();
+            }
+            progressBar.setVisibility(View.GONE);
+        }
+
+        private boolean comparePosts(List<ArticlePreview> articlePreviewList) {
+            boolean addPosts = true;
+            int postsSize = posts.size();
+            int articlesSize = articlePreviewList.size();
+            if (postsSize > 0 && articlesSize > 0) {
+                int lastPostId = posts.get(postsSize - 1).getArticleId();
+                int articlesLastId = articlePreviewList.get(articlesSize - 1).getArticleId();
+                if (lastPostId == articlesLastId) {
+                    addPosts = false;
+                } else {
+                    addPosts = true;
+                }
+            }
+            return addPosts;
+        }
+    }
 
     class AsyncPostsLoader extends AsyncTask<Integer, Void, List<ArticlePreview>> {
 
@@ -218,18 +300,15 @@ public class TestFragment extends Fragment implements View.OnClickListener{
             List<ArticlePreview> articlePreviewList = null;
             int pageNumber = pages[0];
             if (isOnline()) {
-                if (tagUrl != null) {
-                    DocumentParser documentParser = new DocumentParser(tagUrl);
+                if (url != null) {
+                    DocumentParser documentParser = new DocumentParser(url);
                     articlePreviewList = documentParser.getArticlePreviewList();
                 } else {
                     DocumentParser documentParser = new DocumentParser(pageNumber);
                     articlePreviewList = documentParser.getArticlePreviewList();
                     int[] pagesNumbers = documentParser.getPages();
-//                currentPage = documentParser.getCurrentPage();
                     currentPage = pagesNumbers[0];
-//                lastPage = documentParser.getLastPage();
                     lastPage = pagesNumbers[1];
-//                    documentParser.getArchives();
                 }
 
             }

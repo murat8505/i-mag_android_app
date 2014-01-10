@@ -1,13 +1,11 @@
 package by.imag.app;
 
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -176,6 +174,7 @@ public class MainActivity extends FragmentActivity {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(Constants.UPDATE_POSTS, true);
         editor.putBoolean(Constants.UPDATE_TAGS, true);
+        editor.putBoolean(Constants.UPDATE_ARCHIVES, true);
         editor.commit();
     }
 
@@ -196,7 +195,8 @@ public class MainActivity extends FragmentActivity {
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             case 2:
-                // todo: open archive
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new FragmentArchives()).commit();
             break;
             case 3:
                 // todo: saved pages
@@ -206,7 +206,7 @@ public class MainActivity extends FragmentActivity {
             break;
             case 0:
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
-                        new TestFragment()).commit();
+                        new PostsFragment()).commit();
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
