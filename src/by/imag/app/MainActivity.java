@@ -184,17 +184,17 @@ public class MainActivity extends FragmentActivity {
 //        setTitle(menuTitles[position]);
         logMsg("position: "+position);
         switch (position) {
-            case 5:
+            case 0: // posts
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
-                        new FragmentListArticles()).commit();
+                        new PostsFragment()).commit();
 //                getActionBar().setSubtitle(menuTitles[position]);
-            break;
-            case 1:
+                break;
+            case 1: //tags
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentTags()).commit();
 //                getActionBar().setSubtitle(menuTitles[position]);
             break;
-            case 2:
+            case 2: //archives
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
                         new FragmentArchives()).commit();
             break;
@@ -204,10 +204,8 @@ public class MainActivity extends FragmentActivity {
             case 4:
                 // todo: about
             break;
-            case 0:
-                fragmentManager.beginTransaction().replace(R.id.content_frame,
-                        new PostsFragment()).commit();
-//                getActionBar().setSubtitle(menuTitles[position]);
+            case 5:
+                //
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }

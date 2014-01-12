@@ -117,7 +117,7 @@ public class FragmentArchives extends Fragment{
         protected Boolean doInBackground(Void... voids) {
             boolean archUpdated = false;
             if (isOnline() && update) {
-                DocumentParser documentParser = new DocumentParser(1);
+                DocumentParser documentParser = new DocumentParser(Constants.PAGE + 1);
                 List<ArchiveItem> archives = documentParser.getArchives();
                 archUpdated = appDb.writeArchivesTable(archives);
             }

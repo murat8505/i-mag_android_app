@@ -1,7 +1,5 @@
 package by.imag.app;
 
-import android.app.ActionBar;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,7 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import by.imag.app.classes.Constants;
-import by.imag.app.classes.HtmlParserPageThread;
+import by.imag.app.classes.HtmlParserThread;
 
 
 public class ArticleFragment extends Fragment {
@@ -92,7 +90,7 @@ public class ArticleFragment extends Fragment {
             String result = "";
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             Future<Document> documentFuture = executorService.submit(
-                    new HtmlParserPageThread(articleUrl));
+                    new HtmlParserThread(articleUrl));
             try {
                 document = documentFuture.get();
             } catch (InterruptedException e) {

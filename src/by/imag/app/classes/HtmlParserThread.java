@@ -23,10 +23,10 @@ public class HtmlParserThread implements Callable<Document>{
     private int pageNumber;
     private String pageURLString;
 
-    public HtmlParserThread(int pageNumber) {
-        this.pageNumber = pageNumber;
-        this.pageURLString = Constants.PAGE + pageNumber;
-    }
+//    public HtmlParserThread(int pageNumber) {
+//        this.pageNumber = pageNumber;
+//        this.pageURLString = Constants.PAGE + pageNumber;
+//    }
 
     public HtmlParserThread(String pageURLString) {
         this.pageURLString = pageURLString;

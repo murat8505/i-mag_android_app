@@ -180,7 +180,7 @@ public class DocumentParser {
         Document document = null;
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Future<Document> documentFuture = executorService.submit(new
-                HtmlParserThread(pageNumber));
+                HtmlParserThread(url));
         try {
             document = documentFuture.get();
         } catch (InterruptedException e) {

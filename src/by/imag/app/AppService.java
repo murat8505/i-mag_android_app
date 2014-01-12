@@ -64,7 +64,7 @@ public class AppService extends Service {
             public void run() {
                 int page = 1;
                 if (isOnline()) {
-                    parseDocument(page);
+//                    parseDocument(page);
                 }
             }
         }).start();
@@ -77,7 +77,7 @@ public class AppService extends Service {
                 if (isOnline()) {
                     logMsg("parse next");
                     if (currentPage != lastPage) {
-                        parseDocument(currentPage + 1);
+//                        parseDocument(currentPage + 1);
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class AppService extends Service {
                 if (isOnline()) {
                     logMsg("parse previous");
                     if (currentPage != 1) {
-                        parseDocument(currentPage - 1);
+//                        parseDocument(currentPage - 1);
                     }
                 }
             }
@@ -100,37 +100,37 @@ public class AppService extends Service {
 
     }
 
-    private void parseDocument(int page) {
-        Document document = null;
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
-        Future<Document> documentFuture = executorService.submit(new
-                HtmlParserThread(page));
-        try {
-            document = documentFuture.get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        executorService.shutdown();
-        List<TagItem> tags = getTags(document);
-        boolean isTagsUpdated = appDb.writeTagTable(tags);
-        if (isTagsUpdated) {
-            Intent intentTags = new Intent(Constants.BROADCAST_ACTION);
-            intentTags.putExtra(Constants.INTENT_TAGS, isTagsUpdated);
-            sendBroadcast(intentTags);
-        }
-        getArticlePreviewList(document);
-        List<ArticlePreview> articlePreviewList = getArticlePreviewList(document);
-        boolean isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
-        if (isArticlesUpdated) {
-            Intent intentArticles = new Intent(Constants.BROADCAST_ACTION);
-            intentArticles.putExtra(Constants.INTENT_ARTICLES, isArticlesUpdated);
-            sendBroadcast(intentArticles);
-        }
-
-        setPages(document);
-    }
+//    private void parseDocument(int page) {
+//        Document document = null;
+//        ExecutorService executorService = Executors.newFixedThreadPool(1);
+//        Future<Document> documentFuture = executorService.submit(new
+//                HtmlParserThread(page));
+//        try {
+//            document = documentFuture.get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        executorService.shutdown();
+//        List<TagItem> tags = getTags(document);
+//        boolean isTagsUpdated = appDb.writeTagTable(tags);
+//        if (isTagsUpdated) {
+//            Intent intentTags = new Intent(Constants.BROADCAST_ACTION);
+//            intentTags.putExtra(Constants.INTENT_TAGS, isTagsUpdated);
+//            sendBroadcast(intentTags);
+//        }
+//        getArticlePreviewList(document);
+//        List<ArticlePreview> articlePreviewList = getArticlePreviewList(document);
+//        boolean isArticlesUpdated = appDb.writeArticlesTable(articlePreviewList);
+//        if (isArticlesUpdated) {
+//            Intent intentArticles = new Intent(Constants.BROADCAST_ACTION);
+//            intentArticles.putExtra(Constants.INTENT_ARTICLES, isArticlesUpdated);
+//            sendBroadcast(intentArticles);
+//        }
+//
+//        setPages(document);
+//    }
 
     private List<TagItem> getTags(Document document) {
         List<TagItem> tags = new ArrayList<TagItem>();

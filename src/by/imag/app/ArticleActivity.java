@@ -23,7 +23,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import by.imag.app.classes.Constants;
-import by.imag.app.classes.HtmlParserPageThread;
+import by.imag.app.classes.HtmlParserThread;
 
 public class ArticleActivity extends Activity {
     private WebView webViewArticle;
@@ -133,7 +133,7 @@ public class ArticleActivity extends Activity {
             articleUrl = strings[0];
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             Future<Document> documentFuture = executorService.submit(
-                    new HtmlParserPageThread(articleUrl));
+                    new HtmlParserThread(articleUrl));
             try {
                 document = documentFuture.get();
             } catch (InterruptedException e) {

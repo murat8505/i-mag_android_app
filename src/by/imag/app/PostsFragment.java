@@ -70,11 +70,12 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         logMsg("onCreateView");
         appDb = new AppDb(getActivity());
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        View rootView = inflater.inflate(R.layout.test_frag_grid, container, false);
+        View rootView = inflater.inflate(R.layout.posts_frag_grid, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridView);
         PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
         gridView.setAdapter(postAdapter);
 //        gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
+        gridView.setNumColumns(getNumColumns());
         gridScroll();
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbGridArt);
         if (savedInstanceState != null) {
@@ -95,9 +96,10 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
 //                new PostsLoader().execute(url + currentPage);
 //            }
             if (url == null) {
-                url = Constants.PAGE + currentPage;
-                logMsg("url: "+url);
-                new PostsLoader().execute(url);
+                url = Constants.PAGE;
+                String parseUrl = url + currentPage;
+                logMsg("url: "+parseUrl);
+                new PostsLoader().execute(parseUrl);
             } else {
                 logMsg("url: "+url);
                 new PostsLoader().execute(url + currentPage);
@@ -110,8 +112,15 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
+    private int getNumColumns() {
+        float scalefactor = getResources().getDisplayMetrics().density * 150;
+        int number = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        int columns = (int) ((float) number / (float) scalefactor);
+        return columns;
+    }
+
     private void gridScroll() {
-        logMsg("gridScroll");
+//        logMsg("gridScroll");
         gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -286,63 +295,63 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    class AsyncPostsLoader extends AsyncTask<Integer, Void, List<ArticlePreview>> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
-            loadingMore = true;
-        }
-
-        @Override
-        protected List<ArticlePreview> doInBackground(Integer... pages) {
-            List<ArticlePreview> articlePreviewList = null;
-            int pageNumber = pages[0];
-            if (isOnline()) {
-                if (url != null) {
-                    DocumentParser documentParser = new DocumentParser(url);
-                    articlePreviewList = documentParser.getArticlePreviewList();
-                } else {
-                    DocumentParser documentParser = new DocumentParser(pageNumber);
-                    articlePreviewList = documentParser.getArticlePreviewList();
-                    int[] pagesNumbers = documentParser.getPages();
-                    currentPage = pagesNumbers[0];
-                    lastPage = pagesNumbers[1];
-                }
-
-            }
-            return articlePreviewList;
-        }
-
-        @Override
-        protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
-            super.onPostExecute(articlePreviewList);
-//            logMsg("articles: " + articlePreviewList);
-            // get id from posts
-            // get id from articlePreviewList
-            loadingMore = false;
-            if (comparePosts(articlePreviewList)) {
-                posts.addAll(articlePreviewList);
-                setView();
-            }
-            progressBar.setVisibility(View.GONE);
-        }
-
-        private boolean comparePosts(List<ArticlePreview> articlePreviewList) {
-            boolean addPosts = true;
-            int postsSize = posts.size();
-            int articlesSize = articlePreviewList.size();
-            if (postsSize > 0 && articlesSize > 0) {
-                int lastPostId = posts.get(postsSize - 1).getArticleId();
-                int articlesLastId = articlePreviewList.get(articlesSize - 1).getArticleId();
-                if (lastPostId == articlesLastId) {
-                    addPosts = false;
-                } else {
-                    addPosts = true;
-                }
-            }
-            return addPosts;
-        }
-    }
+//    class AsyncPostsLoader extends AsyncTask<Integer, Void, List<ArticlePreview>> {
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            progressBar.setVisibility(View.VISIBLE);
+//            loadingMore = true;
+//        }
+//
+//        @Override
+//        protected List<ArticlePreview> doInBackground(Integer... pages) {
+//            List<ArticlePreview> articlePreviewList = null;
+//            int pageNumber = pages[0];
+//            if (isOnline()) {
+//                if (url != null) {
+//                    DocumentParser documentParser = new DocumentParser(url);
+//                    articlePreviewList = documentParser.getArticlePreviewList();
+//                } else {
+//                    DocumentParser documentParser = new DocumentParser(pageNumber);
+//                    articlePreviewList = documentParser.getArticlePreviewList();
+//                    int[] pagesNumbers = documentParser.getPages();
+//                    currentPage = pagesNumbers[0];
+//                    lastPage = pagesNumbers[1];
+//                }
+//
+//            }
+//            return articlePreviewList;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
+//            super.onPostExecute(articlePreviewList);
+////            logMsg("articles: " + articlePreviewList);
+//            // get id from posts
+//            // get id from articlePreviewList
+//            loadingMore = false;
+//            if (comparePosts(articlePreviewList)) {
+//                posts.addAll(articlePreviewList);
+//                setView();
+//            }
+//            progressBar.setVisibility(View.GONE);
+//        }
+//
+//        private boolean comparePosts(List<ArticlePreview> articlePreviewList) {
+//            boolean addPosts = true;
+//            int postsSize = posts.size();
+//            int articlesSize = articlePreviewList.size();
+//            if (postsSize > 0 && articlesSize > 0) {
+//                int lastPostId = posts.get(postsSize - 1).getArticleId();
+//                int articlesLastId = articlePreviewList.get(articlesSize - 1).getArticleId();
+//                if (lastPostId == articlesLastId) {
+//                    addPosts = false;
+//                } else {
+//                    addPosts = true;
+//                }
+//            }
+//            return addPosts;
+//        }
+//    }
 }

@@ -16,7 +16,7 @@
 
         android:scrollingCache="false"
         android:gravity="fill"
-        android:numColumns="@integer/grid_rows" />
+        android:numColumns="auto_fit" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
