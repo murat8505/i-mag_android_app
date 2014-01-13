@@ -46,6 +46,8 @@ public class FragmentTags extends Fragment {
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         loadPreferences();
         new TagsLoader().execute();
+
+        getActivity().getActionBar().setSubtitle("Рубрики");
 //        setView();
         return rootView;
     }
@@ -68,9 +70,9 @@ public class FragmentTags extends Fragment {
 
     private void setView() {
         cursor = appDb.getTagsCursor();
-        logMsg("cursor: "+cursor);
+//        logMsg("cursor: "+cursor);
         TagsCursorAdapter cursorAdapter = new TagsCursorAdapter(getActivity(), cursor, true);
-        logMsg("cursorAdapter: "+cursorAdapter);
+//        logMsg("cursorAdapter: "+cursorAdapter);
         gridView.setAdapter(cursorAdapter);
         tagClick();
     }

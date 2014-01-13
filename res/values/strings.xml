@@ -16,9 +16,31 @@
         <item>Статьи</item>
         <item>Рубрики</item>
         <item>Архив</item>
-        <item>Сохранённые статьи</item>
         <item>О журнале</item>
-        <item>Test</item>
+        <item>Контакты</item>
+        <item>Для рекламодателей</item>
     </string-array>
+
+    <string name="mail_address_txt">Адрес для писем:</string>
+    <string name="address">220004, Минск, ул.Замковая, 27 адм. пом. 7, каб. 15</string>
+    <string name="phones">Телефоны:</string>
+    <string name="phone_1">+375 17 30 60 185</string>
+    <string name="phone_2">+375 17 30 60 187</string>
+    <string name="fax_txt">Факс:</string>
+    <string name="fax_number">+375 17 203 37 12</string>
+    <string name="e_mail_txt">e-mail: </string>
+    <string name="e_mail">info@i-mag.by</string>
+    <string name="show_map">Показать на карте</string>
+    <string name="about1">Зачем мы это делаем</string>
+    <string name="about2">В жизни остается так мало времени для того,
+        чтобы тратить его на просмотр и чтение бестолковых журналов
+        (или той чуши, которую некоторые называют журналами).
+        Редакция журнала «Я» знает об этом не понаслышке.
+        Именно поэтому мы сделали для вас (и для себя) ИНТЕРЕСНЫЙ журнал.</string>
+    <string name="about3">О чем издание</string>
+    <string name="about4">О человеке и о том, что его интересует: от музыки до кино,
+        от секса до политики, от спорта до охоты и рыбалки, от военного космоса до роботов,
+        от мотоциклов до автомобилей. И прочее и прочее. Тогда мы идем к вам! </string>
+
 
 </resources>

@@ -1,8 +1,6 @@
 package by.imag.app;
 
 
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -26,10 +24,6 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private ServiceConnection sConn;
-    private Intent serviceIntent;
-    private AppService appService;
-    private boolean isServiceBound = false;
     private boolean isUpdated = false;
     private FragmentManager fragmentManager;
 
@@ -43,68 +37,8 @@ public class MainActivity extends FragmentActivity {
     protected void onStart() {
         super.onStart();
         logMsg("onStart");
-//        sConn = new ServiceConnection() {
-//            @Override
-//            public void onServiceConnected(ComponentName name, IBinder iBinder) {
-//                logMsg("service connected");
-//                appService = ((AppService.ServiceBinder) iBinder).getService();
-//                isServiceBound = true;
-////                serviceUpdate();
-//            }
-//
-//            @Override
-//            public void onServiceDisconnected(ComponentName componentName) {
-//                logMsg("service disconnected");
-//                isServiceBound = false;
-//            }
-//        };
-//        serviceIntent = new Intent(this, AppService.class);
-//        startService(serviceIntent);
-//        bindService(serviceIntent, sConn, 0);
     }
 
-//    ServiceConnection serviceConnection = new ServiceConnection() {
-//        @Override
-//        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-//            logMsg("service connected");
-//            appService = ((AppService.ServiceBinder) iBinder).getService();
-//            isServiceBound = true;
-////            serviceUpdate();
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName componentName) {
-//            logMsg("service disconnected");
-//            isServiceBound = false;
-//        }
-//    };
-//
-//    private void serviceUpdate() {
-//        startService(serviceIntent);
-//        if (appService == null) {
-//            logMsg("service - null");
-//        } else {
-//            appService.parse();
-//        }
-//    }
-//
-//    public void serviceParseNext() {
-//        logMsg("parse next");
-//        if (appService != null) {
-//            appService.parseNext();
-//        } else {
-//            logMsg("service == null");
-//        }
-//    }
-//
-//    public void serviceParsePrev() {
-//        logMsg("parse prev");
-//        if (appService != null) {
-//            appService.parsePrevious();
-//        } else {
-//            logMsg("service == null");
-//        }
-//    }
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -156,17 +90,22 @@ public class MainActivity extends FragmentActivity {
 	}
 
     @Override
+    protected void onResume() {
+        super.onResume();
+//        drawerLayout.openDrawer(Gravity.LEFT);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         logMsg("onDestroy");
-//        unbindService(sConn);
-//        stopService(serviceIntent);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         logMsg("onBackPressed");
+        // todo: exit dialog
         savePreferences();
     }
 
@@ -199,13 +138,15 @@ public class MainActivity extends FragmentActivity {
                         new FragmentArchives()).commit();
             break;
             case 3:
-                // todo: saved pages
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new AboutFragment()).commit();
             break;
             case 4:
-                // todo: about
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new ContactsFragment()).commit();
             break;
             case 5:
-                //
+                // todo: adv
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }
