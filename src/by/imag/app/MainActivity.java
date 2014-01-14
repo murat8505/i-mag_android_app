@@ -146,7 +146,8 @@ public class MainActivity extends FragmentActivity {
                         new ContactsFragment()).commit();
             break;
             case 5:
-                // todo: adv
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new AdvFragment()).commit();
             break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }

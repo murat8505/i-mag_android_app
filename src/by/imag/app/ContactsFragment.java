@@ -18,9 +18,10 @@ public class ContactsFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.contacts_frag, container, false);
+        View rootView = inflater.inflate(R.layout.contacts_frag_scroll, container, false);
         btnMap = (Button) rootView.findViewById(R.id.btnmap);
         btnMap.setOnClickListener(this);
+        setSubtitle();
         return rootView;
     }
 
@@ -34,5 +35,11 @@ public class ContactsFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
             break;
         }
+    }
+
+    private void setSubtitle() {
+        String[] strings = getResources().getStringArray(R.array.menu_items);
+        String subtitle = strings[4];
+        getActivity().getActionBar().setSubtitle(subtitle);
     }
 }

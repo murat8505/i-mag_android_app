@@ -8,11 +8,11 @@
     android:background="@drawable/background_red">
 
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/grid_size"
+        android:layout_height="@dimen/grid_size"
         android:id="@+id/imageView"
         android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,9 +20,9 @@
         android:text="Title"
         android:id="@+id/tvTitle"
         android:background="#b7f5f2ff"
+        android:textColor="#F33413"
         android:layout_alignTop="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/imageView"
-        android:textColor="#F33413" />
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignRight="@+id/imageView" />
 
 </RelativeLayout>

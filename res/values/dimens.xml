@@ -4,5 +4,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fragment_grid_size">160dp</dimen>
+    <dimen name="grid_size">150dp</dimen>
+    <dimen name="tag_size">140dp</dimen>
 
 </resources>

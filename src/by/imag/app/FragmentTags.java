@@ -68,12 +68,21 @@ public class FragmentTags extends Fragment {
         editor.commit();
     }
 
+    @SuppressWarnings("deprecation")
+    private int getNumColumns() {
+        float gridSize = getResources().getDimension(R.dimen.tag_size);
+        int number = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        int columns = (int) ((float) number / gridSize);
+        return columns;
+    }
+
     private void setView() {
         cursor = appDb.getTagsCursor();
 //        logMsg("cursor: "+cursor);
         TagsCursorAdapter cursorAdapter = new TagsCursorAdapter(getActivity(), cursor, true);
 //        logMsg("cursorAdapter: "+cursorAdapter);
         gridView.setAdapter(cursorAdapter);
+        gridView.setNumColumns(getNumColumns());
         tagClick();
     }
 
@@ -83,8 +92,8 @@ public class FragmentTags extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view,
                                     int position, long _id) {
                 TagItem tagItem = appDb.getTagItem(_id);
-                String tagUrl = tagItem.getTagURL();
-                String tagName = tagItem.getTagName();
+//                String tagUrl = tagItem.getTagURL();
+//                String tagName = tagItem.getTagName();
 //                logMsg("tag URL: "+tagUrl);
                 Fragment testFragment = new PostsFragment(tagItem);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()

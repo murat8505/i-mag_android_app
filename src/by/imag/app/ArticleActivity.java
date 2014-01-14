@@ -81,7 +81,7 @@ public class ArticleActivity extends Activity {
         shareActionProvider = (ShareActionProvider) item.getActionProvider();
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(Intent.EXTRA_TEXT, articleUrl + "\n" +postText);
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, articleUrl);
         setShareIntent(sharingIntent);
         return true;
     }

@@ -38,6 +38,7 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
     private final String PAGE = "page";
     private boolean loadingMore = false;
     private boolean update = true;
+    private String subtitle;
     private String url;
     private String name;
     private TagItem tagItem;
@@ -98,10 +99,10 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
             if (url == null) {
                 url = Constants.PAGE;
                 String parseUrl = url + currentPage;
-                logMsg("url: "+parseUrl);
+//                logMsg("url: "+parseUrl);
                 new PostsLoader().execute(parseUrl);
             } else {
-                logMsg("url: "+url);
+//                logMsg("url: "+url);
                 new PostsLoader().execute(url + currentPage);
             }
 
@@ -112,10 +113,13 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         return rootView;
     }
 
+    @SuppressWarnings("deprecation")
     private int getNumColumns() {
-        float scalefactor = getResources().getDisplayMetrics().density * 150;
+        float gridSize = getResources().getDimension(R.dimen.grid_size);
+        logMsg("gridSize = "+gridSize);
+        float scaleFactor = getResources().getDisplayMetrics().density * gridSize;
         int number = getActivity().getWindowManager().getDefaultDisplay().getWidth();
-        int columns = (int) ((float) number / (float) scalefactor);
+        int columns = (int) ((float) number / gridSize);
         return columns;
     }
 
@@ -152,7 +156,10 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        logMsg("onResume");
+        String[] strings = getResources().getStringArray(R.array.menu_items);
+        subtitle = strings[0];
+        getActivity().getActionBar().setSubtitle(subtitle);
+//        logMsg("onResume");
 //        loadPreferences();
     }
 

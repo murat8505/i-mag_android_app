@@ -39,6 +39,7 @@ public class HtmlParserThread implements Callable<Document>{
         } else {
             logMsg("response code: "+connection.getResponseCode());
         }
+        connection.disconnect();
         return htmlDocument;
     }
 

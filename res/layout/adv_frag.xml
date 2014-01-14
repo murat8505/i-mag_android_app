@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/adv_phones_txt"
+            android:id="@+id/tvAdvPhonesTxt"
+            android:textStyle="italic"
+            android:typeface="serif"
+            android:background="@color/text_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/adv_phone_1"
+            android:id="@+id/tvAdvPhone1"
+            android:layout_below="@+id/tvAdvPhonesTxt"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="5dp"
+            android:phoneNumber="true"
+            android:autoLink="phone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/adv_phone_2"
+            android:id="@+id/tvAdvPhone2"
+            android:layout_below="@+id/tvAdvPhone1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:phoneNumber="true"
+            android:autoLink="phone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/name1"
+            android:id="@+id/tvName1"
+            android:layout_below="@+id/tvAdvPhone2"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/name1_phone"
+            android:id="@+id/tvName1Phone"
+            android:layout_below="@+id/tvName1"
+            android:layout_alignParentLeft="true"
+            android:phoneNumber="true"
+            android:autoLink="phone" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/name2"
+            android:id="@+id/tvName2"
+            android:layout_below="@+id/tvName1Phone"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/name2_phone"
+            android:id="@+id/tvName2Phone"
+            android:layout_below="@+id/tvName2"
+            android:layout_alignParentLeft="true"
+            android:autoLink="phone"
+            android:phoneNumber="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/name3"
+            android:id="@+id/tvName3"
+            android:layout_below="@+id/tvName2Phone"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/name3_phone"
+            android:id="@+id/tvName3Phone"
+            android:layout_below="@+id/tvName3"
+            android:layout_alignParentLeft="true"
+            android:autoLink="phone"
+            android:phoneNumber="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/name4"
+            android:id="@+id/tvName4"
+            android:layout_below="@+id/tvName3Phone"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/name4_phone"
+            android:id="@+id/tvName4Phone"
+            android:layout_below="@+id/tvName4"
+            android:layout_alignParentLeft="true"
+            android:autoLink="phone"
+            android:phoneNumber="true" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/price_list"
+            android:id="@+id/btnPrice"
+            android:layout_below="@+id/tvName4Phone"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="20dp" />
+    </RelativeLayout>
+</ScrollView>

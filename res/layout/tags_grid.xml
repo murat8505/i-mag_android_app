@@ -9,7 +9,8 @@
         android:id="@+id/gridTags"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:numColumns="@integer/grid_rows" />
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
