@@ -15,13 +15,15 @@ import by.imag.app.classes.Constants;
 public class ContactsFragment extends Fragment implements View.OnClickListener{
     private Button btnMap;
     private String uriStringGeo = "geo:53.906593,27.548191";
+    private String subtitle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.contacts_frag_scroll, container, false);
         btnMap = (Button) rootView.findViewById(R.id.btnmap);
         btnMap.setOnClickListener(this);
-        setSubtitle();
+        subtitle = getResources().getStringArray(R.array.menu_items)[4];
+        getActivity().getActionBar().setSubtitle(subtitle);
         return rootView;
     }
 
@@ -35,11 +37,5 @@ public class ContactsFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
             break;
         }
-    }
-
-    private void setSubtitle() {
-        String[] strings = getResources().getStringArray(R.array.menu_items);
-        String subtitle = strings[4];
-        getActivity().getActionBar().setSubtitle(subtitle);
     }
 }

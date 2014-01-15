@@ -34,6 +34,7 @@ public class FragmentArchives extends Fragment{
     private ArchCursorAdapter cursorAdapter;
     private SharedPreferences preferences;
     private boolean update;
+    private String subtitle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +46,8 @@ public class FragmentArchives extends Fragment{
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         loadPreferences();
         new ArchLoader().execute();
+        subtitle = getResources().getStringArray(R.array.menu_items)[2];
+        getActivity().getActionBar().setSubtitle(subtitle);
         return rootView;
     }
 

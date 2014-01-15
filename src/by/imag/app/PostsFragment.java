@@ -54,12 +54,15 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         this.tagItem = tagItem;
         this.url = tagItem.getTagURL() + "&paged=";
         this.name = tagItem.getTagName();
+        subtitle = tagItem.getTagName();
     }
 
     public PostsFragment(ArchiveItem archiveItem) {
         this.archiveItem = archiveItem;
         this.url = archiveItem.getArchUrl() + "&paged=";
         this.name = archiveItem.getArchName();
+//        subtitle = getResources().getStringArray(R.array.menu_items)[2];
+        subtitle = archiveItem.getArchName();
     }
 
     public PostsFragment() {
@@ -75,40 +78,26 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         gridView = (GridView) rootView.findViewById(R.id.gridView);
         PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
         gridView.setAdapter(postAdapter);
-//        gridView.setColumnWidth((int) getResources().getDimension(R.dimen.fragment_grid_size));
         gridView.setNumColumns(getNumColumns());
         gridScroll();
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbGridArt);
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(PAGE);
-//            update = savedInstanceState.getBoolean(UPDATE);
-//            posts = (List<ArticlePreview>) savedInstanceState.getParcelable("posts");
-//            setView();
         }
-        setView();
-//        loadPreferences();
+
         if (isOnline() && update) {
-//            new AsyncPostsLoader().execute(currentPage);
-//            if ((archiveItem == null) || (tagItem == null)) {
-//                url = Constants.PAGE;
-//                logMsg("url: "+url);
-//                new PostsLoader().execute(url + currentPage);
-//            } else {
-//                new PostsLoader().execute(url + currentPage);
-//            }
             if (url == null) {
                 url = Constants.PAGE;
                 String parseUrl = url + currentPage;
-//                logMsg("url: "+parseUrl);
+                subtitle = "статьи";
                 new PostsLoader().execute(parseUrl);
             } else {
-//                logMsg("url: "+url);
                 new PostsLoader().execute(url + currentPage);
             }
-
         } else {
             logMsg("device offline");
         }
+        setView();
         update = true;
         return rootView;
     }
@@ -117,7 +106,7 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
     private int getNumColumns() {
         float gridSize = getResources().getDimension(R.dimen.grid_size);
         logMsg("gridSize = "+gridSize);
-        float scaleFactor = getResources().getDisplayMetrics().density * gridSize;
+//        float scaleFactor = getResources().getDisplayMetrics().density * gridSize;
         int number = getActivity().getWindowManager().getDefaultDisplay().getWidth();
         int columns = (int) ((float) number / gridSize);
         return columns;
@@ -156,9 +145,9 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-        String[] strings = getResources().getStringArray(R.array.menu_items);
-        subtitle = strings[0];
-        getActivity().getActionBar().setSubtitle(subtitle);
+//        String[] strings = getResources().getStringArray(R.array.menu_items);
+//        subtitle = strings[0];
+//        getActivity().getActionBar().setSubtitle(subtitle);
 //        logMsg("onResume");
 //        loadPreferences();
     }
@@ -229,8 +218,15 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
 //        gridView.setAdapter(postAdapter);
         gridView.deferNotifyDataSetChanged();
         onGridItemClick();
-        if (name != null && url != null) {
-            getActivity().getActionBar().setSubtitle(name);
+//        if (name != null && url != null) {
+//            getActivity().getActionBar().setSubtitle(name);
+//        }
+        logMsg("subtitle: "+subtitle);
+        if (subtitle != null) {
+            getActivity().getActionBar().setSubtitle(subtitle);
+        } else {
+            subtitle = getResources().getStringArray(R.array.menu_items)[0];
+            getActivity().getActionBar().setSubtitle(subtitle);
         }
     }
 
@@ -302,63 +298,4 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-//    class AsyncPostsLoader extends AsyncTask<Integer, Void, List<ArticlePreview>> {
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            progressBar.setVisibility(View.VISIBLE);
-//            loadingMore = true;
-//        }
-//
-//        @Override
-//        protected List<ArticlePreview> doInBackground(Integer... pages) {
-//            List<ArticlePreview> articlePreviewList = null;
-//            int pageNumber = pages[0];
-//            if (isOnline()) {
-//                if (url != null) {
-//                    DocumentParser documentParser = new DocumentParser(url);
-//                    articlePreviewList = documentParser.getArticlePreviewList();
-//                } else {
-//                    DocumentParser documentParser = new DocumentParser(pageNumber);
-//                    articlePreviewList = documentParser.getArticlePreviewList();
-//                    int[] pagesNumbers = documentParser.getPages();
-//                    currentPage = pagesNumbers[0];
-//                    lastPage = pagesNumbers[1];
-//                }
-//
-//            }
-//            return articlePreviewList;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(List<ArticlePreview> articlePreviewList) {
-//            super.onPostExecute(articlePreviewList);
-////            logMsg("articles: " + articlePreviewList);
-//            // get id from posts
-//            // get id from articlePreviewList
-//            loadingMore = false;
-//            if (comparePosts(articlePreviewList)) {
-//                posts.addAll(articlePreviewList);
-//                setView();
-//            }
-//            progressBar.setVisibility(View.GONE);
-//        }
-//
-//        private boolean comparePosts(List<ArticlePreview> articlePreviewList) {
-//            boolean addPosts = true;
-//            int postsSize = posts.size();
-//            int articlesSize = articlePreviewList.size();
-//            if (postsSize > 0 && articlesSize > 0) {
-//                int lastPostId = posts.get(postsSize - 1).getArticleId();
-//                int articlesLastId = articlePreviewList.get(articlesSize - 1).getArticleId();
-//                if (lastPostId == articlesLastId) {
-//                    addPosts = false;
-//                } else {
-//                    addPosts = true;
-//                }
-//            }
-//            return addPosts;
-//        }
-//    }
 }

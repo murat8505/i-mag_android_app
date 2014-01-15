@@ -33,6 +33,7 @@ public class FragmentTags extends Fragment {
     private Cursor cursor;
     private SharedPreferences preferences;
     private boolean update;
+    private String subtitle;
 //    private TagsCursorAdapter cursorAdapter;
 
     @Override
@@ -46,8 +47,8 @@ public class FragmentTags extends Fragment {
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         loadPreferences();
         new TagsLoader().execute();
-
-        getActivity().getActionBar().setSubtitle("Рубрики");
+        subtitle = getResources().getStringArray(R.array.menu_items)[1];
+        getActivity().getActionBar().setSubtitle(subtitle);
 //        setView();
         return rootView;
     }

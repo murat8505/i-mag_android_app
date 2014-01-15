@@ -2,7 +2,7 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="2dp">
+    android:padding="@dimen/padding_all">
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +33,9 @@
         android:layout_below="@+id/tvAbout2"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="23dp"
-        android:background="@color/text_back" />
+        android:background="@color/text_back"
+        android:textStyle="italic"
+        android:typeface="serif" />
 
     <TextView
         android:layout_width="wrap_content"

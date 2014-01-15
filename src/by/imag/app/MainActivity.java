@@ -172,10 +172,10 @@ public class MainActivity extends FragmentActivity {
             return true;
         } else {
             switch (item.getItemId()) {
-                case R.id.action_update:
-                    logMsg("action update");
+//                case R.id.action_update:
+//                    logMsg("action update");
 //                    serviceUpdate();
-                    return true;
+//                    return true;
                 default:
                     return super.onOptionsItemSelected(item);
             }
