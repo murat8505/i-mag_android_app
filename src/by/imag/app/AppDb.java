@@ -14,6 +14,7 @@ import java.util.List;
 import by.imag.app.classes.ArchiveItem;
 import by.imag.app.classes.ArticlePreview;
 import by.imag.app.classes.Constants;
+import by.imag.app.classes.MagItem;
 import by.imag.app.classes.TagItem;
 
 public class AppDb extends SQLiteOpenHelper{
@@ -21,6 +22,7 @@ public class AppDb extends SQLiteOpenHelper{
     public static final String TAGS_TABLE = "tags_table";
     public static final String ARCHIVES_TABLE = "archivesTable";
     public static final String ARTICLES_TABLE = "articles_table";
+    public static final String MAG_TABLE = "magazinesTable";
 
     public static final String TAG_NAME = "tagName";
     public static final String TAG_URL = "tagURL";
@@ -35,6 +37,11 @@ public class AppDb extends SQLiteOpenHelper{
     public static final String ARTICLE_URL = "articleUrl";
     public static final String ARTICLE_IMAGE_URL = "articleImageUrl";
     public static final String ARTICLE_ID = "articleId";
+
+    public static final String MAG_ID = "magId";
+    public static final String MAG_IMG_URL = "magImgUrl";
+    public static final String MAG_URL = "magUrl";
+    public static final String MAG_TIME = "magTime";
 
 //    private String selection = "_id" + " = " + _id;
 
@@ -57,6 +64,28 @@ public class AppDb extends SQLiteOpenHelper{
                 cvTag.put(TAG_URL, tagURL);
                 cvTag.put(TAG_POSTS, postCount);
                 db.insert(TAGS_TABLE, null, cvTag);
+            }
+        }
+        this.close();
+        return true;
+    }
+
+    public boolean writeMagTable(List<MagItem> magItems) {
+        //todo: remake
+        db = this.getWritableDatabase();
+        if (magItems.size() > 0) {
+            db.delete(MAG_TABLE, null, null);
+            ContentValues cvMag = new ContentValues();
+            for (MagItem magItem: magItems) {
+                String magId = magItem.getMagId();
+                String magImageUrl = magItem.getMagImgUrl();
+                String magUrl = magItem.getMagUrl();
+                long magTime = magItem.getMagTime();
+                cvMag.put(MAG_ID, magId);
+                cvMag.put(MAG_IMG_URL, magImageUrl);
+                cvMag.put(MAG_URL, magUrl);
+                cvMag.put(MAG_TIME, magTime);
+                db.insert(MAG_TABLE, null, cvMag);
             }
         }
         this.close();
@@ -124,7 +153,13 @@ public class AppDb extends SQLiteOpenHelper{
         return true;
     }
 
-
+    public Cursor getMagCursor() {
+        //todo: remake
+        logMsg("get mag cursor");
+        db = this.getReadableDatabase();
+        String sqlQuery = "SELECT * FROM " + MAG_TABLE + " ORDER BY " + MAG_TIME + " DESC";
+        return db != null ? db.rawQuery(sqlQuery, null) : null;
+    }
 
     public Cursor getTagsCursor() {
         logMsg("get tags cursor");
@@ -211,8 +246,28 @@ public class AppDb extends SQLiteOpenHelper{
             String archUrl = cursor.getString(cursor.getColumnIndex(ARCH_URL));
             archiveItem = new ArchiveItem(archName, archUrl);
         }
-        db = this.getReadableDatabase();
+//        db = this.getReadableDatabase();
         return archiveItem;
+    }
+
+//    public MagItem getMagItem(long _id) {
+//        MagItem magItem = null;
+//        db = this.getReadableDatabase();
+//        return magItem;
+//    }
+
+    public String getMagId(long _id) {
+        //todo: remake
+        String magId = "";
+        db = this.getReadableDatabase();
+        String[] columns = {MAG_ID};
+        String selection = "_id" + " = " + _id;
+        Cursor cursor = db.query(MAG_TABLE, columns, selection, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            magId = cursor.getString(cursor.getColumnIndex(MAG_ID));
+        }
+
+        return magId;
     }
 
     public String getTagUrl(long _id) {
@@ -257,6 +312,14 @@ public class AppDb extends SQLiteOpenHelper{
         Formatter archFormatter = new Formatter();
         archFormatter.format(formatString, ARCHIVES_TABLE, ARCH_NAME, ARCH_URL, ARCH_ID);
         sqlString = archFormatter.toString();
+        db.execSQL(sqlString);
+
+        // todo: remake
+        formatString = "create table %s (_id integer primary key autoincrement," +
+                "%s text, %s text, %s text, %s integer);";
+        Formatter magFormatter = new Formatter();
+        magFormatter.format(formatString, MAG_TABLE, MAG_ID, MAG_IMG_URL, MAG_URL, MAG_TIME);
+        sqlString = magFormatter.toString();
         db.execSQL(sqlString);
     }
 
