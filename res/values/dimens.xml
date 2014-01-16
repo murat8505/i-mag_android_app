@@ -7,5 +7,6 @@
     <dimen name="grid_size">150dp</dimen>
     <dimen name="tag_size">140dp</dimen>
     <dimen name="padding_all">3dp</dimen>
+    <dimen name="mag_item_size">170dp</dimen>
 
 </resources>
