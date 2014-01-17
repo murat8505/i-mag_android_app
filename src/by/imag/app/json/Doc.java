@@ -4,32 +4,46 @@ package by.imag.app.json;
 import com.google.gson.annotations.SerializedName;
 
 public class Doc {
+    private String title;
 
-    private String username;
-    private String docname;
-    private String documentId;
+    @SerializedName("documentId")
+    private String id;
 
-    public String getUsername() {
-        return username;
+    @SerializedName("pagecount")
+    private int pageCount;
+
+    @SerializedName("docname")
+    private String url;
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDocname() {
-        return docname;
+    public String getId() {
+        return id;
     }
 
-    public void setDocname(String docname) {
-        this.docname = docname;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getDocumentId() {
-        return documentId;
+    public int getPageCount() {
+        return pageCount;
     }
 
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

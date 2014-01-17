@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Response {
     private int numFound;
     private int start;
-    @SerializedName("docs")
     ArrayList<Doc> docs;
 
     public int getNumFound() {

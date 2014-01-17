@@ -39,8 +39,10 @@ public class AppDb extends SQLiteOpenHelper{
     public static final String ARTICLE_ID = "articleId";
 
     public static final String MAG_ID = "magId";
-    public static final String MAG_IMG_URL = "magImgUrl";
+    public static final String MAG_TITLE = "magTitle";
     public static final String MAG_URL = "magUrl";
+    public static final String MAG_IMG_URL = "magImgUrl";
+    public static final String MAG_PAGE_COUNT = "magPageCount";
     public static final String MAG_TIME = "magTime";
 
 //    private String selection = "_id" + " = " + _id;
@@ -76,15 +78,24 @@ public class AppDb extends SQLiteOpenHelper{
         if (magItems.size() > 0) {
             db.delete(MAG_TABLE, null, null);
             ContentValues cvMag = new ContentValues();
+//            for (MagItem1 magItem1 : magItem1s) {
+//                String magId = magItem1.getMagId();
+//                String magImageUrl = magItem1.getMagImgUrl();
+//                String magUrl = magItem1.getMagUrl();
+//                long magTime = magItem1.getMagTime();
+//                cvMag.put(MAG_ID, magId);
+//                cvMag.put(MAG_IMG_URL, magImageUrl);
+//                cvMag.put(MAG_URL, magUrl);
+//                cvMag.put(MAG_TIME, magTime);
+//                db.insert(MAG_TABLE, null, cvMag);
+//            }
             for (MagItem magItem: magItems) {
-                String magId = magItem.getMagId();
-                String magImageUrl = magItem.getMagImgUrl();
-                String magUrl = magItem.getMagUrl();
-                long magTime = magItem.getMagTime();
-                cvMag.put(MAG_ID, magId);
-                cvMag.put(MAG_IMG_URL, magImageUrl);
-                cvMag.put(MAG_URL, magUrl);
-                cvMag.put(MAG_TIME, magTime);
+                cvMag.put(MAG_ID, magItem.getMagId());
+                cvMag.put(MAG_TITLE, magItem.getMagTitle());
+                cvMag.put(MAG_URL, magItem.getMagUrl());
+                cvMag.put(MAG_IMG_URL, magItem.getMagImgUrl());
+                cvMag.put(MAG_PAGE_COUNT, magItem.getMagPageCount());
+                cvMag.put(MAG_TIME, magItem.getMagTime());
                 db.insert(MAG_TABLE, null, cvMag);
             }
         }
@@ -250,11 +261,27 @@ public class AppDb extends SQLiteOpenHelper{
         return archiveItem;
     }
 
-//    public MagItem getMagItem(long _id) {
-//        MagItem magItem = null;
+//    public MagItem1 getMagItem(long _id) {
+//        MagItem1 magItem = null;
 //        db = this.getReadableDatabase();
 //        return magItem;
 //    }
+
+    public MagItem getMagItem(long _id) {
+        MagItem magItem = null;
+        db = this.getReadableDatabase();
+        String[] columns = {MAG_ID, MAG_TITLE, MAG_URL, MAG_PAGE_COUNT};
+        String selection = "_id" + " = " + _id;
+        Cursor cursor = db.query(MAG_TABLE, columns, selection, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            String magId = cursor.getString(cursor.getColumnIndex(MAG_ID));
+            String magTitle = cursor.getString(cursor.getColumnIndex(MAG_TITLE));
+            String magUrl = cursor.getString(cursor.getColumnIndex(MAG_URL));
+            int magPageCount = cursor.getInt(cursor.getColumnIndex(MAG_PAGE_COUNT));
+            magItem = new MagItem(magId, magTitle, magUrl, magPageCount);
+        }
+        return magItem;
+    }
 
     public String getMagId(long _id) {
         //todo: remake
@@ -315,10 +342,23 @@ public class AppDb extends SQLiteOpenHelper{
         db.execSQL(sqlString);
 
         // todo: remake
-        formatString = "create table %s (_id integer primary key autoincrement," +
-                "%s text, %s text, %s text, %s integer);";
+//        formatString = "create table %s (_id integer primary key autoincrement," +
+//                "%s text, %s text, %s text, %s integer);";
+//        Formatter magFormatter = new Formatter();
+//        magFormatter.format(formatString, MAG_TABLE, MAG_ID, MAG_IMG_URL, MAG_URL, MAG_TIME);
+//        sqlString = magFormatter.toString();
+//        db.execSQL(sqlString);
+        formatString = "create table %s (_id integer primary key autoincrement, " +
+                "%s text, " + //magId
+                "%s text, " + //magTitle
+                "%s text, " + //magUrl
+                "%s text, " + //magImgUrl
+                "%s integer, " + //magPageCount
+                "%s integer" + //magTime
+                ");";
         Formatter magFormatter = new Formatter();
-        magFormatter.format(formatString, MAG_TABLE, MAG_ID, MAG_IMG_URL, MAG_URL, MAG_TIME);
+        magFormatter.format(formatString,MAG_TABLE, MAG_ID, MAG_TITLE, MAG_URL, MAG_IMG_URL,
+                MAG_PAGE_COUNT, MAG_TIME);
         sqlString = magFormatter.toString();
         db.execSQL(sqlString);
     }

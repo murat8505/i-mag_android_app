@@ -16,6 +16,12 @@ public class Constants {
     public static final String UPDATE_TAGS = "updateTags";
     public static final String UPDATE_POSTS = "updatePosts";
     public static final String UPDATE_ARCHIVES = "updateArchives";
+    public static final String UPDATE_MAGS = "updateMags";
+    public static final String MAG_ID = "magId";
+    public static final String MAG_TITLE = "magTitle";
+    public static final String MAG_URL = "magUrl";
+    public static final String MAG_INTENT = "magIntent";
+    public static final String MAG_POST_COUNT = "magPostCount";
     public static final int ARTICLES_ON_PAGE = 21;
 
     public static final int PAGE_NEXT = 1;

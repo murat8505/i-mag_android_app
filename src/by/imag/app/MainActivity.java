@@ -114,6 +114,7 @@ public class MainActivity extends FragmentActivity {
         editor.putBoolean(Constants.UPDATE_POSTS, true);
         editor.putBoolean(Constants.UPDATE_TAGS, true);
         editor.putBoolean(Constants.UPDATE_ARCHIVES, true);
+        editor.putBoolean(Constants.UPDATE_MAGS, true);
         editor.commit();
     }
 
@@ -125,7 +126,7 @@ public class MainActivity extends FragmentActivity {
         switch (position) {
             case 0: // posts
                 fragmentManager.beginTransaction().replace(R.id.content_frame,
-                        new MagFragment()).commit();
+                        new PostsFragment()).commit();
 
                 break;
             case 1: //tags
@@ -149,9 +150,9 @@ public class MainActivity extends FragmentActivity {
                         new AdvFragment()).commit();
             break;
             case 6:
-                fragmentManager.beginTransaction().replace(R.id.content_frame,
-                        new PostsFragment()).commit();
 
+                fragmentManager.beginTransaction().replace(R.id.content_frame,
+                        new MagFragment()).commit();
                 break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }

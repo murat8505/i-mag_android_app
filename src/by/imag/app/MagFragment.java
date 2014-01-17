@@ -1,5 +1,11 @@
 package by.imag.app;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,8 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.CursorAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -28,7 +40,7 @@ import by.imag.app.classes.Constants;
 import by.imag.app.classes.HtmlParserThread;
 import by.imag.app.classes.MagItem;
 import by.imag.app.json.Doc;
-import by.imag.app.json.OverResponse;
+import by.imag.app.json.JsonResponse;
 import by.imag.app.json.Response;
 
 public class MagFragment extends Fragment{
@@ -41,31 +53,112 @@ public class MagFragment extends Fragment{
     private final String issuuUrl = "http://search.issuu.com/api/2_0/" +
             "document?q=username:vovic2000&sortBy=epoch&pageSize=";
     private int magCount;
+    private boolean update;
     private AppDb appDb;
+    private SharedPreferences preferences;
+    private GridView gridView;
+    private ProgressBar pbMag;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.mag_frag, container, false);
         appDb = new AppDb(getActivity().getApplicationContext());
-//        new TestParser().execute(magPageUrl);
-        new MagLoader().execute();
+        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        gridView = (GridView) rootView.findViewById(R.id.gridMag);
+        pbMag = (ProgressBar) rootView.findViewById(R.id.pbMag);
+        loadPreferences();
+        logMsg("update: "+update);
+        if (isOnline() && update) {
+            new MagListLoader().execute();
+        }
+//        setView();
         return rootView;
     }
 
-    //todo: isOnline
+    @Override
+    public void onResume() {
+        super.onResume();
+        setView();
+    }
+
+    private void setView() {
+        Cursor cursor = appDb.getMagCursor();
+        MagCursorAdapter magCursorAdapter = new MagCursorAdapter(getActivity(), cursor, true);
+        gridView.setAdapter(magCursorAdapter);
+        gridView.setNumColumns(getNumColumns());
+        onMagClick();
+    }
+
+    private void onMagClick() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view,
+                                    int position, long _id) {
+                MagItem magItem = appDb.getMagItem(_id);
+//                logMsg("magItem: "+magItem);
+                Intent magIntent = new Intent(getActivity(), ActivityMag.class);
+                Bundle magBundle = new Bundle();
+                magBundle.putString(Constants.MAG_ID, magItem.getMagId());
+                String magTitle = magItem.getMagTitle();
+//                logMsg("magTitle: " + magTitle);
+                magTitle = magTitle.replace("Журнал \"Я\" ", "");
+//                logMsg("magTitle: "+magTitle);
+                magBundle.putString(Constants.MAG_TITLE, magTitle);
+                magBundle.putString(Constants.MAG_URL, magItem.getMagUrl());
+                magBundle.putInt(Constants.MAG_POST_COUNT, magItem.getMagPageCount());
+                magIntent.putExtra(Constants.MAG_INTENT, magBundle);
+                startActivity(magIntent);
+            }
+        });
+    }
+
+    @SuppressWarnings("deprecation")
+    private int getNumColumns() {
+        float gridSize = getResources().getDimension(R.dimen.mag_item_width);
+        int number = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        int columns = (int) ((float) number / gridSize);
+        return columns;
+    }
+
+    private void savePreferences() {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.UPDATE_MAGS, false);
+        editor.commit();
+    }
+
+    private void loadPreferences() {
+        update = preferences.getBoolean(Constants.UPDATE_MAGS, true);
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // networkInfo.isConnected
+            // networkInfo.isConnectedOrConnecting()
+            return true;
+        }
+        return false;
+    }
 
     private void logMsg(String msg) {
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
-    private class MagLoader extends AsyncTask<Void, Void, Boolean> {
-        //todo: remake
+    private class MagListLoader extends AsyncTask<Void, Void, Boolean> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {
-            Document document = null;
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pbMag.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
             boolean result = false;
+            Document document = null;
             ExecutorService executorService = Executors.newFixedThreadPool(1);
             Future<Document> documentFuture = executorService.submit(
                     new HtmlParserThread(magPageUrl));
@@ -77,19 +170,18 @@ public class MagFragment extends Fragment{
                 e.printStackTrace();
             }
             executorService.shutdown();
+
             if (document != null) {
                 Elements elements = document.select(".issuuembed");
-                logMsg("elements: "+elements.size());
                 if (elements.size() > 0) {
                     logMsg("text: "+elements.get(0).toString());
                     magCount = elements.size();
                 }
-            } else {
-                logMsg("document: "+document);
             }
 
+            String magUrl = "http://search.issuu.com/api/2_0/document?" +
+                    "q=username:vovic2000&sortBy=epoch&pageSize=" + magCount + "&responseParams=*";
             try {
-                String magUrl = issuuUrl + magCount;
                 URL url = new URL(magUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(30000);
@@ -98,21 +190,24 @@ public class MagFragment extends Fragment{
                     Gson gson = new Gson();
                     InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
                     logMsg("stream:"+inputStreamReader);
-//                    Response response = gson.fromJson(inputStreamReader, Response.class);
-                    OverResponse overResponse = gson.fromJson(inputStreamReader, OverResponse.class);
-//                    logMsg("over response: "+overResponse);
-                    Response response = overResponse.getResponse();
-//                    logMsg("response: "+response);
+                    JsonResponse jsonResponse = gson.fromJson(inputStreamReader, JsonResponse.class);
+                    logMsg("jsonResponse: "+jsonResponse);
+                    Response response = jsonResponse.getResponse();
+                    logMsg("response: "+response);
                     ArrayList<Doc> docs = response.getDocs();
-//                    logMsg("docs: "+docs);
+                    logMsg("docs: "+docs);
                     ArrayList<MagItem> magItems = new ArrayList<MagItem>();
-                    for (Doc doc: docs) {
-                        MagItem magItem = new MagItem(doc.getDocumentId(), doc.getDocname());
+                    for (Doc d: docs) {
+                        MagItem magItem = new MagItem(
+                                d.getId(),
+                                d.getTitle(),
+                                d.getUrl(),
+                                d.getPageCount()
+                        );
                         magItems.add(magItem);
                     }
                     result = appDb.writeMagTable(magItems);
                     logMsg("result: "+result);
-
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -121,37 +216,40 @@ public class MagFragment extends Fragment{
             }
             return result;
         }
-    }
-
-    private class TestParser extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... strings) {
-            Document document = null;
-            String result = "";
-            String url = strings[0];
-            logMsg("url: "+url);
-            ExecutorService executorService = Executors.newFixedThreadPool(1);
-            Future<Document> documentFuture = executorService.submit(
-                    new HtmlParserThread(url));
-            try {
-                document = documentFuture.get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            logMsg("result: "+result);
+            if (result) {
+                setView();
+                savePreferences();
             }
-            executorService.shutdown();
-            if (document != null) {
-                Elements elements = document.select(".issuuembed");
-                logMsg("elements: "+elements.size());
-                if (elements.size() > 0) {
-                    logMsg("text: "+elements.get(0).toString());
-                }
-            } else {
-                logMsg("document: "+document);
-            }
-            return result;
+            pbMag.setVisibility(View.GONE);
+        }
+    }
+
+    private class MagCursorAdapter extends CursorAdapter {
+
+        public MagCursorAdapter(Context context, Cursor c, boolean autoRequery) {
+            super(context, c, autoRequery);
+        }
+
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
+            LayoutInflater layoutInflater = LayoutInflater.from(context);
+            View view = layoutInflater.inflate(R.layout.mag_grid_item, viewGroup, false);
+            bindView(view, context, cursor);
+            return view;
+        }
+
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+            ImageView imageView = (ImageView) view.findViewById(R.id.imgMag);
+            String imageUrl = cursor.getString(cursor.getColumnIndex(AppDb.MAG_IMG_URL));
+            Picasso.with(context).load(imageUrl).placeholder(R.drawable.placeholder)
+                    .error(R.drawable.logo_red)
+                    .into(imageView);
         }
     }
 }

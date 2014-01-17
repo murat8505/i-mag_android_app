@@ -1,6 +1,7 @@
 package by.imag.app;
 
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -89,7 +90,7 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
             if (url == null) {
                 url = Constants.PAGE;
                 String parseUrl = url + currentPage;
-                subtitle = "статьи";
+                subtitle = getResources().getStringArray(R.array.menu_items)[0];
                 new PostsLoader().execute(parseUrl);
             } else {
                 new PostsLoader().execute(url + currentPage);
@@ -198,7 +199,7 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
                 ArticlePreview ap = posts.get(position);
                 int articleId = ap.getArticleId();
                 String postTitle = ap.getArticleTitle();
-                logMsg("post: "+articleId);
+//                logMsg("post: "+articleId);
                 Intent viewPostIntent = new Intent(getActivity(), ArticleActivity.class);
                 Bundle article = new Bundle();
                 article.putInt("articleId", articleId);
@@ -223,7 +224,8 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
 //        }
         logMsg("subtitle: "+subtitle);
         if (subtitle != null) {
-            getActivity().getActionBar().setSubtitle(subtitle);
+            ActionBar actionBar = getActivity().getActionBar();
+            actionBar.setSubtitle(subtitle);
         } else {
             subtitle = getResources().getStringArray(R.array.menu_items)[0];
             getActivity().getActionBar().setSubtitle(subtitle);
