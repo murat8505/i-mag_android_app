@@ -35,6 +35,7 @@ public class FragmentArchives extends Fragment{
     private SharedPreferences preferences;
     private boolean update;
     private String subtitle;
+    private ArchLoader archLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +46,8 @@ public class FragmentArchives extends Fragment{
         pbArch = (ProgressBar) rootView.findViewById(R.id.pbArch);
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         loadPreferences();
-        new ArchLoader().execute();
+        archLoader = new ArchLoader();
+        archLoader.execute();
         subtitle = getResources().getStringArray(R.array.menu_items)[2];
         getActivity().getActionBar().setSubtitle(subtitle);
         return rootView;
@@ -55,6 +57,12 @@ public class FragmentArchives extends Fragment{
     public void onResume() {
         super.onResume();
         setView();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        archLoader.cancel(true);
     }
 
     private void loadPreferences() {
@@ -132,7 +140,9 @@ public class FragmentArchives extends Fragment{
             super.onPostExecute(archUpdated);
 //            logMsg("arch updated: "+archUpdated);
             if (archUpdated) {
-                setView();
+                if (isAdded()) {
+                    setView();
+                }
                 savePreferences();
             }
             pbArch.setVisibility(View.GONE);

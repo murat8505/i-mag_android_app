@@ -9,11 +9,6 @@ package by.imag.app.classes;
  * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
  */
 
-import static by.imag.app.classes.TouchImageView.State.ANIMATE_ZOOM;
-import static by.imag.app.classes.TouchImageView.State.DRAG;
-import static by.imag.app.classes.TouchImageView.State.FLING;
-import static by.imag.app.classes.TouchImageView.State.NONE;
-import static by.imag.app.classes.TouchImageView.State.ZOOM;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -35,6 +30,12 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.Scroller;
+
+import static by.imag.app.classes.TouchImageView.State.ANIMATE_ZOOM;
+import static by.imag.app.classes.TouchImageView.State.DRAG;
+import static by.imag.app.classes.TouchImageView.State.FLING;
+import static by.imag.app.classes.TouchImageView.State.NONE;
+import static by.imag.app.classes.TouchImageView.State.ZOOM;
 
 public class TouchImageView extends ImageView {
 

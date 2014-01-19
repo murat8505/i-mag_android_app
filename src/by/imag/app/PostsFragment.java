@@ -100,6 +100,10 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         }
         setView();
         update = true;
+        logMsg("isAdded: "+isAdded());
+        logMsg("isDetached: " + isDetached());
+        logMsg("isHidden: "+isHidden());
+        logMsg("isVisible :" + isVisible());
         return rootView;
     }
 
@@ -278,7 +282,9 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
             loadingMore = false;
             if (comparePosts(articlePreviewList)) {
                 posts.addAll(articlePreviewList);
-                setView();
+                if (isAdded()) {
+                    setView();
+                }
             }
             progressBar.setVisibility(View.GONE);
         }

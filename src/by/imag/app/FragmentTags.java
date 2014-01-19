@@ -145,7 +145,10 @@ public class FragmentTags extends Fragment {
         protected void onPostExecute(Boolean tagsUpdated) {
             super.onPostExecute(tagsUpdated);
             if (tagsUpdated) {
-                setView();
+                if (isAdded()) {
+                    setView();
+                }
+
                 savePreferences();
             }
             progressBar.setVisibility(View.GONE);
