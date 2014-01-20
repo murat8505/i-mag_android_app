@@ -3,18 +3,24 @@ package by.imag.app;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Formatter;
+import java.util.List;
 
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.TouchImageView;
@@ -41,10 +47,11 @@ public class ActivityMag extends Activity {
             currentPage = savedInstanceState.getInt(PAGE_NUMBER);
         }
         setContentView(R.layout.activity_mag);
+//        setContentView(R.layout.activity_mag_scroll);
         actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-//        logMsg("magTitle: "+magTitle);
+        logMsg("magTitle: "+magTitle);
         touchImageView = (TouchImageView) findViewById(R.id.imageMagPage);
         tvPage = (TextView) findViewById(R.id.tvPage);
         Intent magIntent = getIntent();
@@ -55,6 +62,7 @@ public class ActivityMag extends Activity {
         magPostCount = magBundle.getInt(Constants.MAG_POST_COUNT);
         actionBar.setSubtitle(magTitle);
         setView(currentPage);
+//        setView();
     }
 
     @Override
@@ -98,6 +106,18 @@ public class ActivityMag extends Activity {
         tvPage.setText(currentPage + "/" + magPostCount);
     }
 
+    private void setView() {
+        ListView lvMagScroll = (ListView) findViewById(R.id.lvMagScroll);
+        List<String> imgUrls = new ArrayList<String>();
+        Formatter imgUrlFormatter = new Formatter();
+        for (int pageNumber = 1; pageNumber <= magPostCount; pageNumber++) {
+            imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
+            imgUrls.add(imgUrlFormatter.toString());
+        }
+        MagAdapter magAdapter = new MagAdapter(this, imgUrls);
+        lvMagScroll.setAdapter(magAdapter);
+    }
+
     public void onClickPrev(View view) {
         if (currentPage > startPage) {
             currentPage--;
@@ -110,6 +130,18 @@ public class ActivityMag extends Activity {
             currentPage++;
             setView(currentPage);
         }
+    }
+
+    private boolean isOnline() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // networkInfo.isConnected
+            // networkInfo.isConnectedOrConnecting()
+            return true;
+        }
+        return false;
     }
 
     private void logMsg(String msg) {

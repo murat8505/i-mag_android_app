@@ -100,7 +100,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        this.finish();
+//        this.finish();
         logMsg("onDestroy");
     }
 
@@ -110,6 +110,7 @@ public class MainActivity extends FragmentActivity {
         logMsg("onBackPressed");
         // todo: exit dialog
         savePreferences();
+        this.finish();
     }
 
     private void savePreferences() {

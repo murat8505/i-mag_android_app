@@ -8,17 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class AdvFragment extends Fragment implements View.OnClickListener{
+public class AdvFragment extends BaseFragment implements View.OnClickListener{
     private Button btnPrice;
-    private String subtitle;
+//    private String subtitle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.adv_frag, container, false);
         btnPrice = (Button) rootView.findViewById(R.id.btnPrice);
         btnPrice.setOnClickListener(this);
-        subtitle = getResources().getStringArray(R.array.menu_items)[5];
-        getActivity().getActionBar().setSubtitle(subtitle);
+//        subtitle = getResources().getStringArray(R.array.menu_items)[5];
+//        getActivity().getActionBar().setSubtitle(subtitle);
+        setActionBarSubtitle(5);
         return rootView;
     }
 

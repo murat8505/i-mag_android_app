@@ -26,14 +26,14 @@ import by.imag.app.classes.Constants;
 import by.imag.app.classes.DocumentParser;
 import by.imag.app.classes.TagItem;
 
-public class FragmentTags extends Fragment {
+public class FragmentTags extends BaseFragment {
     private GridView gridView;
     private ProgressBar progressBar;
     private AppDb appDb;
     private Cursor cursor;
     private SharedPreferences preferences;
     private boolean update;
-    private String subtitle;
+//    private String subtitle;
 //    private TagsCursorAdapter cursorAdapter;
 
     @Override
@@ -47,8 +47,9 @@ public class FragmentTags extends Fragment {
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         loadPreferences();
         new TagsLoader().execute();
-        subtitle = getResources().getStringArray(R.array.menu_items)[1];
-        getActivity().getActionBar().setSubtitle(subtitle);
+//        subtitle = getResources().getStringArray(R.array.menu_items)[1];
+//        getActivity().getActionBar().setSubtitle(subtitle);
+        setActionBarSubtitle(1);
 //        setView();
         return rootView;
     }
@@ -106,21 +107,21 @@ public class FragmentTags extends Fragment {
         });
     }
 
-    private boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // networkInfo.isConnected
-            // networkInfo.isConnectedOrConnecting()
-            return true;
-        }
-        return false;
-    }
-
-    private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
-    }
+//    private boolean isOnline() {
+//        ConnectivityManager connectivityManager =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+//        if (networkInfo != null && networkInfo.isConnected()) {
+//            // networkInfo.isConnected
+//            // networkInfo.isConnectedOrConnecting()
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private void logMsg(String msg) {
+//        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
+//    }
 
     private class TagsLoader extends AsyncTask<Void, Void, Boolean> {
 

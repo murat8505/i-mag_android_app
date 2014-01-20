@@ -43,7 +43,7 @@ import by.imag.app.json.Doc;
 import by.imag.app.json.JsonResponse;
 import by.imag.app.json.Response;
 
-public class MagFragment extends Fragment{
+public class MagFragment extends BaseFragment{
     //http://search.issuu.com/api/2_0/document?q=username:vovic2000&sortBy=epoch&pageSize=6
     //http://search.issuu.com/api/2_0/document?q=documentId:140109103402-1931c53b51bfbd91c262c9e0f3308319&responseParams=*
 
@@ -72,6 +72,7 @@ public class MagFragment extends Fragment{
         if (isOnline() && update) {
             new MagListLoader().execute();
         }
+        setActionBarSubtitle(6);
 //        setView();
         return rootView;
     }
@@ -131,21 +132,21 @@ public class MagFragment extends Fragment{
         update = preferences.getBoolean(Constants.UPDATE_MAGS, true);
     }
 
-    private boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // networkInfo.isConnected
-            // networkInfo.isConnectedOrConnecting()
-            return true;
-        }
-        return false;
-    }
-
-    private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
-    }
+//    private boolean isOnline() {
+//        ConnectivityManager connectivityManager =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+//        if (networkInfo != null && networkInfo.isConnected()) {
+//            // networkInfo.isConnected
+//            // networkInfo.isConnectedOrConnecting()
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private void logMsg(String msg) {
+//        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
+//    }
 
     private class MagListLoader extends AsyncTask<Void, Void, Boolean> {
 
@@ -207,7 +208,8 @@ public class MagFragment extends Fragment{
                         magItems.add(magItem);
                     }
                     result = appDb.writeMagTable(magItems);
-                    logMsg("result: "+result);
+                    connection.disconnect();
+//                    logMsg("result: "+result);
                 }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -222,7 +224,9 @@ public class MagFragment extends Fragment{
             super.onPostExecute(result);
             logMsg("result: "+result);
             if (result) {
-                setView();
+                if (isAdded()) {
+                    setView();
+                }
                 savePreferences();
             }
             pbMag.setVisibility(View.GONE);

@@ -26,7 +26,7 @@ import by.imag.app.classes.ArchiveItem;
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.DocumentParser;
 
-public class FragmentArchives extends Fragment{
+public class FragmentArchives extends BaseFragment {
     private GridView gridView;
     private ProgressBar pbArch;
     private AppDb appDb;
@@ -34,7 +34,7 @@ public class FragmentArchives extends Fragment{
     private ArchCursorAdapter cursorAdapter;
     private SharedPreferences preferences;
     private boolean update;
-    private String subtitle;
+//    private String subtitle;
     private ArchLoader archLoader;
 
     @Override
@@ -48,8 +48,9 @@ public class FragmentArchives extends Fragment{
         loadPreferences();
         archLoader = new ArchLoader();
         archLoader.execute();
-        subtitle = getResources().getStringArray(R.array.menu_items)[2];
-        getActivity().getActionBar().setSubtitle(subtitle);
+//        subtitle = getResources().getStringArray(R.array.menu_items)[2];
+//        getActivity().getActionBar().setSubtitle(subtitle);
+        setActionBarSubtitle(2);
         return rootView;
     }
 
@@ -100,21 +101,21 @@ public class FragmentArchives extends Fragment{
         });
     }
 
-    private boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // networkInfo.isConnected
-            // networkInfo.isConnectedOrConnecting()
-            return true;
-        }
-        return false;
-    }
-
-    private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
-    }
+//    private boolean isOnline() {
+//        ConnectivityManager connectivityManager =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+//        if (networkInfo != null && networkInfo.isConnected()) {
+//            // networkInfo.isConnected
+//            // networkInfo.isConnectedOrConnecting()
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private void logMsg(String msg) {
+//        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
+//    }
 
     private class ArchLoader extends AsyncTask<Void, Void, Boolean> {
 

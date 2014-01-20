@@ -28,7 +28,7 @@ import by.imag.app.classes.Constants;
 import by.imag.app.classes.DocumentParser;
 import by.imag.app.classes.TagItem;
 
-public class PostsFragment extends Fragment implements View.OnClickListener{
+public class PostsFragment extends BaseFragment implements View.OnClickListener{
     private AppDb appDb;
     private SharedPreferences preferences;
     private GridView gridView;
@@ -226,7 +226,7 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
 //        if (name != null && url != null) {
 //            getActivity().getActionBar().setSubtitle(name);
 //        }
-        logMsg("subtitle: "+subtitle);
+//        logMsg("subtitle: "+subtitle);
         if (subtitle != null) {
             ActionBar actionBar = getActivity().getActionBar();
             actionBar.setSubtitle(subtitle);
@@ -236,21 +236,21 @@ public class PostsFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private boolean isOnline() {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // networkInfo.isConnected
-            // networkInfo.isConnectedOrConnecting()
-            return true;
-        }
-        return false;
-    }
-
-    private void logMsg(String msg) {
-        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
-    }
+//    private boolean isOnline() {
+//        ConnectivityManager connectivityManager =
+//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+//        if (networkInfo != null && networkInfo.isConnected()) {
+//            // networkInfo.isConnected
+//            // networkInfo.isConnectedOrConnecting()
+//            return true;
+//        }
+//        return false;
+//    }
+//
+//    private void logMsg(String msg) {
+//        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
+//    }
 
     private class PostsLoader extends AsyncTask<String, Void, List<ArticlePreview>> {
 

@@ -9,18 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class ContactsFragment extends Fragment implements View.OnClickListener{
+public class ContactsFragment extends BaseFragment implements View.OnClickListener{
     private Button btnMap;
     private String uriStringGeo = "geo:53.906593,27.548191";
-    private String subtitle;
+//    private String subtitle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.contacts_frag_scroll, container, false);
         btnMap = (Button) rootView.findViewById(R.id.btnmap);
         btnMap.setOnClickListener(this);
-        subtitle = getResources().getStringArray(R.array.menu_items)[4];
-        getActivity().getActionBar().setSubtitle(subtitle);
+//        subtitle = getResources().getStringArray(R.array.menu_items)[4];
+//        getActivity().getActionBar().setSubtitle(subtitle);
+        setActionBarSubtitle(4);
         return rootView;
     }
 

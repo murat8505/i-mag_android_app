@@ -29,7 +29,6 @@
         <activity android:name=".ArticleActivity"/>
         <activity android:name=".AdvActivity"/>
         <activity android:name=".ActivityMag"/>
-        <service android:name=".AppService" />
     </application>
 
 </manifest>
