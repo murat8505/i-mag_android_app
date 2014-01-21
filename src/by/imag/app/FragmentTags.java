@@ -4,13 +4,10 @@ package by.imag.app;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +94,7 @@ public class FragmentTags extends BaseFragment {
 //                String tagUrl = tagItem.getTagURL();
 //                String tagName = tagItem.getTagName();
 //                logMsg("tag URL: "+tagUrl);
-                Fragment testFragment = new PostsFragment(tagItem);
+                Fragment testFragment = new FragmentPosts(tagItem);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()
                         .beginTransaction();
                 transaction.replace(R.id.content_frame, testFragment);

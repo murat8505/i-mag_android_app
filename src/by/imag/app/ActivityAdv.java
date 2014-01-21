@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso;
 
 import by.imag.app.classes.TouchImageView;
 
-public class AdvActivity extends Activity {
+public class ActivityAdv extends Activity {
     private TouchImageView imgAdv;
     private ActionBar actionBar;
     @Override
@@ -18,6 +18,7 @@ public class AdvActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.adv_img);
         imgAdv = (TouchImageView) findViewById(R.id.imgAdv);
+        imgAdv.setMaxZoom(3);
         actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);

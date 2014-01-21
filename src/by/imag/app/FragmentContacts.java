@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class ContactsFragment extends BaseFragment implements View.OnClickListener{
+public class FragmentContacts extends BaseFragment implements View.OnClickListener{
     private Button btnMap;
     private String uriStringGeo = "geo:53.906593,27.548191";
 //    private String subtitle;

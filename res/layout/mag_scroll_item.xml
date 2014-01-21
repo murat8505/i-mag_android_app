@@ -3,13 +3,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <view
+    <ImageView
+        android:layout_width="@dimen/mag_page_size_width"
+        android:layout_height="@dimen/mag_page_size_height"
+        android:id="@+id/imgMagPage"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        class="by.imag.app.classes.TouchImageView"
-        android:id="@+id/magScrollItem"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true" />
+        android:text="000"
+        android:id="@+id/tvPageNumber"
+        android:layout_below="@+id/imgMagPage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/imgMagPage" />
 </RelativeLayout>

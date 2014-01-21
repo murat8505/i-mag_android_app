@@ -130,8 +130,8 @@ public class MainActivity extends FragmentActivity {
         switch (position) {
             case 0: // posts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
-//                        new PostsFragment()).commit();
-                new FragmentLoader().execute(new PostsFragment());
+//                        new FragmentPosts()).commit();
+                new FragmentLoader().execute(new FragmentPosts());
                 break;
             case 1: //tags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
@@ -145,23 +145,23 @@ public class MainActivity extends FragmentActivity {
             break;
             case 3: // about
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
-//                        new AboutFragment()).commit();
-                new FragmentLoader().execute(new AboutFragment());
+//                        new FragmentAbout()).commit();
+                new FragmentLoader().execute(new FragmentAbout());
             break;
             case 4: // contacts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
-//                        new ContactsFragment()).commit();
-                new FragmentLoader().execute(new ContactsFragment());
+//                        new FragmentContacts()).commit();
+                new FragmentLoader().execute(new FragmentContacts());
             break;
             case 5: // adv
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
-//                        new AdvFragment()).commit();
-                new FragmentLoader().execute(new AdvFragment());
+//                        new FragmentAdv()).commit();
+                new FragmentLoader().execute(new FragmentAdv());
             break;
             case 6: // mags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
-//                        new MagFragment()).commit();
-                new FragmentLoader().execute(new MagFragment());
+//                        new FragmentMag()).commit();
+                new FragmentLoader().execute(new FragmentMag());
                 break;
             default: getActionBar().setSubtitle(menuTitles[position]);
         }

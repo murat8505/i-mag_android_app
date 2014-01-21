@@ -51,7 +51,7 @@ public class ActivityMag extends Activity {
         actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
-        logMsg("magTitle: "+magTitle);
+//        logMsg("magTitle: "+magTitle);
         touchImageView = (TouchImageView) findViewById(R.id.imageMagPage);
         tvPage = (TextView) findViewById(R.id.tvPage);
         Intent magIntent = getIntent();
@@ -101,22 +101,25 @@ public class ActivityMag extends Activity {
         Formatter imgUrlFormatter = new Formatter();
         imgUrlFormatter.format(imgUrlFormat, magId, page);
         String imgUrl = imgUrlFormatter.toString();
-        Picasso.with(this).load(imgUrl).placeholder(R.drawable.placeholder)
-                .error(R.drawable.logo_red).into(touchImageView);
+        Picasso.with(this)
+                .load(imgUrl)
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.logo_red)
+                .into(touchImageView);
         tvPage.setText(currentPage + "/" + magPostCount);
     }
 
-    private void setView() {
-        ListView lvMagScroll = (ListView) findViewById(R.id.lvMagScroll);
-        List<String> imgUrls = new ArrayList<String>();
-        Formatter imgUrlFormatter = new Formatter();
-        for (int pageNumber = 1; pageNumber <= magPostCount; pageNumber++) {
-            imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
-            imgUrls.add(imgUrlFormatter.toString());
-        }
-        MagAdapter magAdapter = new MagAdapter(this, imgUrls);
-        lvMagScroll.setAdapter(magAdapter);
-    }
+//    private void setView() {
+//        ListView lvMagScroll = (ListView) findViewById(R.id.lvMagScroll);
+//        List<String> imgUrls = new ArrayList<String>();
+//        Formatter imgUrlFormatter = new Formatter();
+//        for (int pageNumber = 1; pageNumber <= magPostCount; pageNumber++) {
+//            imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
+//            imgUrls.add(imgUrlFormatter.toString());
+//        }
+//        MagAdapter magAdapter = new MagAdapter(this, imgUrls);
+//        lvMagScroll.setAdapter(magAdapter);
+//    }
 
     public void onClickPrev(View view) {
         if (currentPage > startPage) {

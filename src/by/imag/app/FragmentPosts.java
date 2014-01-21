@@ -5,12 +5,8 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +24,7 @@ import by.imag.app.classes.Constants;
 import by.imag.app.classes.DocumentParser;
 import by.imag.app.classes.TagItem;
 
-public class PostsFragment extends BaseFragment implements View.OnClickListener{
+public class FragmentPosts extends BaseFragment implements View.OnClickListener{
     private AppDb appDb;
     private SharedPreferences preferences;
     private GridView gridView;
@@ -46,19 +42,19 @@ public class PostsFragment extends BaseFragment implements View.OnClickListener{
     private ArchiveItem archiveItem;
 
 
-    public PostsFragment(String url, String name) {
+    public FragmentPosts(String url, String name) {
         this.url = url;
         this.name = name;
     }
 
-    public PostsFragment(TagItem tagItem) {
+    public FragmentPosts(TagItem tagItem) {
         this.tagItem = tagItem;
         this.url = tagItem.getTagURL() + "&paged=";
         this.name = tagItem.getTagName();
         subtitle = tagItem.getTagName();
     }
 
-    public PostsFragment(ArchiveItem archiveItem) {
+    public FragmentPosts(ArchiveItem archiveItem) {
         this.archiveItem = archiveItem;
         this.url = archiveItem.getArchUrl() + "&paged=";
         this.name = archiveItem.getArchName();
@@ -66,7 +62,7 @@ public class PostsFragment extends BaseFragment implements View.OnClickListener{
         subtitle = archiveItem.getArchName();
     }
 
-    public PostsFragment() {
+    public FragmentPosts() {
     }
 
     @Override
@@ -204,7 +200,7 @@ public class PostsFragment extends BaseFragment implements View.OnClickListener{
                 int articleId = ap.getArticleId();
                 String postTitle = ap.getArticleTitle();
 //                logMsg("post: "+articleId);
-                Intent viewPostIntent = new Intent(getActivity(), ArticleActivity.class);
+                Intent viewPostIntent = new Intent(getActivity(), ActivityArticle.class);
                 Bundle article = new Bundle();
                 article.putInt("articleId", articleId);
                 article.putString("postTitle", postTitle);

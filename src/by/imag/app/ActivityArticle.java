@@ -25,7 +25,7 @@ import java.util.concurrent.Future;
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.HtmlParserThread;
 
-public class ArticleActivity extends Activity {
+public class ActivityArticle extends Activity {
     private WebView webViewArticle;
     private String articleUrl;
     private ProgressBar pbArticle;

@@ -85,7 +85,8 @@
             android:id="@+id/tvFaxNum"
             android:layout_below="@+id/tvFaxTxt"
             android:layout_alignParentLeft="true"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:autoLink="phone" />
 
         <TextView
             android:layout_width="wrap_content"

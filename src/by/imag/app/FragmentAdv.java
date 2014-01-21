@@ -2,13 +2,12 @@ package by.imag.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class AdvFragment extends BaseFragment implements View.OnClickListener{
+public class FragmentAdv extends BaseFragment implements View.OnClickListener{
     private Button btnPrice;
 //    private String subtitle;
     @Override
@@ -27,7 +26,7 @@ public class AdvFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnPrice:
-                Intent advIntent = new Intent(getActivity(), AdvActivity.class);
+                Intent advIntent = new Intent(getActivity(), ActivityAdv.class);
                 startActivity(advIntent);
         }
     }

@@ -10,5 +10,8 @@
     <dimen name="mag_item_width">160dp</dimen>
     <dimen name="mag_item_height">216dp</dimen>
     <dimen name="tag_text_size">20dp</dimen>
+    <dimen name="mag_page_size_width">50dp</dimen>
+    <dimen name="mag_page_size_height">68dp</dimen>
+    <dimen name="adv_text_margin">20dp</dimen>
 
 </resources>

@@ -43,7 +43,7 @@ import by.imag.app.json.Doc;
 import by.imag.app.json.JsonResponse;
 import by.imag.app.json.Response;
 
-public class MagFragment extends BaseFragment{
+public class FragmentMag extends BaseFragment{
     //http://search.issuu.com/api/2_0/document?q=username:vovic2000&sortBy=epoch&pageSize=6
     //http://search.issuu.com/api/2_0/document?q=documentId:140109103402-1931c53b51bfbd91c262c9e0f3308319&responseParams=*
 
@@ -99,6 +99,7 @@ public class MagFragment extends BaseFragment{
                 MagItem magItem = appDb.getMagItem(_id);
 //                logMsg("magItem: "+magItem);
                 Intent magIntent = new Intent(getActivity(), ActivityMag.class);
+//                Intent magIntent = new Intent(getActivity(), TestActivity.class);
                 Bundle magBundle = new Bundle();
                 magBundle.putString(Constants.MAG_ID, magItem.getMagId());
                 String magTitle = magItem.getMagTitle();
