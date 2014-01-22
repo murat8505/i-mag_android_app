@@ -37,7 +37,7 @@ public class FragmentTags extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         appDb = new AppDb(getActivity().getApplicationContext());
-        View rootView = inflater.inflate(R.layout.tags_grid, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_tags, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridTags);
         progressBar = (ProgressBar) rootView.findViewById(R.id.pbTags);
         progressBar.setVisibility(View.GONE);

@@ -37,7 +37,7 @@ public class FragmentArchives extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.arch_grid, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_arch, container, false);
         appDb = new AppDb(getActivity().getApplicationContext());
         gridView = (GridView) rootView.findViewById(R.id.gridArch);
         pbArch = (ProgressBar) rootView.findViewById(R.id.pbArch);

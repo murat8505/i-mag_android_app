@@ -38,7 +38,7 @@ public class ActivityArticle extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.article);
+        setContentView(R.layout.activity_article);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         webViewArticle = (WebView) findViewById(R.id.wvArticle);
@@ -156,7 +156,7 @@ public class ActivityArticle extends Activity {
                 }
                 Elements article = document.select(".article");
 
-//                logMsg("article: "+article.get(0));
+//                logMsg("activity_article: "+activity_article.get(0));
                 result = article.get(0).toString();
             }
             return result;

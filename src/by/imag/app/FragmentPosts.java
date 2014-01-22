@@ -71,7 +71,7 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
         logMsg("onCreateView");
         appDb = new AppDb(getActivity());
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        View rootView = inflater.inflate(R.layout.posts_frag_grid, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_posts, container, false);
         gridView = (GridView) rootView.findViewById(R.id.gridView);
         PostAdapter postAdapter = new PostAdapter(getActivity().getApplicationContext(), posts);
         gridView.setAdapter(postAdapter);

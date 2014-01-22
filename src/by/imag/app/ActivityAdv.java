@@ -16,7 +16,7 @@ public class ActivityAdv extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.adv_img);
+        setContentView(R.layout.activity_adv_img);
         imgAdv = (TouchImageView) findViewById(R.id.imgAdv);
         imgAdv.setMaxZoom(3);
         actionBar = getActionBar();
