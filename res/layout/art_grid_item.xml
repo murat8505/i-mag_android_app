@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="Title"
         android:id="@+id/tvTitle"
-        android:background="#b7f5f2ff"
+        android:background="@color/art_item_color"
         android:textColor="#F33413"
         android:layout_alignTop="@+id/imageView"
         android:layout_alignLeft="@+id/imageView"

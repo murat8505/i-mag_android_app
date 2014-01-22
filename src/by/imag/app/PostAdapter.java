@@ -17,9 +17,9 @@ import by.imag.app.classes.ArticlePreview;
 
 public class PostAdapter extends BaseAdapter {
 
-    Context context;
-    LayoutInflater inflater;
-    List<ArticlePreview> posts;
+    private Context context;
+    private LayoutInflater inflater;
+    private List<ArticlePreview> posts;
 
     public PostAdapter(Context context, List<ArticlePreview> posts) {
         this.context = context;

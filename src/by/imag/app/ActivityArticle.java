@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.ShareActionProvider;
 
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.concurrent.ExecutionException;
@@ -143,10 +144,17 @@ public class ActivityArticle extends Activity {
             }
             executorService.shutdown();
             if (document != null) {
+                Elements fbClasses = document.select(".fb-social-plugin");
+//                logMsg("fbClasses: "+fbClasses);
+                for (Element e: fbClasses) {
+                    e.remove();
+                }
+                Elements noStyle = document.select(".nostyle");
+//                logMsg("noStyle: "+noStyle);
+                for (Element e: noStyle) {
+                    e.remove();
+                }
                 Elements article = document.select(".article");
-//                logMsg("article " + article.size());
-                article.get(0).removeClass("fb-social-plugin fb-like fb_edge_widget_with_comment fb_iframe_widget");
-                article.get(0).removeClass("nostyle");
 
 //                logMsg("article: "+article.get(0));
                 result = article.get(0).toString();

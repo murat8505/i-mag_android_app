@@ -58,8 +58,14 @@ public class MainActivity extends FragmentActivity {
         // set a custom shadow that overlays the main content when the drawer opens
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
-        drawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, menuTitles));
+//        drawerList.setAdapter(new ArrayAdapter<String>(this,
+//                R.layout.drawer_list_item, menuTitles));
+//        View footer = (View) getLayoutInflater().inflate(R.layout.drawer_header, null);
+//        footer.setClickable(false);
+//        footer.setSelected(false);
+//        drawerList.addFooterView(footer);
+        drawerList.setAdapter(new DrawerAdapter(this, menuTitles));
+
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer

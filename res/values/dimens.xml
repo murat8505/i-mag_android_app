@@ -13,5 +13,8 @@
     <dimen name="mag_page_size_width">50dp</dimen>
     <dimen name="mag_page_size_height">68dp</dimen>
     <dimen name="adv_text_margin">20dp</dimen>
+    <dimen name="drawer_item_padding_left">15dp</dimen>
+    <dimen name="drawer_item_padding_right">5dp</dimen>
+    <dimen name="drawer_item_text_size">12dp</dimen>
 
 </resources>
