@@ -57,6 +57,9 @@ public class PostAdapter extends BaseAdapter {
                 .error(R.drawable.logo_red)
                 .into(imgArticlePreview);
 
+//        ImageLoader imageLoader = ImageLoader.getInstance();
+//        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+//        imageLoader.displayImage(imgUrl, imgArticlePreview);
         return view;
     }
 

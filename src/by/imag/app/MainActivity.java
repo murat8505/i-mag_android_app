@@ -1,6 +1,7 @@
 package by.imag.app;
 
 
+import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -34,11 +35,14 @@ public class MainActivity extends FragmentActivity {
     private String[] menuTitles;
     private SharedPreferences preferences;
     private Menu menu;
+    private ActionBar actionBar;
+    private Fragment fragment;
+    private int menuPosition;
 
     @Override
     protected void onStart() {
         super.onStart();
-        logMsg("onStart");
+//        logMsg("onStart");
     }
 
 
@@ -46,7 +50,9 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-        logMsg("onCreate");
+//        logMsg("onCreate");
+        actionBar = getActionBar();
+        fragmentManager = getSupportFragmentManager();
         preferences = getPreferences(MODE_PRIVATE);
 //        isUpdated = preferences.getBoolean(Constants.IS_UPDATED, false);
 
@@ -60,32 +66,34 @@ public class MainActivity extends FragmentActivity {
         // set up the drawer's list view with items and click listener
 //        drawerList.setAdapter(new ArrayAdapter<String>(this,
 //                R.layout.drawer_list_item, menuTitles));
-//        View footer = (View) getLayoutInflater().inflate(R.layout.drawer_header, null);
-//        footer.setClickable(false);
-//        footer.setSelected(false);
-//        drawerList.addFooterView(footer);
+
         drawerList.setAdapter(new DrawerAdapter(this, menuTitles));
 
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+//        fragmentManager.beginTransaction().replace(R.id.content_frame,
+//                new FragmentDefault()).commit();
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
                 R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
 
             public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
+                super.onDrawerClosed(drawerView);
 //                logMsg("on drawer closed");
 //                hideMenuItem(menu);
-                getActionBar().setTitle(title);
+                actionBar.setTitle(title);
+                if (fragment != null) {
+                    new FragmentLoader().execute(fragment);
+                }
+
             }
 
             public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
+                super.onDrawerOpened(drawerView);
 //                logMsg("on drawer opened");
-                getActionBar().setTitle(drawerTitle);
+                actionBar.setTitle(drawerTitle);
 //                hideMenuItem(menu);
                 invalidateOptionsMenu();
             }
@@ -107,14 +115,13 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        this.finish();
-        logMsg("onDestroy");
+//        logMsg("onDestroy");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        logMsg("onBackPressed");
-        // todo: exit dialog
+//        logMsg("onBackPressed");
         savePreferences();
         this.finish();
     }
@@ -130,48 +137,55 @@ public class MainActivity extends FragmentActivity {
 
     private void selectItem(int position) {
         drawerList.setItemChecked(position, true);
-        fragmentManager = getSupportFragmentManager();
+        menuPosition = position;
 //        setTitle(menuTitles[position]);
-        logMsg("position: "+position);
+//        logMsg("position: "+position);
         switch (position) {
             case 0: // posts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentPosts()).commit();
                 new FragmentLoader().execute(new FragmentPosts());
+                fragment = new FragmentPosts();
                 break;
             case 1: //tags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentTags()).commit();
-                new FragmentLoader().execute(new FragmentTags());
+//                new FragmentLoader().execute(new FragmentTags());
+                fragment = new FragmentTags();
             break;
             case 2: //archives
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentArchives()).commit();
-                new FragmentLoader().execute(new FragmentArchives());
+//                new FragmentLoader().execute(new FragmentArchives());
+                fragment = new FragmentArchives();
             break;
             case 3: // about
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentAbout()).commit();
-                new FragmentLoader().execute(new FragmentAbout());
+//                new FragmentLoader().execute(new FragmentAbout());
+                fragment = new FragmentAbout();
             break;
             case 4: // contacts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentContacts()).commit();
-                new FragmentLoader().execute(new FragmentContacts());
+//                new FragmentLoader().execute(new FragmentContacts());
+                fragment = new FragmentContacts();
             break;
             case 5: // adv
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentAdv()).commit();
-                new FragmentLoader().execute(new FragmentAdv());
+//                new FragmentLoader().execute(new FragmentAdv());
+                fragment = new FragmentAdv();
             break;
             case 6: // mags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentMag()).commit();
-                new FragmentLoader().execute(new FragmentMag());
+//                new FragmentLoader().execute(new FragmentMag());
+                fragment = new FragmentMag();
                 break;
-            default: getActionBar().setSubtitle(menuTitles[position]);
+            default: actionBar.setSubtitle(menuTitles[position]);
         }
-        getActionBar().setSubtitle(menuTitles[position]);
+        actionBar.setSubtitle(menuTitles[position]);
         drawerLayout.closeDrawer(drawerList);
     }
 

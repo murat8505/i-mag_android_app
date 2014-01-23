@@ -22,6 +22,7 @@ public class Constants {
     public static final String MAG_URL = "magUrl";
     public static final String MAG_INTENT = "magIntent";
     public static final String MAG_POST_COUNT = "magPostCount";
+    public static final String MAG_PAGE = "magPage";
     public static final int ARTICLES_ON_PAGE = 21;
 
     public static final int PAGE_NEXT = 1;

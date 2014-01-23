@@ -95,7 +95,7 @@ public class FragmentMag extends BaseFragment{
                 MagItem magItem = appDb.getMagItem(_id);
 //                logMsg("magItem: "+magItem);
                 Intent magIntent = new Intent(getActivity(), ActivityMag.class);
-//                Intent magIntent = new Intent(getActivity(), TestActivity.class);
+//                Intent magIntent = new Intent(getActivity(), ActivityMagPager.class);
                 Bundle magBundle = new Bundle();
                 magBundle.putString(Constants.MAG_ID, magItem.getMagId());
                 String magTitle = magItem.getMagTitle();

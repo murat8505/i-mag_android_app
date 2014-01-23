@@ -96,17 +96,17 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
         }
         setView();
         update = true;
-        logMsg("isAdded: "+isAdded());
-        logMsg("isDetached: " + isDetached());
-        logMsg("isHidden: "+isHidden());
-        logMsg("isVisible :" + isVisible());
+//        logMsg("isAdded: "+isAdded());
+//        logMsg("isDetached: " + isDetached());
+//        logMsg("isHidden: "+isHidden());
+//        logMsg("isVisible :" + isVisible());
         return rootView;
     }
 
     @SuppressWarnings("deprecation")
     private int getNumColumns() {
         float gridSize = getResources().getDimension(R.dimen.grid_size);
-        logMsg("gridSize = "+gridSize);
+//        logMsg("gridSize = "+gridSize);
 //        float scaleFactor = getResources().getDisplayMetrics().density * gridSize;
         int number = getActivity().getWindowManager().getDefaultDisplay().getWidth();
         int columns = (int) ((float) number / gridSize);
@@ -156,9 +156,9 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
     @Override
     public void onPause() {
         super.onPause();
-        logMsg("onPause");
+//        logMsg("onPause");
         update = false;
-        logMsg("update: "+update);
+//        logMsg("update: "+update);
 //        savePreferences();
     }
 
@@ -167,14 +167,14 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
         setRetainInstance(true);
-        logMsg("onCreate");
+//        logMsg("onCreate");
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        logMsg("onSaveInstanceState");
+//        logMsg("onSaveInstanceState");
         outState.putInt(PAGE, currentPage);
 //        outState.putParcelableArrayList("posts", (ArrayList<? extends Parcelable>) posts);
 //        outState.putBoolean(UPDATE, false);
@@ -267,7 +267,7 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
                 int[] pagesNumbers = documentParser.getPages();
                 currentPage = pagesNumbers[0];
                 lastPage = pagesNumbers[1];
-                logMsg("current: "+currentPage + " last: "+lastPage);
+//                logMsg("current: "+currentPage + " last: "+lastPage);
             }
             return articlePreviewList;
         }

@@ -8,7 +8,9 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
     <ListView
         android:id="@+id/left_drawer"
@@ -17,7 +19,7 @@
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
         android:divider="@android:color/holo_blue_light"
-        android:dividerHeight="1sp"
+        android:dividerHeight="1dp"
         android:background="@android:color/white"
         />
 
