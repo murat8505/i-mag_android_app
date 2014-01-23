@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,12 +56,14 @@ public class FragmentMag extends BaseFragment{
     private GridView gridView;
     private ProgressBar pbMag;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mag, container, false);
         appDb = new AppDb(getActivity().getApplicationContext());
-        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+//        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
         gridView = (GridView) rootView.findViewById(R.id.gridMag);
         pbMag = (ProgressBar) rootView.findViewById(R.id.pbMag);
         loadPreferences();
@@ -93,9 +96,25 @@ public class FragmentMag extends BaseFragment{
             public void onItemClick(AdapterView<?> adapterView, View view,
                                     int position, long _id) {
                 MagItem magItem = appDb.getMagItem(_id);
+                Intent magIntent;
+                String prefsKey = getActivity().getResources().getString(R.string.pref_mag_style_key);
+                logMsg("prefsKey: "+prefsKey);
+                String style = preferences.getString(prefsKey, "100");
+                logMsg("prefs: "+style);
+                int pref = Integer.parseInt(style);
+                switch (pref) {
+                    case 100:
+                        magIntent = new Intent(getActivity(), ActivityMag.class);
+                    break;
+                    case 200:
+                        magIntent = new Intent(getActivity(), ActivityMagPager.class);
+                        break;
+                    default:
+                        magIntent = new Intent(getActivity(), ActivityMag.class);
+                }
 //                logMsg("magItem: "+magItem);
-                Intent magIntent = new Intent(getActivity(), ActivityMag.class);
-//                Intent magIntent = new Intent(getActivity(), ActivityMagPager.class);
+//                magIntent = new Intent(getActivity(), ActivityMag.class);
+//                magIntent = new Intent(getActivity(), ActivityMagPager.class);
                 Bundle magBundle = new Bundle();
                 magBundle.putString(Constants.MAG_ID, magItem.getMagId());
                 String magTitle = magItem.getMagTitle();
@@ -187,13 +206,13 @@ public class FragmentMag extends BaseFragment{
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     Gson gson = new Gson();
                     InputStreamReader inputStreamReader = new InputStreamReader(url.openStream());
-                    logMsg("stream:"+inputStreamReader);
+//                    logMsg("stream:"+inputStreamReader);
                     JsonResponse jsonResponse = gson.fromJson(inputStreamReader, JsonResponse.class);
-                    logMsg("jsonResponse: "+jsonResponse);
+//                    logMsg("jsonResponse: "+jsonResponse);
                     Response response = jsonResponse.getResponse();
-                    logMsg("response: "+response);
+//                    logMsg("response: "+response);
                     ArrayList<Doc> docs = response.getDocs();
-                    logMsg("docs: "+docs);
+//                    logMsg("docs: "+docs);
                     ArrayList<MagItem> magItems = new ArrayList<MagItem>();
                     for (Doc d: docs) {
                         MagItem magItem = new MagItem(
@@ -219,7 +238,7 @@ public class FragmentMag extends BaseFragment{
         @Override
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
-            logMsg("result: "+result);
+//            logMsg("result: "+result);
             if (result) {
                 if (isAdded()) {
                     setView();

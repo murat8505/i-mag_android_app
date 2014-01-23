@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<PreferenceCategory-->
+        <!--android:title="@string/pref_mag_style_category">-->
+        <!---->
+     <!--</PreferenceCategory>-->
+    <ListPreference
+        android:title="@string/pref_mag_style_category"
+        android:key="@string/pref_mag_style_key"
+        android:entries="@array/pref_mag_styles"
+        android:entryValues="@array/pref_mag_style_values"/>
+</PreferenceScreen>

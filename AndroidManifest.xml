@@ -25,10 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".ActivityMagPager"/>-->
+        <activity android:name=".ActivityMagPager"/>
         <activity android:name=".ActivityArticle"/>
         <activity android:name=".ActivityAdv"/>
         <activity android:name=".ActivityMag"/>
+        <activity android:name=".ActivitySettings"/>
     </application>
 
 </manifest>

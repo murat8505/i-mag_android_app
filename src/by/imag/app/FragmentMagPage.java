@@ -32,6 +32,7 @@ public class FragmentMagPage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mag_page, null);
         imgPage = (TouchImageView) view.findViewById(R.id.touchMagPage);
+        imgPage.setMaxZoom(3);
         Formatter imgUrlFormatter = new Formatter();
         imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
         imgUrl = imgUrlFormatter.toString();

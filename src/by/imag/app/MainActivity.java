@@ -2,6 +2,7 @@ package by.imag.app;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -206,6 +207,9 @@ public class MainActivity extends FragmentActivity {
             return true;
         } else {
             switch (item.getItemId()) {
+                case R.id.action_settings:
+                    Intent intent = new Intent(this, ActivitySettings.class);
+                    startActivity(intent);
 //                case R.id.action_update:
 //                    logMsg("action update");
 //                    serviceUpdate();
