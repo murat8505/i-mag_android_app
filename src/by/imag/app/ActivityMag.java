@@ -67,7 +67,6 @@ public class ActivityMag extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        return super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_post, menu);
         MenuItem item = menu.findItem(R.id.menu_item_share);
         shareActionProvider = (ShareActionProvider) item.getActionProvider();

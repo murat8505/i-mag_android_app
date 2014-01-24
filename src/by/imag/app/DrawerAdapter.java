@@ -41,14 +41,14 @@ public class DrawerAdapter extends BaseAdapter {
         if (view == null) {
             view = inflater.inflate(R.layout.drawer_item, viewGroup, false);
         }
-        String fontName = "fonts/Roboto-Regular.ttf";
-        Typeface typeface = Typeface.createFromAsset(context.getAssets(), fontName);
+//        String fontName = "fonts/Roboto-Regular.ttf";
+//        Typeface typeface = Typeface.createFromAsset(context.getAssets(), fontName);
         String text = getText(position);
         TextView tvDrawerItem = (TextView) view.findViewById(R.id.tvDrawerItem);
         tvDrawerItem.setText(text);
-        tvDrawerItem.setTypeface(typeface);
-        float fontSize = context.getResources().getDimension(R.dimen.drawer_item_text_size);
-        tvDrawerItem.setTextSize(fontSize);
+//        tvDrawerItem.setTypeface(typeface);
+//        float fontSize = context.getResources().getDimension(R.dimen.drawer_item_text_size);
+//        tvDrawerItem.setTextSize(fontSize);
         return view;
     }
 

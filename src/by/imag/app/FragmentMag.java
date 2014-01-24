@@ -98,15 +98,15 @@ public class FragmentMag extends BaseFragment{
                 MagItem magItem = appDb.getMagItem(_id);
                 Intent magIntent;
                 String prefsKey = getActivity().getResources().getString(R.string.pref_mag_style_key);
-                logMsg("prefsKey: "+prefsKey);
+//                logMsg("prefsKey: "+prefsKey);
                 String style = preferences.getString(prefsKey, "100");
-                logMsg("prefs: "+style);
+//                logMsg("prefs: "+style);
                 int pref = Integer.parseInt(style);
                 switch (pref) {
-                    case 100:
+                    case Constants.MAG_STYLE_BUTTONS:
                         magIntent = new Intent(getActivity(), ActivityMag.class);
                     break;
-                    case 200:
+                    case Constants.MAG_STYLE_SLIDE:
                         magIntent = new Intent(getActivity(), ActivityMagPager.class);
                         break;
                     default:

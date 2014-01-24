@@ -23,6 +23,11 @@ public class Constants {
     public static final String MAG_INTENT = "magIntent";
     public static final String MAG_POST_COUNT = "magPostCount";
     public static final String MAG_PAGE = "magPage";
+    public static final int MAG_STYLE_BUTTONS = 100;
+    public static final int MAG_STYLE_SLIDE = 200;
+    public static final int MAG_LOAD_PICASSO = 10;
+    public static final int MAG_LOAD_IMAGE_LOADER = 20;
+
     public static final int ARTICLES_ON_PAGE = 21;
 
     public static final int PAGE_NEXT = 1;
