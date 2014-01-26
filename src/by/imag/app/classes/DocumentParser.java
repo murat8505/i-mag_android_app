@@ -54,7 +54,7 @@ public class DocumentParser {
                 articlePreviews.add(articlePreview);
             }
         } else  {
-            logMsg("document: "+document);
+//            logMsg("document: "+document);
         }
         return articlePreviews;
     }
@@ -105,7 +105,7 @@ public class DocumentParser {
             String pageStr = span.get(0).text();
             page = Integer.parseInt(pageStr);
         }
-        logMsg("current page: "+page);
+//        logMsg("current page: "+page);
         return page;
     }
 
@@ -115,7 +115,7 @@ public class DocumentParser {
             Elements elementsNavigation = document.select("div[class=wp-pagenavi]");
             Elements last = elementsNavigation.get(0).select("span[class=pages]");
             String lastStr = last.get(0).text();
-            logMsg("last: "+lastStr);
+//            logMsg("last: "+lastStr);
 //            String[] strings = lastStr.split("=");
 //            lastStr = strings[1];
 //            page = Integer.parseInt(lastStr);
@@ -132,7 +132,7 @@ public class DocumentParser {
             }
 
         }
-        logMsg("last page: "+page);
+//        logMsg("last page: "+page);
         return page;
     }
 
@@ -158,7 +158,7 @@ public class DocumentParser {
 //    }
 
     private Document parse(String url) {
-        logMsg("parsing");
+//        logMsg("parsing");
         Document document = null;
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Future<Document> documentFuture = executorService.submit(new
@@ -171,12 +171,12 @@ public class DocumentParser {
             e.printStackTrace();
         }
         executorService.shutdown();
-        logMsg("finished");
+//        logMsg("finished");
         return document;
     }
 
     private Document parse() {
-        logMsg("parsing");
+//        logMsg("parsing");
         Document document = null;
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Future<Document> documentFuture = executorService.submit(new
@@ -189,7 +189,7 @@ public class DocumentParser {
             e.printStackTrace();
         }
         executorService.shutdown();
-        logMsg("finished");
+//        logMsg("finished");
         return document;
     }
 

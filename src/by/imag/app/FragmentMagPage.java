@@ -1,6 +1,7 @@
 package by.imag.app;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -8,15 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.Formatter;
 
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.TouchImageView;
+
+import static android.graphics.Bitmap.CompressFormat;
 
 public class FragmentMagPage extends Fragment {
     private TouchImageView imgPage;
@@ -69,7 +76,15 @@ public class FragmentMagPage extends Fragment {
     }
 
     private void loadImgImageLoader() {
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity().getBaseContext())
+                .memoryCacheExtraOptions(1109, 1496)
+                .threadPoolSize(6)
+                .threadPriority(Thread.MIN_PRIORITY + 3)
+                .denyCacheImageMultipleSizesInMemory()
+                .memoryCache(new UsingFreqLimitedMemoryCache(2 * 1024 * 1024))
+                .build();
         ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.init(config);
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.placeholder)
                 .showImageOnFail(R.drawable.logo_red)
