@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -95,12 +94,12 @@ public class ActivityMagPager extends FragmentActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return position+"";
+            return position+1+"";
         }
 
         @Override
         public Fragment getItem(int position) {
-            return FragmentMagPage.newInstance(position, magId);
+            return FragmentMagPage.newInstance(position+1, magId);
         }
 
         @Override

@@ -12,15 +12,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Formatter;
-import java.util.List;
 
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.TouchImageView;

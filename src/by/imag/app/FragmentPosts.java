@@ -37,33 +37,6 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
     private boolean update = true;
     private String subtitle;
     private String url;
-    private String name;
-    private TagItem tagItem;
-    private ArchiveItem archiveItem;
-
-
-    public FragmentPosts(String url, String name) {
-        this.url = url;
-        this.name = name;
-    }
-
-    public FragmentPosts(TagItem tagItem) {
-        this.tagItem = tagItem;
-        this.url = tagItem.getTagURL() + "&paged=";
-        this.name = tagItem.getTagName();
-        subtitle = tagItem.getTagName();
-    }
-
-    public FragmentPosts(ArchiveItem archiveItem) {
-        this.archiveItem = archiveItem;
-        this.url = archiveItem.getArchUrl() + "&paged=";
-        this.name = archiveItem.getArchName();
-//        subtitle = getResources().getStringArray(R.array.menu_items)[2];
-        subtitle = archiveItem.getArchName();
-    }
-
-    public FragmentPosts() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,11 +69,18 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
         }
         setView();
         update = true;
-//        logMsg("isAdded: "+isAdded());
-//        logMsg("isDetached: " + isDetached());
-//        logMsg("isHidden: "+isHidden());
-//        logMsg("isVisible :" + isVisible());
         return rootView;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        logMsg("onCreate");
+        if (getArguments() != null) {
+            url = getArguments().getString(Constants.PAGE_URL);
+            subtitle = getArguments().getString(Constants.SUBTITLE);
+        }
+        setRetainInstance(true);
     }
 
     @SuppressWarnings("deprecation")
@@ -133,15 +113,6 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
         });
     }
 
-//    private void savePreferences() {
-//        SharedPreferences.Editor editor = preferences.edit();
-//        editor.putBoolean(Constants.UPDATE_POSTS, false);
-//        editor.commit();
-//    }
-//
-//    private void loadPreferences() {
-//        update = preferences.getBoolean(Constants.UPDATE_POSTS, true);
-//    }
 
     @Override
     public void onResume() {
@@ -162,13 +133,7 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
 //        savePreferences();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setRetainInstance(true);
-//        logMsg("onCreate");
-    }
 
 
     @Override
@@ -232,21 +197,27 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
         }
     }
 
-//    private boolean isOnline() {
-//        ConnectivityManager connectivityManager =
-//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//        if (networkInfo != null && networkInfo.isConnected()) {
-//            // networkInfo.isConnected
-//            // networkInfo.isConnectedOrConnecting()
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    private void logMsg(String msg) {
-//        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
-//    }
+    public static FragmentPosts newInstance(TagItem tagItem) {
+        FragmentPosts fragmentPosts = new FragmentPosts();
+        Bundle arguments = new Bundle();
+//        this.tagItem = tagItem;
+//        this.url = tagItem.getTagURL() + "&paged=";
+//        this.name = tagItem.getTagName();
+//        subtitle = tagItem.getTagName();
+        arguments.putString(Constants.PAGE_URL, tagItem.getTagURL() + "&paged=");
+        arguments.putString(Constants.SUBTITLE, tagItem.getTagName());
+        fragmentPosts.setArguments(arguments);
+        return fragmentPosts;
+    }
+
+    public static FragmentPosts newInstance(ArchiveItem archiveItem) {
+        FragmentPosts fragmentPosts = new FragmentPosts();
+        Bundle arguments = new Bundle();
+        arguments.putString(Constants.PAGE_URL, archiveItem.getArchUrl() + "&paged=");
+        arguments.putString(Constants.SUBTITLE, archiveItem.getArchName());
+        fragmentPosts.setArguments(arguments);
+        return fragmentPosts;
+    }
 
     private class PostsLoader extends AsyncTask<String, Void, List<ArticlePreview>> {
 

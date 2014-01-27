@@ -1,28 +1,15 @@
 package by.imag.app;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class FragmentAbout extends BaseFragment{
-//    private String subtitle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.about_frag, container, false);
-//        subtitle = getResources().getStringArray(R.array.menu_items)[3];
-//        getActivity().getActionBar().setSubtitle(subtitle);
-
-//        TextView tvAbout2 = (TextView) rootView.findViewById(R.id.tvAbout2);
-//        String fontName = "fonts/Roboto-Regular.ttf";
-//        Typeface typeface = Typeface.createFromAsset(
-//                getActivity().getApplicationContext().getAssets(), fontName);
-//        tvAbout2.setTypeface(typeface);
-//        tvAbout2.setTextSize(15);
         setActionBarSubtitle(3);
         return rootView;
     }

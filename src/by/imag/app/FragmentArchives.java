@@ -86,10 +86,11 @@ public class FragmentArchives extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position,
                                     long _id) {
                 ArchiveItem archiveItem = appDb.getArchiveItem(_id);
-                String archName = archiveItem.getArchName();
-                String archUrl = archiveItem.getArchUrl();
+//                String archName = archiveItem.getArchName();
+//                String archUrl = archiveItem.getArchUrl();
 //                archUrl = archUrl + "&paged=1";
-                Fragment testFragment = new FragmentPosts(archiveItem);
+//                Fragment testFragment = new FragmentPosts(archiveItem);
+                Fragment testFragment = FragmentPosts.newInstance(archiveItem);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()
                         .beginTransaction();
                 transaction.replace(R.id.content_frame, testFragment);
@@ -98,21 +99,6 @@ public class FragmentArchives extends BaseFragment {
         });
     }
 
-//    private boolean isOnline() {
-//        ConnectivityManager connectivityManager =
-//                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-//        if (networkInfo != null && networkInfo.isConnected()) {
-//            // networkInfo.isConnected
-//            // networkInfo.isConnectedOrConnecting()
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    private void logMsg(String msg) {
-//        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
-//    }
 
     private class ArchLoader extends AsyncTask<Void, Void, Boolean> {
 

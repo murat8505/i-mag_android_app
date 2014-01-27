@@ -1,9 +1,6 @@
 package by.imag.app;
 
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +10,12 @@ import com.nostra13.universalimageloader.cache.memory.impl.UsingFreqLimitedMemor
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
-import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.Formatter;
 
 import by.imag.app.classes.Constants;
 import by.imag.app.classes.TouchImageView;
-
-import static android.graphics.Bitmap.CompressFormat;
 
 public class FragmentMagPage extends Fragment {
     private TouchImageView imgPage;
@@ -31,7 +23,6 @@ public class FragmentMagPage extends Fragment {
     private int pageNumber;
     private String magId;
     private String imgUrl;
-    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,21 +40,8 @@ public class FragmentMagPage extends Fragment {
         Formatter imgUrlFormatter = new Formatter();
         imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
         imgUrl = imgUrlFormatter.toString();
-//        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
-//        String prefsKey = getActivity().getResources().getString(R.string.pref_mag_image_load_key);
-//        int type = Integer.parseInt(preferences.getString(prefsKey,
-//                String.valueOf(Constants.MAG_STYLE_BUTTONS)));
-//        switch (type) {
-//            case Constants.MAG_LOAD_PICASSO:
-//                loadImgPicasso();
-//            break;
-//            case Constants.MAG_LOAD_IMAGE_LOADER:
-//                loadImgImageLoader();
-//            break;
-//            default: loadImgPicasso();
-//        }
-//        loadImgPicasso();
-        loadImgImageLoader();
+        loadImgPicasso();
+//        loadImgImageLoader();
         return view;
     }
 

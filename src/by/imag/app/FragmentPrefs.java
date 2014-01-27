@@ -12,6 +12,5 @@ public class FragmentPrefs extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preferences);
         String prefName = getActivity().getResources().getString(R.string.pref_mag_style_key);
         Preference preference = findPreference(prefName);
-
     }
 }

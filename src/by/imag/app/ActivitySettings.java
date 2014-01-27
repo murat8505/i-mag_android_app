@@ -4,7 +4,6 @@ package by.imag.app;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 
 public class ActivitySettings extends Activity {

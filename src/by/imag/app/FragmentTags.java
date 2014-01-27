@@ -94,7 +94,8 @@ public class FragmentTags extends BaseFragment {
 //                String tagUrl = tagItem.getTagURL();
 //                String tagName = tagItem.getTagName();
 //                logMsg("tag URL: "+tagUrl);
-                Fragment testFragment = new FragmentPosts(tagItem);
+//                Fragment testFragment = new FragmentPosts(tagItem);
+                Fragment testFragment = FragmentPosts.newInstance(tagItem);
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager()
                         .beginTransaction();
                 transaction.replace(R.id.content_frame, testFragment);
