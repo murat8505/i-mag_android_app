@@ -1,7 +1,11 @@
 package by.imag.app;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,11 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Formatter;
 
 import by.imag.app.classes.Constants;
@@ -23,12 +32,14 @@ public class FragmentMagPage extends Fragment {
     private int pageNumber;
     private String magId;
     private String imgUrl;
+    private ImgLoader imgLoader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         magId = getArguments().getString(Constants.MAG_ID);
         pageNumber = getArguments().getInt(Constants.MAG_PAGE);
+        imgLoader = new ImgLoader();
     }
 
     @Override
@@ -40,8 +51,10 @@ public class FragmentMagPage extends Fragment {
         Formatter imgUrlFormatter = new Formatter();
         imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
         imgUrl = imgUrlFormatter.toString();
+//        imgLoader.execute(imgUrl);
         loadImgPicasso();
 //        loadImgImageLoader();
+
         return view;
     }
 
@@ -69,6 +82,50 @@ public class FragmentMagPage extends Fragment {
                 .build();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
         imageLoader.displayImage(imgUrl, imgPage, options);
+    }
+
+    private Bitmap loadBitmap(String urlStr) {
+        Bitmap bitmap = null;
+        try {
+            URL url = new URL(urlStr);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            bitmap = BitmapFactory.decodeStream(input);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (OutOfMemoryError e) {
+            e.printStackTrace();
+        }
+
+        return bitmap;
+    }
+
+    private class ImgLoader extends AsyncTask<String, Void, Bitmap> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            imgPage.setImageResource(R.drawable.placeholder);
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            return loadBitmap(urls[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            imgPage.setImageBitmap(bitmap);
+        }
+    }
+
+    private void logMsg(String msg) {
+        Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
 
     static FragmentMagPage newInstance(int pageNumber, String magId) {
