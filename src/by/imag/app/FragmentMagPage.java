@@ -91,6 +91,8 @@ public class FragmentMagPage extends Fragment {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
+            connection.setConnectTimeout(20 * 1000);
+            connection.setReadTimeout(20 * 1000);
             InputStream input = connection.getInputStream();
             bitmap = BitmapFactory.decodeStream(input);
         } catch (MalformedURLException e) {
