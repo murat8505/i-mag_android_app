@@ -60,6 +60,8 @@
     <string name="name5_phone">+375 296 269 990</string>
     <string name="price_list">Прайс-лист</string>
     <string name="go_to">Перейти к странице</string>
+    <string name="clear_cache">Очистить кэш</string>
+    <string name="clear_cache_key">clearCacheKey</string>
 
     <string name="preferences">Настройки</string>
     <string name="pref_mag_style_category">Способ просмотра журналов</string>
