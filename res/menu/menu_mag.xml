@@ -7,10 +7,10 @@
         android:showAsAction="ifRoom"
         android:title="@string/share"
         android:actionProviderClass="android.widget.ShareActionProvider"/>
-    <item
-        android:id="@+id/action_go_to"
-        android:showAsAction="ifRoom"
-        android:title="@string/go_to"
-        android:icon="@android:drawable/ic_input_get"
-        />
+    <!--<item-->
+        <!--android:id="@+id/action_go_to"-->
+        <!--android:showAsAction="ifRoom"-->
+        <!--android:title="@string/go_to"-->
+        <!--android:icon="@android:drawable/ic_input_get"-->
+        <!--/>-->
 </menu>
