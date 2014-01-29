@@ -10,6 +10,9 @@
         android:key="@string/pref_mag_style_key"
         android:entries="@array/pref_mag_styles"
         android:entryValues="@array/pref_mag_style_values"/>
+    <Preference
+        android:title="@string/clear_cache"
+        android:key="@string/clear_cache_key"/>
     <!--<ListPreference-->
         <!--android:title="@string/pref_mag_image_load_title"-->
         <!--android:key="@string/pref_mag_style_key"-->
