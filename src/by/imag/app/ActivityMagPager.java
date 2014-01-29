@@ -89,9 +89,9 @@ public class ActivityMagPager extends FragmentActivity {
             case android.R.id.home:
                 this.finish();
                 return true;
-            case R.id.action_go_to:
-
-                goToPage();
+//            case R.id.action_go_to:
+//
+//                goToPage();
             default:
                 return super.onOptionsItemSelected(item);
         }
