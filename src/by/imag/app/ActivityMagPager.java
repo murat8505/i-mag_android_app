@@ -2,14 +2,12 @@ package by.imag.app;
 
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,18 +17,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ShareActionProvider;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.Formatter;
 
 import by.imag.app.classes.Constants;
+import by.imag.app.classes.TouchImageView;
 
 public class ActivityMagPager extends FragmentActivity {
+    private final String imgUrlFormat = "http://image.issuu.com/%s/jpg/page_%d.jpg";
     private ViewPager viewPager;
     private String magId;
     private String magTitle;
     private String magUrl;
     private int magPostCount = 0;
-    private PagerAdapter pagerAdapter;
+    private MagPagerAdapter magPagerAdapter;
     private ActionBar actionBar;
     private ShareActionProvider shareActionProvider;
 
@@ -49,8 +53,8 @@ public class ActivityMagPager extends FragmentActivity {
         magPostCount = magBundle.getInt(Constants.MAG_POST_COUNT);
         actionBar.setSubtitle(magTitle);
         viewPager = (ViewPager) findViewById(R.id.magPager);
-        pagerAdapter = new MagPagerAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(pagerAdapter);
+        magPagerAdapter = new MagPagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(magPagerAdapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i2) {
@@ -97,35 +101,36 @@ public class ActivityMagPager extends FragmentActivity {
         }
     }
 
-    private void goToPage() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View dialogView = inflater.inflate(R.layout.dialog_go_to, null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        final EditText etGoTo = (EditText) dialogView.findViewById(R.id.etGoTo);
-        builder.setCancelable(false).setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        int pageNumber = Integer.parseInt(String.valueOf(etGoTo.getText()));
-                        logMsg("page: "+pageNumber);
-                        viewPager.setCurrentItem(pageNumber);
-                    }
-                }).setNegativeButton("Cancel",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-    }
+//    private void goToPage() {
+//        LayoutInflater inflater = LayoutInflater.from(this);
+//        View dialogView = inflater.inflate(R.layout.dialog_go_to, null);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setView(dialogView);
+//        final EditText etGoTo = (EditText) dialogView.findViewById(R.id.etGoTo);
+//        builder.setCancelable(false).setPositiveButton("OK",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        int pageNumber = Integer.parseInt(String.valueOf(etGoTo.getText()));
+//                        logMsg("page: "+pageNumber);
+//                        viewPager.setCurrentItem(pageNumber);
+//                    }
+//                }).setNegativeButton("Cancel",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        dialog.cancel();
+//                    }
+//                });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+//
+//    }
 
     private void logMsg(String msg) {
         Log.d(Constants.LOG_TAG, ((Object) this).getClass().getSimpleName() + ": " + msg);
     }
+
 
     private class MagPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -136,7 +141,8 @@ public class ActivityMagPager extends FragmentActivity {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             super.destroyItem(container, position, object);
-            logMsg("destroy item: "+position);
+            object = null;
+//            logMsg("destroy item: "+position);
         }
 
         @Override
