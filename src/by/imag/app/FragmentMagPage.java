@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,14 +33,16 @@ public class FragmentMagPage extends Fragment {
     private int pageNumber;
     private String magId;
     private String imgUrl;
-    private ImgLoader imgLoader;
+//    private ImgLoaderTask imgLoaderTask;
+//    private int maxMemory;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         magId = getArguments().getString(Constants.MAG_ID);
         pageNumber = getArguments().getInt(Constants.MAG_PAGE);
-        imgLoader = new ImgLoader();
+//        maxMemory = (int) ((Runtime.getRuntime().maxMemory())/1024);
+
     }
 
     @Override
@@ -51,7 +54,9 @@ public class FragmentMagPage extends Fragment {
         Formatter imgUrlFormatter = new Formatter();
         imgUrlFormatter.format(imgUrlFormat, magId, pageNumber);
         imgUrl = imgUrlFormatter.toString();
-//        imgLoader.execute(imgUrl);
+
+//        imgLoaderTask = new ImgLoaderTask(imgPage);
+//        imgLoaderTask.execute(imgUrl);
         loadImgPicasso();
 //        loadImgImageLoader();
 
@@ -67,7 +72,8 @@ public class FragmentMagPage extends Fragment {
     }
 
     private void loadImgImageLoader() {
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getActivity().getBaseContext())
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getActivity().getBaseContext())
                 .memoryCacheExtraOptions(1109, 1496)
                 .threadPoolSize(6)
                 .threadPriority(Thread.MIN_PRIORITY + 3)
@@ -86,6 +92,7 @@ public class FragmentMagPage extends Fragment {
 
     private Bitmap loadBitmap(String urlStr) {
         Bitmap bitmap = null;
+        InputStream input = null;
         try {
             URL url = new URL(urlStr);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -93,8 +100,11 @@ public class FragmentMagPage extends Fragment {
             connection.connect();
             connection.setConnectTimeout(20 * 1000);
             connection.setReadTimeout(20 * 1000);
-            InputStream input = connection.getInputStream();
+            input = connection.getInputStream();
             bitmap = BitmapFactory.decodeStream(input);
+            if (input != null) {
+                input.close();
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -106,7 +116,12 @@ public class FragmentMagPage extends Fragment {
         return bitmap;
     }
 
-    private class ImgLoader extends AsyncTask<String, Void, Bitmap> {
+    private class ImgLoaderTask extends AsyncTask<String, Void, Bitmap> {
+        private final WeakReference<TouchImageView> reference;
+
+        public ImgLoaderTask(TouchImageView touchImageView) {
+            reference = new WeakReference<TouchImageView>(touchImageView);
+        }
 
         @Override
         protected void onPreExecute() {
@@ -122,7 +137,12 @@ public class FragmentMagPage extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            imgPage.setImageBitmap(bitmap);
+            if (reference != null && bitmap != null) {
+                imgPage = reference.get();
+                if (imgPage != null) {
+                    imgPage.setImageBitmap(bitmap);
+                }
+            }
         }
     }
 
