@@ -28,7 +28,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="5dp"
             android:phoneNumber="true"
-            android:autoLink="phone" />
+            android:autoLink="phone"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +41,8 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="10dp"
             android:phoneNumber="true"
-            android:autoLink="phone" />
+            android:autoLink="phone"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +63,8 @@
             android:layout_below="@+id/tvName1"
             android:layout_alignParentLeft="true"
             android:phoneNumber="true"
-            android:autoLink="phone" />
+            android:autoLink="phone"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +85,8 @@
             android:layout_below="@+id/tvName2"
             android:layout_alignParentLeft="true"
             android:autoLink="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,7 +107,8 @@
             android:layout_below="@+id/tvName3"
             android:layout_alignParentLeft="true"
             android:autoLink="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -124,7 +129,8 @@
             android:layout_below="@+id/tvName4"
             android:layout_alignParentLeft="true"
             android:autoLink="phone"
-            android:phoneNumber="true" />
+            android:phoneNumber="true"
+            android:textColorLink="@color/link_color" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -164,6 +170,7 @@
             android:layout_below="@+id/tvName5"
             android:layout_alignParentLeft="true"
             android:phoneNumber="true"
-            android:autoLink="phone" />
+            android:autoLink="phone"
+            android:textColorLink="@color/link_color" />
     </RelativeLayout>
 </ScrollView>

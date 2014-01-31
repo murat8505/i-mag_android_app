@@ -51,7 +51,8 @@
             android:layout_below="@+id/tvPhonesTxt"
             android:layout_alignParentLeft="true"
             android:phoneNumber="true"
-            android:autoLink="phone" />
+            android:autoLink="phone"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +63,8 @@
             android:autoLink="phone"
             android:layout_below="@+id/tvPhone1"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,7 +88,8 @@
             android:layout_below="@+id/tvFaxTxt"
             android:layout_alignParentLeft="true"
             android:phoneNumber="true"
-            android:autoLink="phone" />
+            android:autoLink="phone"
+            android:textColorLink="@color/link_color" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -106,7 +109,8 @@
             android:layout_alignTop="@+id/tvEmailTxt"
             android:layout_toRightOf="@+id/tvEmailTxt"
             android:layout_marginLeft="5dp"
-            android:autoLink="email" />
+            android:autoLink="email"
+            android:textColorLink="@color/link_color" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
