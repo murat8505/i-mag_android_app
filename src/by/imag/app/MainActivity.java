@@ -5,10 +5,9 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -16,10 +15,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
@@ -128,6 +127,8 @@ public class MainActivity extends FragmentActivity {
         super.onBackPressed();
 //        logMsg("onBackPressed");
         savePreferences();
+        System.exit(0);
+        android.os.Process.killProcess(Process.myPid());
         this.finish();
     }
 
@@ -150,43 +151,43 @@ public class MainActivity extends FragmentActivity {
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentPosts()).commit();
                 new FragmentLoader().execute(new FragmentPosts());
-//                fragment = new FragmentPosts();
+//                replaceFragment(new FragmentPosts());
                 break;
             case 1: //tags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentTags()).commit();
                 new FragmentLoader().execute(new FragmentTags());
-//                fragment = new FragmentTags();
+//                replaceFragment(new FragmentTags());
             break;
             case 2: //archives
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentArchives()).commit();
                 new FragmentLoader().execute(new FragmentArchives());
-//                fragment = new FragmentArchives();
+//                replaceFragment(new FragmentArchives());
             break;
-            case 3: // about
+            case 3: // mags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentAbout()).commit();
-                new FragmentLoader().execute(new FragmentAbout());
-//                fragment = new FragmentAbout();
+                new FragmentLoader().execute(new FragmentMag());
+//                replaceFragment(new FragmentMag());
             break;
-            case 4: // contacts
+            case 4: // about
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentContacts()).commit();
-                new FragmentLoader().execute(new FragmentContacts());
-//                fragment = new FragmentContacts();
+                new FragmentLoader().execute(new FragmentAbout());
+//                replaceFragment(new FragmentAbout());
             break;
-            case 5: // adv
+            case 5: // contacts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentAdv()).commit();
-                new FragmentLoader().execute(new FragmentAdv());
-//                fragment = new FragmentAdv();
+                new FragmentLoader().execute(new FragmentContacts());
+//                replaceFragment(new FragmentContacts());
             break;
-            case 6: // mags
+            case 6: // adv
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentMag()).commit();
-                new FragmentLoader().execute(new FragmentMag());
-//                fragment = new FragmentMag();
+                new FragmentLoader().execute(new FragmentAdv());
+//                replaceFragment(new FragmentAdv());
                 break;
             default: actionBar.setSubtitle(menuTitles[position]);
         }
@@ -242,6 +243,10 @@ public class MainActivity extends FragmentActivity {
         Log.d(Constants.LOG_TAG, getClass().getSimpleName() + ": " + msg);
     }
 
+    private void replaceFragment(Fragment fragment) {
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+    }
+
     private class FragmentLoader extends AsyncTask<Fragment, Void, Void> {
 
         @Override
@@ -249,6 +254,12 @@ public class MainActivity extends FragmentActivity {
             Fragment fragment = fragments[0];
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            drawerLayout.closeDrawer(Gravity.LEFT);
         }
     }
 
