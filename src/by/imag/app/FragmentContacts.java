@@ -20,7 +20,7 @@ public class FragmentContacts extends BaseFragment implements View.OnClickListen
         btnMap.setOnClickListener(this);
 //        subtitle = getResources().getStringArray(R.array.menu_items)[4];
 //        getActivity().getActionBar().setSubtitle(subtitle);
-        setActionBarSubtitle(4);
+        setActionBarSubtitle(5);
         return rootView;
     }
 

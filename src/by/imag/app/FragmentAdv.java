@@ -12,10 +12,10 @@ public class FragmentAdv extends BaseFragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.adv_frag, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_adv, container, false);
         btnPrice = (Button) rootView.findViewById(R.id.btnPrice);
         btnPrice.setOnClickListener(this);
-        setActionBarSubtitle(5);
+        setActionBarSubtitle(6);
         return rootView;
     }
 

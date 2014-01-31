@@ -71,7 +71,7 @@ public class FragmentMag extends BaseFragment{
         if (isOnline() && update) {
             new MagListLoader().execute();
         }
-        setActionBarSubtitle(6);
+        setActionBarSubtitle(3);
 //        setView();
         return rootView;
     }

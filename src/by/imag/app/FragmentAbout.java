@@ -10,7 +10,7 @@ public class FragmentAbout extends BaseFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.about_frag, container, false);
-        setActionBarSubtitle(3);
+        setActionBarSubtitle(4);
         return rootView;
     }
 }
