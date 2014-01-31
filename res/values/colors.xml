@@ -3,5 +3,5 @@
     <color name="text_back">#FFFF00</color>
     <color name="art_item_color">#b7f5f2ff</color>
     <color name="navigation_drawer_color">#eedddddd</color>
-    <color name="action_bar_color">#330000ff</color>
+    <color name="link_color">#ff0000ff</color>
 </resources>
