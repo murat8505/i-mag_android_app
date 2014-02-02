@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Process;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ public class MainActivity extends FragmentActivity {
     private ActionBar actionBar;
 //    private Fragment fragment;
     private int menuPosition;
+    private static final long DRAWER_CLOSE_WAIT = 300;
 
     @Override
     protected void onStart() {
@@ -150,44 +152,44 @@ public class MainActivity extends FragmentActivity {
             case 0: // posts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentPosts()).commit();
-                new FragmentLoader().execute(new FragmentPosts());
-//                replaceFragment(new FragmentPosts());
+//                new FragmentLoader().execute(new FragmentPosts());
+                replaceFragment(new FragmentPosts());
                 break;
             case 1: //tags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentTags()).commit();
-                new FragmentLoader().execute(new FragmentTags());
-//                replaceFragment(new FragmentTags());
+//                new FragmentLoader().execute(new FragmentTags());
+                replaceFragment(new FragmentTags());
             break;
             case 2: //archives
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentArchives()).commit();
-                new FragmentLoader().execute(new FragmentArchives());
-//                replaceFragment(new FragmentArchives());
+//                new FragmentLoader().execute(new FragmentArchives());
+                replaceFragment(new FragmentArchives());
             break;
             case 3: // mags
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentAbout()).commit();
-                new FragmentLoader().execute(new FragmentMag());
-//                replaceFragment(new FragmentMag());
+//                new FragmentLoader().execute(new FragmentMag());
+                replaceFragment(new FragmentMag());
             break;
             case 4: // about
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentContacts()).commit();
-                new FragmentLoader().execute(new FragmentAbout());
-//                replaceFragment(new FragmentAbout());
+//                new FragmentLoader().execute(new FragmentAbout());
+                replaceFragment(new FragmentAbout());
             break;
             case 5: // contacts
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentAdv()).commit();
-                new FragmentLoader().execute(new FragmentContacts());
-//                replaceFragment(new FragmentContacts());
+//                new FragmentLoader().execute(new FragmentContacts());
+                replaceFragment(new FragmentContacts());
             break;
             case 6: // adv
 //                fragmentManager.beginTransaction().replace(R.id.content_frame,
 //                        new FragmentMag()).commit();
-                new FragmentLoader().execute(new FragmentAdv());
-//                replaceFragment(new FragmentAdv());
+//                new FragmentLoader().execute(new FragmentAdv());
+                replaceFragment(new FragmentAdv());
                 break;
             default: actionBar.setSubtitle(menuTitles[position]);
         }
@@ -247,27 +249,33 @@ public class MainActivity extends FragmentActivity {
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
     }
 
-    private class FragmentLoader extends AsyncTask<Fragment, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Fragment... fragments) {
-            Fragment fragment = fragments[0];
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            drawerLayout.closeDrawer(Gravity.LEFT);
-        }
-    }
+//    private class FragmentLoader extends AsyncTask<Fragment, Void, Void> {
+//
+//        @Override
+//        protected Void doInBackground(Fragment... fragments) {
+//            Fragment fragment = fragments[0];
+//            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Void aVoid) {
+//            super.onPostExecute(aVoid);
+//            drawerLayout.closeDrawer(Gravity.LEFT);
+//        }
+//    }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+            drawerLayout.closeDrawer(drawerList);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    selectItem(position);
+                }
+            }, DRAWER_CLOSE_WAIT);
         }
     }
 }
