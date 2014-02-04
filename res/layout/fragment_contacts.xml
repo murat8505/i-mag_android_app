@@ -118,8 +118,30 @@
             android:layout_height="wrap_content"
             android:text="@string/show_map"
             android:id="@+id/btnmap"
+            android:layout_marginTop="41dp"
+            android:layout_below="@+id/tvWeb"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/web_site"
+            android:id="@+id/tvWeb"
             android:layout_below="@+id/tvEmailTxt"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="23dp" />
+            android:layout_marginTop="@dimen/adv_text_margin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/site"
+            android:id="@+id/tvSite"
+            android:layout_above="@+id/btnmap"
+            android:layout_toRightOf="@+id/tvWeb"
+            android:autoLink="web"
+            android:textColorLink="@color/link_color"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
 </ScrollView>
