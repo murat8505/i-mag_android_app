@@ -59,7 +59,7 @@ public class ActivityArticle extends Activity {
 //            webViewArticle.loadData(articleUrl, "text/html; charset=UTF-8", null);
             new ArticleLoader().execute(articleUrl);
         } else {
-            logMsg("articleId: "+articleId);
+//            logMsg("articleId: "+articleId);
         }
     }
 

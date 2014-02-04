@@ -173,7 +173,7 @@ public class AppDb extends SQLiteOpenHelper{
     }
 
     public Cursor getTagsCursor() {
-        logMsg("get tags cursor");
+//        logMsg("get tags cursor");
         db = this.getReadableDatabase();
         String sqlQuery = "SELECT * FROM " + TAGS_TABLE + " ORDER BY " + TAG_POSTS + " DESC";
 //        return db != null ? db.query(TAGS_TABLE, null, null, null, null, null, null) : null;
@@ -181,14 +181,14 @@ public class AppDb extends SQLiteOpenHelper{
     }
 
     public Cursor getArchCursor() {
-        logMsg("get archives cursor");
+//        logMsg("get archives cursor");
         db = this.getReadableDatabase();
         String sqlQuery = "SELECT * FROM " + ARCHIVES_TABLE + " ORDER BY " + ARCH_ID + " DESC";
         return db != null ? db.rawQuery(sqlQuery, null) : null;
     }
 
     public Cursor getArticlesCursor() {
-        logMsg("get articles cursor");
+//        logMsg("get articles cursor");
         db = this.getReadableDatabase();
 //        return db != null ? db.query(ARTICLES_TABLE, null, null, null, null, null, null) : null;
         String sqlQuery = "SELECT * FROM " + ARTICLES_TABLE + " ORDER BY " + ARTICLE_ID + " DESC";
@@ -313,7 +313,7 @@ public class AppDb extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        logMsg("create db");
+//        logMsg("create db");
         String formatString = "create table %s (_id integer primary key autoincrement, " +
                 "%s text, %s text, %s integer);";
 //        String sqlString = "create table " + TAGS_TABLE;

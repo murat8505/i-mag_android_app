@@ -39,7 +39,7 @@ public class ActivityMag extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logMsg("savedInstanceState: "+savedInstanceState);
+//        logMsg("savedInstanceState: "+savedInstanceState);
         if (savedInstanceState != null) {
             currentPage = savedInstanceState.getInt(PAGE_NUMBER);
         }
