@@ -33,7 +33,7 @@ public class DocumentParser {
         List<ArticlePreview> articlePreviews = new ArrayList<ArticlePreview>();
         if (document != null) {
             Elements previews = document.select("div[class=preview]");
-            logMsg("previews: " + previews.size());
+//            logMsg("previews: " + previews.size());
             for (Element e: previews) {
                 String articleTitle = "";
                 String previewText = "";

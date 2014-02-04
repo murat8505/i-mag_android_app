@@ -29,7 +29,7 @@ public class HtmlParserThread implements Callable<Document>{
     @Override
     public Document call() throws Exception {
         Document htmlDocument = null;
-        logMsg("url: "+pageURLString);
+//        logMsg("url: "+pageURLString);
         URL url = new URL(pageURLString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(WAIT_TIMEOUT);
