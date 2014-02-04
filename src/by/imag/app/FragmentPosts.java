@@ -14,6 +14,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        logMsg("onCreateView");
+//        logMsg("onCreateView");
         appDb = new AppDb(getActivity());
         preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         View rootView = inflater.inflate(R.layout.fragment_posts, container, false);
@@ -55,8 +56,8 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
             currentPage = savedInstanceState.getInt(PAGE);
         }
 
-        if (isOnline() && update) {
-            if (url == null) {
+        if (isOnline()) {
+            if (update && url == null) {
                 url = Constants.PAGE;
                 String parseUrl = url + currentPage;
                 subtitle = getResources().getStringArray(R.array.menu_items)[0];
@@ -65,7 +66,11 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
                 new PostsLoader().execute(url + currentPage);
             }
         } else {
-            logMsg("device offline");
+//            logMsg("device offline");
+            CharSequence toastMsg = getResources().getText(R.string.no_connection);
+            int toastDuration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getActivity(), toastMsg, toastDuration);
+            toast.show();
         }
         setView();
         update = true;
@@ -75,7 +80,7 @@ public class FragmentPosts extends BaseFragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logMsg("onCreate");
+//        logMsg("onCreate");
         if (getArguments() != null) {
             url = getArguments().getString(Constants.PAGE_URL);
             subtitle = getArguments().getString(Constants.SUBTITLE);
