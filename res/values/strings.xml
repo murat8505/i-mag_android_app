@@ -11,6 +11,7 @@
     <string name="previous_page">Предыдущая страница</string>
     <string name="next_page">Следующая страница</string>
     <string name="share">Поделиться</string>
+    <string name="no_connection">Нет соединения</string>
 
     <string-array name="menu_items">
         <item>Статьи</item>
@@ -68,12 +69,12 @@
     <string name="pref_mag_style_summary">summary</string>
     <string name="pref_mag_style_key">magViewPrefs</string>
     <string-array name="pref_mag_styles">
-        <item>Кнопки</item>
         <item>Жесты</item>
+        <item>Кнопки</item>
     </string-array>
     <string-array name="pref_mag_style_values">
-        <item>100</item>
         <item>200</item>
+        <item>100</item>
     </string-array>
     <string name="pref_mag_image_load_title">Метод загрузки изображений</string>
     <string name="pref_mag_image_load_key">magImageLoadKey</string>
