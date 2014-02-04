@@ -48,33 +48,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/name1"
-            android:id="@+id/tvName1"
-            android:layout_below="@+id/tvName5Phone"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="@dimen/adv_text_margin" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/name1_phone"
-            android:id="@+id/tvName1Phone"
-            android:layout_below="@+id/tvName1"
-            android:layout_alignParentLeft="true"
-            android:phoneNumber="true"
-            android:autoLink="phone"
-            android:textColorLink="@color/link_color" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/name2"
             android:id="@+id/tvName2"
-            android:layout_below="@+id/tvName1Phone"
             android:layout_alignParentLeft="true"
-            android:layout_marginTop="@dimen/adv_text_margin" />
+            android:layout_marginTop="@dimen/adv_text_margin"
+            android:layout_below="@+id/tvName5Phone" />
 
         <TextView
             android:layout_width="wrap_content"
