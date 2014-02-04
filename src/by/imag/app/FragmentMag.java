@@ -53,6 +53,7 @@ public class FragmentMag extends BaseFragment{
     private boolean update;
     private AppDb appDb;
     private SharedPreferences preferences;
+    private SharedPreferences defaultPrefs;
     private GridView gridView;
     private ProgressBar pbMag;
 
@@ -62,18 +63,24 @@ public class FragmentMag extends BaseFragment{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mag, container, false);
         appDb = new AppDb(getActivity().getApplicationContext());
-//        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
-        preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
+        preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        defaultPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext());
         gridView = (GridView) rootView.findViewById(R.id.gridMag);
         pbMag = (ProgressBar) rootView.findViewById(R.id.pbMag);
         loadPreferences();
-        logMsg("update: "+update);
+//        logMsg("update: "+update);
         if (isOnline() && update) {
             new MagListLoader().execute();
         }
         setActionBarSubtitle(3);
 //        setView();
         return rootView;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -99,7 +106,7 @@ public class FragmentMag extends BaseFragment{
                 Intent magIntent;
                 String prefsKey = getActivity().getResources().getString(R.string.pref_mag_style_key);
 //                logMsg("prefsKey: "+prefsKey);
-                String style = preferences.getString(prefsKey, "100");
+                String style = defaultPrefs.getString(prefsKey, "200");
 //                logMsg("prefs: "+style);
                 int pref = Integer.parseInt(style);
                 switch (pref) {
@@ -191,7 +198,7 @@ public class FragmentMag extends BaseFragment{
             if (document != null) {
                 Elements elements = document.select(".issuuembed");
                 if (elements.size() > 0) {
-                    logMsg("text: "+elements.get(0).toString());
+//                    logMsg("text: "+elements.get(0).toString());
                     magCount = elements.size();
                 }
             }
