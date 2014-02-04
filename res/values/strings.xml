@@ -23,6 +23,8 @@
         <item>Для рекламодателей</item>
     </string-array>
 
+    <string name="web_site">Веб-сайт: </string>
+    <string name="site">http://i-mag.by</string>
     <string name="mail_address_txt">Адрес для писем:</string>
     <string name="address">220004, Минск, ул.Замковая, 27 адм. пом. 7, каб. 15</string>
     <string name="phones">Телефоны:</string>
